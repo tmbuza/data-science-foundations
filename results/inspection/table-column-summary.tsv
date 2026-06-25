@@ -1,0 +1,6 @@
+column	dtype	missing_values	missing_percent	unique_values	example_value
+sepal_length	float64	0	0.0	35	5.1
+sepal_width	float64	0	0.0	23	3.5
+petal_length	float64	0	0.0	43	1.4
+petal_width	float64	0	0.0	22	0.2
+species	str	0	0.0	3	setosa

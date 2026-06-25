@@ -1,175 +1,371 @@
-# Completing the Foundations Track {#lesson99}
+# Completing the Foundations System {#lesson99}
 
 :::cdi-message
 - **ID:** DS-L99
 - **Type:** Transition
 - **Audience:** Beginner / Intermediate
-- **Theme:** From foundations to real-world systems
+- **Theme:** From tidy-table foundations to applied analytical systems
 :::
 
-You have completed the Foundations Track of the CDI Data Science pathway.
+You have completed the **Data Science Foundations System** of the CDI Data Science Pathway.
 
-At this stage, you have developed the core habits that support reliable analysis:
+At this stage, you have developed the core habits that support reliable table-based analysis:
 
-- loading and inspecting datasets  
-- cleaning and validating data  
-- transforming and structuring data  
-- visualizing patterns  
-- summarizing evidence using statistics  
+- loading and inspecting datasets
+- cleaning and validating data
+- transforming and structuring data
+- visualizing patterns
+- summarizing evidence using statistics
+- writing careful interpretations grounded in evidence
 
 These are not isolated skills.
 
-They form a connected analytical workflow.
+They form a connected analytical workflow that can be reused across CDI pathways.
 
 ---
 
-## What You Have Built
+## What you have built
 
-Across these lessons, you have learned to:
+Across the Foundations System, you moved through a complete tidy-table workflow:
 
-- move from raw data to a clean dataset  
-- structure data for analysis  
-- explore patterns visually  
-- support observations with summary statistics  
-- write interpretations grounded in evidence  
+```text
+environment setup
+        ↓
+table inspection
+        ↓
+data cleaning
+        ↓
+data wrangling
+        ↓
+visualization
+        ↓
+summary statistics
+        ↓
+interpretation
+        ↓
+modeling readiness
+```
 
-This is the foundation of analytical thinking.
+The goal was not only to learn individual commands.
 
----
-
-## What Comes Next
-
-The next stage moves beyond description.
-
-You will begin to:
-
-- formalize questions  
-- build simple models  
-- evaluate results carefully  
-- connect results to real-world decisions  
-
-In CDI terms, this is the transition from:
-
-**exploration → structured reasoning → defensible inference**
+The goal was to build a reproducible pattern for moving from a tidy table to defensible analytical evidence.
 
 ---
 
-## From Analysis to Systems
+## System outputs
 
-In this guide, you focused on understanding data.
+By this point, the project has produced a small but complete analysis package.
 
-In practice, this is only part of the full workflow.
+```text
+data/
+├── iris.csv
+├── iris_clean.csv
+└── iris_wrangled.csv
 
-The next stage introduces machine learning, where analysis is used to build predictive systems.
+results/
+├── inspection/
+├── cleaning/
+├── wrangling/
+├── figures/
+└── summary/
+```
 
-A useful way to think about this progression is:
+These outputs show the full progression:
 
-**ML → Deployment → MLOps / DevOps**
+```text
+input table
+        ↓
+cleaned table
+        ↓
+wrangled table
+        ↓
+figures
+        ↓
+summary tables
+        ↓
+insights report
+```
 
-This reflects how analytical work moves from:
-
-- building models  
-- to making them usable  
-- to maintaining and improving them over time  
+This is the same pattern that can be reused when other CDI systems produce tidy, analysis-ready tables.
 
 ---
 
-## Key Mindset Shift
+## Scripts created in the Foundations System
 
-In the Foundations Track, you asked:
+The system also includes reusable Python scripts:
 
-- what does the data look like?  
-- how do groups differ?  
-- what patterns are visible?  
+```text
+scripts/python/
+├── inspect_table.py
+├── clean_example_data.py
+├── wrangle_example_data.py
+├── plot_example_data.py
+└── summarize_table.py
+```
+
+Each script has a clear role:
+
+```text
+inspect_table.py
+    → inspect structure, columns, types, and missing values
+
+clean_example_data.py
+    → clean and validate a table
+
+wrangle_example_data.py
+    → create derived features and analysis-ready outputs
+
+plot_example_data.py
+    → save reusable exploratory figures
+
+summarize_table.py
+    → create summary tables and an insights report
+```
+
+This makes the guide more than a set of lessons.
+
+It becomes a small reproducible analysis system.
+
+---
+
+## What this foundation means
+
+The Foundations System teaches a reusable analytical pattern:
+
+```text
+inspect
+clean
+wrangle
+visualize
+summarize
+interpret
+```
+
+This pattern is useful beyond the Iris example.
+
+It can support:
+
+```text
+Omics result tables
+Clinical cohort tables
+Medical lab tables
+AI evaluation tables
+Decision records
+Survey data
+Business datasets
+```
+
+The domain changes, but the foundational analysis logic remains similar.
+
+---
+
+## CDI parent-layer role
+
+The Data Science Foundations System serves as the shared parent layer for CDI pathways once pathway-specific systems produce tidy, analysis-ready tables.
+
+```text
+Omics Pathway
+    ↓
+tidy result tables
+    ↓
+Data Science Foundations System
+
+Clinical & Medical Data Pathway
+    ↓
+clean cohort tables
+    ↓
+Data Science Foundations System
+
+AI, Thinking & Decision Pathway
+    ↓
+evaluation and decision tables
+    ↓
+Data Science Foundations System
+```
+
+This is why the Foundations System should remain focused.
+
+It does not replace domain-specific systems.
+
+It gives them a common analytical language after the data has been structured.
+
+---
+
+## What comes next
+
+The next stage moves beyond description and interpretation.
+
+You begin to ask:
+
+- Can we predict an outcome?
+- How well does a model perform?
+- Which features influence predictions?
+- What limitations should be stated?
+- Can results support a decision?
+- What happens when a model is used on new data?
+
+This is the transition from foundational analysis to applied analytical systems.
+
+In CDI terms:
+
+```text
+Data Science Foundations System
+        ↓
+Applied Data Science System
+```
+
+---
+
+## From analysis to applied systems
+
+In the Foundations System, you focused on:
+
+```text
+tidy data
+inspection
+cleaning
+wrangling
+visualization
+summary
+interpretation
+```
+
+In the Applied Data Science System, the focus expands to:
+
+```text
+feature engineering
+model building
+model evaluation
+cross-validation
+model interpretation
+claims and limitations
+decision-making
+responsible use
+```
+
+The transition is not a jump.
+
+It is a continuation.
+
+Good modeling depends on strong foundations.
+
+---
+
+## Key mindset shift
+
+In the Foundations System, you asked:
+
+- What does the data contain?
+- Is the table clean and usable?
+- How do groups differ?
+- What patterns are visible?
+- What summaries support interpretation?
 
 In the next stage, you will ask:
 
-- how confident are we in these patterns?  
-- can we quantify relationships?  
-- can we make predictions?  
-- how do we test assumptions?  
-- what conclusions are justified?  
+- What outcome are we trying to predict or explain?
+- Which features should be used?
+- How should performance be evaluated?
+- Does the model generalize?
+- What conclusions are justified?
+- What risks or limitations remain?
 
 This shift is essential.
 
 ---
 
-## The CDI Reasoning Loop
+## The CDI reasoning loop
 
 As you move forward, your work follows an iterative process:
 
-1. define the question  
-2. prepare and validate data  
-3. explore patterns  
-4. apply models or formal methods  
-5. interpret results  
-6. revisit earlier steps as needed  
+```text
+define the question
+        ↓
+prepare and validate data
+        ↓
+explore patterns
+        ↓
+summarize evidence
+        ↓
+apply models or formal methods
+        ↓
+interpret results
+        ↓
+revisit earlier steps as needed
+```
 
-Analysis is not linear.
+Analysis is not strictly linear.
 
 It improves through iteration.
 
+A later modeling result may reveal that you need to revisit cleaning, features, grouping variables, or assumptions.
+
 ---
 
-## Where This Leads
+## Where this leads
 
 From here, you can continue into:
 
-- **Machine Learning** → building predictive models  
-- **Deployment** → making models usable in practical systems  
-- **MLOps / DevOps** → monitoring and improving systems over time  
+```text
+Applied Data Science System
+    → modeling, evaluation, interpretation, decision-making
 
-Each stage builds on what you have already learned.
+Clinical & Medical Data Systems
+    → cohort analysis, outcomes, reporting
+
+Omics Systems
+    → pathway-specific result tables and interpretation
+
+AI, Thinking & Decision Systems
+    → evaluation, reasoning, decision support
+```
+
+Each stage builds on the foundations already developed.
 
 ---
 
-## Beyond This Track
+## Beyond this system
 
 :::cdi-message
-**Scope of CDI Tracks**
+**Scope of this system**
 
-This guide focuses on building practical skills in data analysis, machine learning, and reproducible workflows.
+The Data Science Foundations System focuses on practical tidy-table analysis and reproducible workflows.
 
-Some areas of modern systems engineering go further, including:
+It does not attempt to cover every area of production data science, machine learning engineering, or enterprise infrastructure.
 
-- container orchestration (e.g., Kubernetes)  
-- large-scale distributed systems  
-- enterprise-level DevOps infrastructure  
+Advanced topics such as deployment, monitoring, container orchestration, cloud infrastructure, and production MLOps belong in later systems or specialized tracks.
 
-These topics are important in advanced production environments, but they require additional specialization.
-
-Learners interested in these areas can explore:
-
-- official Kubernetes documentation  
-- cloud platform training (e.g., AWS, GCP, Azure)  
-- dedicated DevOps engineering courses and certifications  
-
-The goal of CDI is to provide a clear and practical pathway into system thinking, without requiring complex infrastructure from the start.
+The goal here is to build a strong foundation before adding complexity.
 :::
 
 ---
 
-## Transition Summary
+## Transition summary
 
 You are now prepared to:
 
-- move from descriptive analysis to structured modeling  
-- connect computation to reasoning  
-- begin working with systems that extend beyond a single dataset  
+- move from descriptive analysis to structured modeling
+- connect computation to reasoning
+- reuse tidy-table workflows across CDI pathways
+- begin working with systems that extend beyond a single dataset
+
+The Foundations System gives you the analytical base.
+
+The Applied Data Science System builds on it.
 
 ---
 
-## Final Thought
+## Final thought
 
 Data analysis is not the final step.
 
-It is the foundation for building systems that learn, adapt, and improve.
+It is the foundation for building systems that can be inspected, trusted, reused, and improved.
 
 ---
 
 :::cdi-message
 The goal is not just to run analysis.
 
-The goal is to produce reasoning you can defend,  
+The goal is to produce reasoning you can defend  
 and systems you can trust.
 :::

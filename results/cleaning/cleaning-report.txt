@@ -1,0 +1,36 @@
+CDI Data Science Foundations System
+Cleaning Report
+
+Input file: data/iris.csv
+Output file: data/iris_clean.csv
+
+Rows before cleaning: 150
+Columns before cleaning: 5
+Rows after cleaning: 149
+Columns after cleaning: 5
+
+Duplicate rows detected before cleaning: 1
+Duplicate rows after cleaning: 0
+Missing values before cleaning: 0
+Missing values after cleaning: 0
+
+Original columns:
+- sepal_length
+- sepal_width
+- petal_length
+- petal_width
+- species
+
+Cleaned columns:
+- sepal_length
+- sepal_width
+- petal_length
+- petal_width
+- species
+
+Cleaning rules applied:
+- Standardized column names
+- Removed duplicate rows
+- Filled missing numeric values with column medians
+- Filled missing categorical values with column modes
+- Validated missing values and duplicate rows after cleaning

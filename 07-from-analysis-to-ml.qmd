@@ -1,171 +1,389 @@
-# From Analysis to Machine Learning
+# From Analysis to Modeling {#lesson07}
 
 :::cdi-message
 - **ID:** DS-L07
 - **Type:** Lesson
-- **Audience:** Public
-- **Theme:** Analysis-to-ML transition
+- **Audience:** Beginner / Intermediate
+- **Theme:** Transition from tidy-table analysis to applied modeling systems
 :::
 
 Up to this point, we have focused on understanding data.
 
-We explored patterns, cleaned datasets, visualized relationships, and summarized key insights.
+We inspected a table, cleaned it, transformed it, visualized it, summarized it, and wrote careful insights.
 
 This is where many learning paths stop.
 
-But in practice, this is not the end of the workflow.
+But in CDI, this point is also a handoff.
 
-It is a transition point.
-
----
-
-## From Understanding to Prediction
-
-Data analysis helps us answer:
-
-- What has happened?
-- What patterns exist?
-- What relationships can we observe?
-
-Machine learning extends this further.
-
-It helps us answer:
-
-- What is likely to happen next?
-- Can we make reliable predictions?
-- Can a system learn from data and generalize?
-
-Machine learning is not separate from analysis.
-
-It builds directly on it.
-
-Clean, well-structured data is what makes machine learning possible.
+The Data Science Foundations System prepares analysis-ready tables and evidence outputs. The Applied Data Science System builds on those outputs when prediction, modeling, evaluation, or decision support is needed.
 
 ---
 
-## A Simple Workflow Extension
+## From understanding to modeling
 
-```{mermaid}
-flowchart LR
-    A[Data] --> B[Analysis]
-    B --> C[ML Model]
-    C --> D[Deployment]
+Data analysis helps us answer questions such as:
+
+- What does the dataset contain?
+- What patterns are visible?
+- Which variables differ across groups?
+- Which summaries support careful interpretation?
+- What limitations should be stated?
+
+Modeling extends the workflow further.
+
+It helps us ask questions such as:
+
+- Can we predict an outcome from available features?
+- How well does the model perform on unseen data?
+- Which variables contribute to model behavior?
+- Are the predictions reliable enough to support a decision?
+- What could go wrong when the model is used?
+
+Modeling is not separate from analysis.
+
+It depends on analysis.
+
+Clean, well-structured, well-understood data is what makes modeling possible.
+
+---
+
+## The CDI handoff point
+
+The Foundations System produces a compact set of reusable outputs:
+
+```text
+data/iris.csv
+data/iris_clean.csv
+data/iris_wrangled.csv
+
+results/inspection/
+results/cleaning/
+results/wrangling/
+results/figures/
+results/summary/
 ```
 
-This introduces an important idea:
+These outputs document the journey from raw teaching table to analysis-ready evidence package.
 
-The work does not end after analysis.
+The handoff point looks like this:
 
-It moves toward building systems.
+```text
+Data Science Foundations System
+        ↓
+tidy, cleaned, wrangled table
+        ↓
+figures and summary evidence
+        ↓
+Applied Data Science System
+        ↓
+modeling, evaluation, interpretation, decision-making
+```
 
----
+The important idea is that modeling should not begin from an unexplored table.
 
-## What Happens After a Model is Built?
-
-Once a model is trained, it can be deployed into a system.
-
-At this stage:
-
-- The model interacts with new data  
-- Predictions are made continuously  
-- Performance may change over time  
-
-This leads to new questions:
-
-- Is the model still accurate?  
-- Has the data changed?  
-- Are there errors or unexpected behavior?  
-- What should be improved next?  
+It should begin from a table whose structure, quality, and interpretation have already been examined.
 
 ---
 
-## The Continuous Loop
+## A simple workflow extension
 
 ```{mermaid}
 flowchart LR
-    A[Build] --> B[Deploy]
-    B --> C[Operate]
+    A[Tidy Table] --> B[Inspection]
+    B --> C[Cleaning]
+    C --> D[Wrangling]
+    D --> E[Visualization]
+    E --> F[Summary & Insights]
+    F --> G[Modeling Readiness]
+    G --> H[Applied Data Science System]
+```
+
+This workflow shows why Foundations is reusable across CDI pathways.
+
+Any pathway that produces a tidy table can enter this workflow.
+
+Examples:
+
+```text
+Proteomics result table
+Microbiome diversity table
+Clinical cohort table
+AI evaluation table
+```
+
+Each can move through the same foundational process before advanced modeling begins.
+
+---
+
+## What modeling adds
+
+Modeling introduces new responsibilities.
+
+A model is not just a calculation. It is a system component that may influence interpretation, prioritization, or decisions.
+
+Modeling adds questions about:
+
+- target variables
+- input features
+- train/test splits
+- performance metrics
+- overfitting
+- generalization
+- interpretation
+- fairness and bias
+- uncertainty
+- monitoring and drift
+
+These topics belong mainly in the Applied Data Science System.
+
+The Foundations System introduces the transition but does not try to cover all modeling details.
+
+---
+
+## Modeling readiness checklist
+
+Before moving into modeling, ask whether the data is ready.
+
+```text
+Modeling readiness checklist
+
+[ ] Is the input table tidy?
+[ ] Are required columns present?
+[ ] Are missing values understood or handled?
+[ ] Are duplicates checked?
+[ ] Are feature types clear?
+[ ] Is the target variable clearly defined?
+[ ] Are grouped patterns already explored?
+[ ] Are summary outputs available?
+[ ] Are figures available for interpretation?
+[ ] Are limitations documented?
+```
+
+If several items are missing, return to inspection, cleaning, wrangling, or summarization before modeling.
+
+---
+
+## A small modeling preview
+
+The following example shows what the next stage may look like. It is intentionally brief.
+
+The goal is not to teach full machine learning here. The goal is to show how the wrangled table could become model-ready input.
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+df = pd.read_csv("data/iris_wrangled.csv")
+
+features = [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width",
+    "petal_area"
+]
+
+X = df[features]
+y = df["species"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.25,
+    random_state=42,
+    stratify=y
+)
+
+model = RandomForestClassifier(random_state=42)
+model.fit(X_train, y_train)
+
+predictions = model.predict(X_test)
+
+print(classification_report(y_test, predictions))
+```
+
+This preview introduces several new concepts:
+
+- features
+- target variable
+- training data
+- test data
+- model fitting
+- prediction
+- performance reporting
+
+Each of these deserves careful treatment in the Applied Data Science System.
+
+---
+
+## From models to systems
+
+A model becomes more useful when it is part of a larger system.
+
+```{mermaid}
+flowchart LR
+    A[Analysis-Ready Table] --> B[Model]
+    B --> C[Evaluation]
+    C --> D[Interpretation]
+    D --> E[Decision Support]
+```
+
+In more advanced settings, the workflow may extend further:
+
+```{mermaid}
+flowchart LR
+    A[Build] --> B[Test]
+    B --> C[Deploy]
     C --> D[Monitor]
     D --> E[Improve]
     E --> A
 ```
 
-Real systems do not stop after deployment.  
-They operate in continuous cycles of monitoring and improvement.
+This is why the next CDI layer is not just about algorithms.
 
-This is often referred to as **MLOps** in machine learning workflows, and more broadly as **DevOps** in software systems.
+It is about applied analytical systems.
 
 ---
 
-## Automation in Real Systems
+## What belongs in the Applied Data Science System
 
-```{mermaid}
-flowchart LR
-    A[Build] --> B[CI/CD Pipeline]
-    B --> C[Deploy]
-    C --> D[Operate]
-    D --> E[Monitor]
-    E --> F[Improve]
-    F --> B
+The Applied Data Science System can build on Foundations with topics such as:
+
+- feature engineering
+- model building
+- model evaluation
+- cross-validation
+- model improvement
+- feature importance
+- interpretation
+- claims and limitations
+- decision-making
+- responsible use
+
+This creates a clean CDI separation:
+
+```text
+Data Science Foundations System
+    = inspect, clean, wrangle, visualize, summarize, interpret tidy tables
+
+Applied Data Science System
+    = model, evaluate, explain, improve, and support decisions
 ```
 
-In real-world systems, the transition from building to deployment is often automated.
+Both are part of the broader Data Science Pathway.
 
-This is done using CI/CD (Continuous Integration and Continuous Deployment).
+---
 
-Instead of manually rebuilding and redeploying, improvements pass through a pipeline that automatically:
+## CDI pathway connection
 
-- tests code and models  
-- builds updated versions  
-- deploys them reliably  
+The Foundations System is reusable because many CDI pathways eventually produce tidy tables.
 
-This allows systems to evolve continuously and with fewer errors.
+```text
+Omics Pathway
+    ↓
+differential results, abundance tables, diversity metrics
 
-:::cdi-message
-In many real systems, updates are not deployed manually.
+Clinical & Medical Data Pathway
+    ↓
+cohort tables, lab tables, outcome tables
 
-They are tested, built, and released automatically through CI/CD pipelines.
+AI, Thinking & Decision Pathway
+    ↓
+evaluation tables, prediction logs, decision records
+```
 
-This is what allows systems to improve continuously without interruption.
+Once these tables are tidy and analysis-ready, they can use the same foundations:
+
+```text
+inspect
+clean
+wrangle
+visualize
+summarize
+interpret
+```
+
+When modeling is needed, the workflow continues into Applied Data Science.
+
+---
+
+## Exercise
+
+Review the outputs produced so far:
+
+```text
+data/iris_wrangled.csv
+results/figures/
+results/summary/analysis-insights.md
+```
+
+Then answer:
+
+1. What is the likely target variable if this dataset were used for classification?
+2. Which features might be useful as model inputs?
+3. Which summary or visualization supports that choice?
+4. What caution should be stated before making claims from a model?
+
+---
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+A reasonable classification target is:
+
+```text
+species
+```
+
+Potential input features include:
+
+```text
+sepal_length
+sepal_width
+petal_length
+petal_width
+petal_area
+```
+
+The strongest exploratory support comes from petal-related plots and grouped summaries, which show clearer descriptive separation across species.
+
+A careful caution is:
+
+```text
+The Iris dataset is small, clean, and educational. Model performance on this dataset should not be treated as evidence that the same workflow will generalize to larger, noisier, real-world datasets without validation.
+```
+
 :::
 
 ---
 
-## From Models to Systems
-
-A useful way to summarize this progression is:
-
-**ML → Deployment → MLOps / DevOps**
-
-This reflects how analytical work moves from:
-
-- building models  
-- to making them usable  
-- to maintaining and improving them over time  
-
----
-
-## Where This Leads Next
-
-In this guide, we focused on building a strong foundation in data analysis.
-
-In extended CDI tracks, we go further into:
-
-- building machine learning models  
-- evaluating performance  
-- preparing models for deployment  
-- working with models in practical, real-world workflows  
-
-The key idea to carry forward is this:
-
-**Analysis helps us understand data.**  
-**Machine learning helps us act on it.**  
-**Systems help us sustain and improve it over time.**  
-
----
-
-## Key Takeaway
+## CDI Insight
 
 Data analysis is not the final step.
 
-It is the foundation for building intelligent systems.
+It is the foundation for building reliable analytical systems.
+
+A model built without inspection, cleaning, visualization, and summary interpretation is fragile.
+
+A model built after careful data science foundations is easier to understand, evaluate, and trust.
+
+---
+
+## Summary
+
+In this lesson, you:
+
+- reviewed the transition from analysis to modeling
+- identified the CDI handoff point between Foundations and Applied Data Science
+- saw how a wrangled table can become model-ready input
+- reviewed the responsibilities added by modeling
+- connected the Foundations System to other CDI pathways
+- prepared for the Applied Data Science System
+
+---
+
+## Looking Ahead
+
+The Data Science Foundations System now has a complete reusable workflow for tidy-table analysis. The next step is to close the foundations track and then continue into the Applied Data Science System when modeling, evaluation, and decision-making are needed.

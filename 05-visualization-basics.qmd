@@ -15,48 +15,61 @@ But visualization is not only about producing charts.
 
 It is also about learning how to read evidence from patterns.
 
-In this lesson, we focus on foundational plot types that appear in real analytical workflows.
-
-We use the cleaned Iris dataset to practice both creating figures and interpreting what they show.
+In this lesson, we focus on foundational plot types that appear in real analytical workflows. We use the wrangled Iris dataset from Chapter 04 so that the visualization step builds on the outputs already produced by the system.
 
 ---
 
-## Lesson Overview
+## Lesson overview
 
 By the end of this lesson, you will be able to:
 
-- create histograms, boxplots, scatter plots, and pairplots  
-- compare numeric distributions across groups  
-- use color to represent categories clearly  
-- interpret patterns, spread, overlap, and separation  
-- build plots that are readable and analytically useful  
+- create histograms, boxplots, scatter plots, and pairplots
+- compare numeric distributions across groups
+- use color to represent categories clearly
+- interpret patterns, spread, overlap, and separation
+- save figures as reusable analysis outputs
+- run a reusable plotting script from the command line
 
 ---
 
-## Load the Dataset
+## Chapter workflow
 
-We use the cleaned dataset prepared in the previous lesson.
+This chapter introduces the fourth reusable Python script in the system:
 
-```{python}
-#| label: 05-load-data
+```text
+05-visualization-basics.qmd
+        ↓
+scripts/python/plot_example_data.py
+        ↓
+data/iris_wrangled.csv
+results/figures/
+results/figures/figure-index.tsv
+```
 
+The figures produced here support interpretation and reporting in later chapters.
+
+---
+
+## Load the wrangled dataset
+
+We use the wrangled dataset prepared in Chapter 04.
+
+```python
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("data/iris_clean.csv")
+df = pd.read_csv("data/iris_wrangled.csv")
 df.head()
 ```
 
 ---
 
-## Inspect the Variables
+## Inspect the variables
 
 Before plotting, confirm the structure of the dataset.
 
-```{python}
-#| label: 05-inspect-variables
-
+```python
 print("Shape:", df.shape)
 print("\nColumns:", df.columns.tolist())
 print("\nData types:")
@@ -67,11 +80,12 @@ print(df.dtypes)
 
 Before making plots, ask:
 
-- which variables are numeric?  
-- which variable defines the groups?  
-- which comparisons are likely to be meaningful?  
+- which variables are numeric?
+- which variable defines the groups?
+- which comparisons are likely to be meaningful?
+- which derived features are available from the wrangling step?
 
-For the Iris dataset, the numeric flower measurements and the categorical `species` variable support both distribution plots and grouped comparisons.
+For the Iris dataset, the numeric flower measurements, the derived `petal_area`, and the categorical `species` variable support both distribution plots and grouped comparisons.
 
 ---
 
@@ -79,10 +93,7 @@ For the Iris dataset, the numeric flower measurements and the categorical `speci
 
 Histograms help us understand the distribution of a single numeric variable.
 
-```{python}
-#| label: 05-histogram
-#| fig-cap: "Iris — Distribution of Sepal Length"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.histplot(
@@ -104,10 +115,10 @@ plt.show()
 
 When reading a histogram, look for:
 
-- the center of the distribution  
-- the spread of values  
-- skewness  
-- possible multiple peaks  
+- the center of the distribution
+- the spread of values
+- skewness
+- possible multiple peaks
 
 If a variable shows multiple peaks, this may suggest the presence of meaningful subgroups.
 
@@ -117,10 +128,7 @@ If a variable shows multiple peaks, this may suggest the presence of meaningful 
 
 Boxplots summarize a distribution using the median, quartiles, and possible outliers.
 
-```{python}
-#| label: 05-boxplot
-#| fig-cap: "Iris — Sepal Length by Species"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.boxplot(
@@ -141,23 +149,20 @@ plt.show()
 
 A boxplot helps compare groups by showing:
 
-- differences in typical values through the median  
-- variation within each group  
-- possible outliers  
-- overlap across groups  
+- differences in typical values through the median
+- variation within each group
+- possible outliers
+- overlap across groups
 
 If two groups overlap strongly, that variable alone may not separate them well.
 
 ---
 
-## Scatter Plot
+## Scatter plot
 
 Scatter plots show the relationship between two numeric variables.
 
-```{python}
-#| label: 05-scatter
-#| fig-cap: "Iris — Sepal Length vs Petal Length"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.scatterplot(
@@ -181,23 +186,20 @@ plt.show()
 
 Scatter plots help you evaluate:
 
-- whether two variables move together  
-- whether groups form distinct clusters  
-- whether the pattern appears linear or non-linear  
-- whether any observations appear unusual  
+- whether two variables move together
+- whether groups form distinct clusters
+- whether the pattern appears linear or non-linear
+- whether any observations appear unusual
 
 In many datasets, scatter plots are among the fastest ways to detect group structure.
 
 ---
 
-## Grouped Histogram
+## Grouped histogram
 
 A grouped histogram helps compare distributions across categories.
 
-```{python}
-#| label: 05-grouped-histogram
-#| fig-cap: "Iris — Petal Length Distribution by Species"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.histplot(
@@ -220,74 +222,117 @@ plt.show()
 
 This plot helps compare whether groups differ in:
 
-- location  
-- spread  
-- overlap  
-- shape of the distribution  
+- location
+- spread
+- overlap
+- shape of the distribution
 
 If one group's values occupy a clearly different range, that variable may be useful for distinguishing between groups.
 
 ---
 
-## Pairplot Overview
+## Derived feature plot
+
+Because Chapter 04 created `petal_area`, we can now visualize it directly.
+
+```python
+fig, ax = plt.subplots(figsize=(8, 5.5))
+
+sns.boxplot(
+    data=df,
+    x="species",
+    y="petal_area",
+    ax=ax
+)
+
+sns.stripplot(
+    data=df,
+    x="species",
+    y="petal_area",
+    color="black",
+    alpha=0.55,
+    size=4,
+    jitter=0.22,
+    ax=ax
+)
+
+ax.set_title("Petal Area by Species")
+ax.set_xlabel("Species")
+ax.set_ylabel("Petal Area")
+
+plt.show()
+```
+
+### Interpretation
+
+This plot connects wrangling to visualization.
+
+A derived feature is only useful if it helps answer a question or clarify a pattern. Here, `petal_area` gives a compact petal-size measure that separates species more clearly than many sepal-based comparisons.
+
+---
+
+## Pairplot overview
 
 Pairplots provide a compact view of multiple variable relationships at once.
 
-```{python}
-#| label: 05-pairplot
-#| fig-cap: "Iris — Pairplot by Species"
-
+```python
 g = sns.pairplot(
-    df,
+    df[[
+        "sepal_length",
+        "sepal_width",
+        "petal_length",
+        "petal_width",
+        "petal_area",
+        "species"
+    ]],
     hue="species",
     corner=True,
     plot_kws={"alpha": 0.7}
 )
 
-g.fig.suptitle("Iris — Pairplot by Species", y=1.02)
+g.fig.suptitle("Iris — Pairwise Relationships by Species", y=1.02)
 
 plt.show()
 ```
-
 
 ### Interpretation
 
 Pairplots help answer broader questions such as:
 
-- which variables best separate species?  
-- which features appear strongly related?  
-- which measurements appear redundant?  
-- where groups overlap and where they separate clearly?  
+- which variables best separate species?
+- which features appear strongly related?
+- which measurements appear redundant?
+- where groups overlap and where they separate clearly?
 
 This is often one of the most useful first multivariate views of a dataset.
 
 ---
 
-## Reading Visual Evidence Carefully
+## Reading visual evidence carefully
 
 A plot is only useful if it is interpreted carefully.
 
 When reading a figure, ask:
 
-- what question does this plot help answer?  
-- what pattern is visible?  
-- how strong is the pattern?  
-- is there overlap, uncertainty, or ambiguity?  
-- does this align with earlier summaries?  
+- what question does this plot help answer?
+- what pattern is visible?
+- how strong is the pattern?
+- is there overlap, uncertainty, or ambiguity?
+- does this align with earlier summaries?
 
 Visualization should support reasoning, not replace it.
 
 ---
 
-## Visualization Principles
+## Visualization principles
 
 Strong foundational plots share a few key qualities:
 
-- clear titles and labels  
-- readable axes  
-- purposeful use of color  
-- minimal clutter  
-- plot choice matched to the question  
+- clear titles and labels
+- readable axes
+- purposeful use of color
+- minimal clutter
+- plot choice matched to the question
 
 A histogram is useful for one-variable distributions.  
 A boxplot is useful for comparing distributions across groups.  
@@ -296,7 +341,7 @@ A pairplot is useful for quick multivariate exploration.
 
 ---
 
-## Validation Through Visualization
+## Validation through visualization
 
 Plots can also function as validation tools.
 
@@ -311,15 +356,42 @@ Visualization often reveals issues that summary tables alone can miss.
 
 ---
 
-## Summary
+## Run the reusable plotting script
 
-- you used foundational plot types to explore the Iris dataset  
-- you compared distributions within and across species  
-- you examined relationships between numeric variables  
-- you used visual patterns to support interpretation  
-- you practiced moving from chart creation to analytical reasoning  
+The manual plotting examples above explain the logic. The reusable script creates and saves a standard figure set.
 
-These are core visualization habits that carry forward into more advanced analysis.
+Run this from the project root:
+
+```bash
+python scripts/python/plot_example_data.py data/iris_wrangled.csv results/figures
+```
+
+Expected outputs:
+
+```text
+results/figures/
+├── histogram-sepal-length.png
+├── boxplot-sepal-length-by-species.png
+├── scatter-sepal-length-vs-petal-length.png
+├── histogram-petal-length-by-species.png
+├── boxplot-petal-area-by-species.png
+├── pairplot-iris-by-species.png
+└── figure-index.tsv
+```
+
+---
+
+## What the plotting script does
+
+The script:
+
+- reads the wrangled input table
+- validates required columns
+- creates a standard set of exploratory figures
+- saves figures as `.png` files
+- writes a figure index table with filenames and descriptions
+
+The figure index helps later reporting chapters refer to plots consistently.
 
 ---
 
@@ -327,16 +399,18 @@ These are core visualization habits that carry forward into more advanced analys
 
 Try the following:
 
-1. Create a scatter plot of `sepal_width` versus `petal_width`
-2. Plot a histogram of `petal_width`
-3. Create a boxplot of `petal_width` by species
-4. Write one sentence describing which feature seems most useful for separating species
+1. Open `results/figures/figure-index.tsv`.
+2. Open `results/figures/boxplot-petal-area-by-species.png`.
+3. Create a scatter plot of `sepal_width` versus `petal_width`.
+4. Plot a histogram of `petal_width`.
+5. Write one sentence describing which feature seems most useful for separating species.
+
+---
 
 ::: {.callout-tip collapse="true"}
 ## Solution
-```{python}
-#| label: 05-exercise
 
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.scatterplot(
@@ -371,26 +445,12 @@ ax.set_ylabel("Count")
 
 plt.show()
 
-fig, ax = plt.subplots(figsize=(8, 5.5))
-
-sns.boxplot(
-    data=df,
-    x="species",
-    y="petal_width",
-    ax=ax
-)
-
-ax.set_title("Petal Width by Species")
-ax.set_xlabel("Species")
-ax.set_ylabel("Petal Width")
-
-plt.show()
-
-print("Your interpretation:")
 print("Petal-related features appear more useful than sepal-related features for separating species because their group differences are more distinct.")
 ```
 
 :::
+
+---
 
 ## CDI Insight
 
@@ -399,3 +459,25 @@ Visualization is not about producing more plots.
 It is about choosing the right view of the data to support understanding.
 
 A clear plot reduces uncertainty. A poor plot can introduce it.
+
+In CDI systems, figures should be reproducible outputs, not temporary screenshots. A saved figure, a figure index, and the script that produced them make visual evidence easier to review and reuse.
+
+---
+
+## Summary
+
+In this lesson, you:
+
+- used foundational plot types to explore the Iris dataset
+- compared distributions within and across species
+- examined relationships between numeric variables
+- visualized the derived `petal_area` feature
+- used visual patterns to support interpretation
+- saved reusable figures with `plot_example_data.py`
+- created `results/figures/figure-index.tsv`
+
+---
+
+## Looking Ahead
+
+In the next chapter, we summarize the analysis more formally. The wrangled tables and saved figures produced here become evidence for written interpretation.

@@ -7,21 +7,30 @@ date: last-modified
 date-format: "MMM YYYY"
 
 book:
-  title: "Data Science Foundations"
-  subtitle: "A Structured Python Workflow from Raw Data to Interpretation"
-
+  title: "Data Science Foundations System"
+  subtitle: "A Reusable Python Workflow for Tidy Data Analysis and Interpretation"
+  author: "Teresia Mrema Buza | Complex Data Insights"
   chapters:
     - index.qmd
 
-    - part: "Foundations"
+    - part: "System Orientation"
       chapters:
         - 00-preface.qmd
         - 01-setting-up-environment.qmd
+
+    - part: "Data Inspection and Preparation"
+      chapters:
         - 02-load-and-explore-dataset.qmd
         - 03-data-cleaning-and-preparation.qmd
+
+    - part: "Data Transformation and Analysis"
+      chapters:
         - 04-data-wrangling-basics.qmd
         - 05-visualization-basics.qmd
         - 06-summary-statistics-and-insights.qmd
+
+    - part: "From Analysis to Modeling"
+      chapters:
         - 07-from-analysis-to-ml.qmd
         - 99-complete-free-track.qmd
 

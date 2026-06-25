@@ -13,22 +13,23 @@ It begins with **looking carefully at the data**.
 
 Before fitting models or drawing conclusions, we need to understand:
 
-- what the dataset contains  
-- how variables are structured  
-- whether values look plausible  
-- whether early patterns deserve closer attention  
+- what the dataset contains
+- how variables are structured
+- whether values look plausible
+- whether early patterns deserve closer attention
 
 In CDI, this stage is not a formality. It is where analytical judgment begins.
 
-In this lesson, we work with the classic Iris dataset [@iris], which contains measurements of flower characteristics across three species.
+In this lesson, we use the classic Iris dataset [@iris] as a small example table. The goal is not to study flowers. The goal is to learn a reusable pattern for loading, inspecting, saving, and exploring a tidy dataset.
 
 You will:
 
-- load the dataset into a pandas DataFrame  
-- inspect its structure and column types  
-- generate summary statistics  
-- create exploratory visualizations  
-- save the dataset for reuse in later lessons  
+- create an example dataset
+- save it as `data/iris.csv`
+- inspect its structure and column types
+- generate table inspection outputs
+- create early exploratory plots
+- prepare the dataset for reuse in later lessons
 
 ---
 
@@ -38,22 +39,43 @@ A dataset can appear clean at first glance and still contain issues that affect 
 
 Early exploration helps answer practical questions:
 
-- how many rows and columns are present?  
-- which variables are numeric and which are categorical?  
-- do any values look unusual?  
-- are there visible group differences?  
-- what should be examined more carefully next?  
+- how many rows and columns are present?
+- which variables are numeric and which are categorical?
+- do any values look unusual?
+- are there visible group differences?
+- what should be examined more carefully next?
 
 This is where defensible analysis begins.
 
 ---
 
-## Load the dataset
+## Chapter workflow
 
-We will use the Iris dataset from scikit-learn, convert it to a pandas DataFrame, and standardize the column names.
+This chapter introduces the first reusable Python script in the system:
 
-```{python}
-#| label: 02-load-iris
+```text
+02-load-and-explore-dataset.qmd
+        ↓
+scripts/python/inspect_table.py
+        ↓
+data/iris.csv
+results/inspection/table-inspection-summary.txt
+results/inspection/table-column-summary.tsv
+results/inspection/table-missing-values.tsv
+```
+
+The chapter explains the workflow. The script makes it reusable.
+
+---
+
+## Create and save the example dataset
+
+We will use the Iris dataset from `scikit-learn`, convert it to a pandas DataFrame, standardize the column names, and save it as a CSV file.
+
+Run this from the project root using Python:
+
+```python
+from pathlib import Path
 
 import pandas as pd
 from sklearn.datasets import load_iris
@@ -63,45 +85,39 @@ iris = load_iris()
 df = pd.DataFrame(iris.data, columns=iris.feature_names)
 df["species"] = pd.Categorical.from_codes(iris.target, iris.target_names)
 
-df.columns = ["sepal_length", "sepal_width", "petal_length", "petal_width", "species"]
-
-df.head()
-```
-
-### What happened here?
-
-- `iris.data` contains the numeric measurements
-- `iris.target` contains the species labels encoded as integers
-- `pd.Categorical.from_codes()` converts those encoded values into readable species names
-- the columns are renamed to `snake_case` so later code stays clean and consistent
-
----
-
-## Save the dataset for future lessons
-
-We will keep reusable datasets inside a local `data/` folder.
-
-```{python}
-#| label: 02-save-iris
-
-from pathlib import Path
+df.columns = [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width",
+    "species"
+]
 
 Path("data").mkdir(exist_ok=True)
 df.to_csv("data/iris.csv", index=False)
 
 print("Saved dataset to: data/iris.csv")
+print(df.head())
 ```
 
-Saving the dataset at this point helps later lessons stay reproducible and consistent.
+### What happened here?
+
+- `iris.data` contains the numeric measurements.
+- `iris.target` contains the species labels encoded as integers.
+- `pd.Categorical.from_codes()` converts the encoded values into readable species names.
+- the columns are renamed to `snake_case` so later code stays clean and consistent.
+- the dataset is saved to `data/iris.csv` so downstream lessons can reuse the same input.
 
 ---
 
-## Inspect the structure
+## Inspect the dataset manually
 
 Before plotting or summarizing, inspect the shape and variable types.
 
-```{python}
-#| label: 02-inspect-structure
+```python
+import pandas as pd
+
+df = pd.read_csv("data/iris.csv")
 
 print("Columns:")
 print(df.columns.tolist())
@@ -127,10 +143,7 @@ That already tells us this is a small, tidy dataset that is well suited for lear
 
 ## Preview the data more carefully
 
-```{python}
-#| label: 02-preview-random
-#| code-fold: false
-
+```python
 df.sample(8, random_state=42)
 ```
 
@@ -140,11 +153,55 @@ It helps confirm that values look realistic across the dataset instead of only a
 
 ---
 
+## Run the reusable inspection script
+
+The manual checks above are useful for learning. For a reusable CDI system, we also want a script that can inspect any tidy table.
+
+Run:
+
+```bash
+python scripts/python/inspect_table.py data/iris.csv results/inspection
+```
+
+This creates:
+
+```text
+results/inspection/
+├── table-inspection-summary.txt
+├── table-column-summary.tsv
+└── table-missing-values.tsv
+```
+
+These outputs document the structure of the table and can be reused later for reporting or quality checks.
+
+---
+
+## What the inspection script does
+
+The script checks:
+
+- file path
+- table dimensions
+- column names
+- data types
+- missing values
+- numeric columns
+- categorical columns
+
+This turns early exploration into a repeatable step.
+
+:::cdi-message
+In CDI systems, manual inspection teaches judgment.  
+Reusable scripts make that judgment repeatable across projects.
+:::
+
+---
+
 ## Summary statistics
 
-```{python}
-#| label: 02-summary-statistics
+Use pandas to generate a first summary of the numeric columns:
 
+```python
 df.describe()
 ```
 
@@ -165,9 +222,7 @@ For Iris, petal measurements often show stronger separation across species than 
 
 Before comparing groups, verify that each group is represented.
 
-```{python}
-#| label: 02-species-counts
-
+```python
 df["species"].value_counts().sort_index()
 ```
 
@@ -179,18 +234,15 @@ This dataset is balanced across species, which makes visual comparison easier.
 
 ## Exploratory visualizations
 
-We will use modern plotting with **seaborn** and **matplotlib**, without CDI theme dependencies.
+We will use **seaborn** and **matplotlib** for exploratory plotting.
 
-These plots are not yet final presentation graphics. Their purpose is to help us inspect the data and notice patterns worth explaining.
+These plots are not final presentation graphics. Their purpose is to help us inspect the data and notice patterns worth explaining.
 
 ### Distribution of numeric features
 
-```{python}
-#| label: 02-histograms
-#| fig-cap: "Iris — Distribution of Numeric Features"
-
-import seaborn as sns
+```python
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 sns.set_theme(style="whitegrid", context="notebook")
 
@@ -234,10 +286,7 @@ A single histogram does not separate species, but it gives a first impression of
 
 A boxplot gives a compact summary of group differences using the median, quartiles, and overall spread.
 
-```{python}
-#| label: 02-boxplot-by-species
-#| fig-cap: "Iris — Petal Length by Species (Boxplot Only)"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.boxplot(
@@ -264,18 +313,15 @@ This plot makes it easy to compare:
 - the spread within each group
 - whether groups overlap
 
-However, a boxplot hides the individual observations.
+However, a boxplot hides the individual observations. That means we cannot directly see how densely values are clustered or how points are distributed within each group.
 
-That means we cannot directly see how densely values are clustered or how points are distributed within each group.
+---
 
 ### Boxplot with observed points
 
 To make the distribution more visible, we can overlay the individual observations.
 
-```{python}
-#| label: 02-boxplot-with-points-by-species
-#| fig-cap: "Iris — Petal Length by Species (Boxplot with Observed Points)"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.boxplot(
@@ -311,24 +357,17 @@ Adding the observed points makes the plot more informative.
 
 Now we can see:
 
-- how values are distributed within each species  
-- whether observations are tightly clustered or more dispersed  
-- where overlap is limited or more substantial  
+- how values are distributed within each species
+- whether observations are tightly clustered or more dispersed
+- where overlap is limited or more substantial
 
-This provides a fuller view than the boxplot alone.
-
-Petal length differs strongly by species.
-
-This makes it a strong candidate for distinguishing between groups in later analysis.
+Petal length differs strongly by species. This makes it a strong candidate for distinguishing between groups in later analysis.
 
 ---
 
 ### Scatter plot: sepal length vs petal length
 
-```{python}
-#| label: 02-scatter-sepal-vs-petal
-#| fig-cap: "Iris — Sepal Length vs Petal Length by Species"
-
+```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
 
 sns.scatterplot(
@@ -360,10 +399,7 @@ This is a strong exploratory signal that some measurements carry more discrimina
 
 ### Pairwise relationships
 
-```{python}
-#| label: 02-pairplot-by-species
-#| fig-cap: "Iris — Pairwise Relationships by Species"
-
+```python
 g = sns.pairplot(
     df,
     hue="species",
@@ -381,11 +417,12 @@ plt.show()
 
 The pairplot provides a broader view of the dataset:
 
-- which variable pairs show clear separation  
-- where clusters overlap  
-- which variables appear more useful for distinguishing species  
+- which variable pairs show clear separation
+- where clusters overlap
+- which variables appear more useful for distinguishing species
 
 This type of overview is valuable before moving to formal modeling.
+
 ---
 
 ## Create a simple derived feature
@@ -394,9 +431,7 @@ Feature creation is often part of exploration.
 
 Here, we define a new variable, `petal_area`, as a simple combination of petal length and petal width.
 
-```{python}
-#| label: 02-create-derived-feature
-
+```python
 df["petal_area"] = df["petal_length"] * df["petal_width"]
 
 df.head()
@@ -412,19 +447,17 @@ It illustrates how exploratory analysis can lead to new candidate variables.
 
 Try the following:
 
-1. Print the last five rows of the dataset.  
-2. Compute the mean of `petal_area` for each species.  
-3. Create a scatter plot of `sepal_width` versus `petal_width`.  
-4. Write one sentence describing which feature seems most useful for separating species.  
+1. Print the last five rows of the dataset.
+2. Compute the mean of `petal_area` for each species.
+3. Create a scatter plot of `sepal_width` versus `petal_width`.
+4. Write one sentence describing which feature seems most useful for separating species.
 
 ---
 
 ::: {.callout-tip collapse="true"}
 ## Solution
 
-```{python}
-#| label: 02-exercise
-
+```python
 print("Last 5 rows:")
 print(df.tail())
 
@@ -475,15 +508,14 @@ That habit is a foundation of reliable analysis.
 
 In this lesson, you:
 
-- loaded the Iris dataset into a pandas DataFrame  
-- standardized column names  
-- saved the dataset to `data/iris.csv`  
-- inspected structure, data types, and summary statistics  
-- used exploratory visualizations to examine distributions and group differences  
-- created a simple derived feature for further exploration 
+- created and saved the Iris dataset as `data/iris.csv`
+- inspected structure, data types, and summary statistics
+- generated reusable inspection outputs with `inspect_table.py`
+- used exploratory visualizations to examine distributions and group differences
+- created a simple derived feature for further exploration
 
 ---
 
-## Next Step
+## Looking Ahead
 
-Next, we clean and prepare the dataset for analysis.
+In the next chapter, we clean and prepare the dataset for analysis. The cleaned table will become the starting point for downstream wrangling, visualization, and summary statistics.

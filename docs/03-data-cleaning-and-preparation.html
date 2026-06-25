@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Cleaning and Preparation – Data Science Foundations</title>
+<title>Data Cleaning and Preparation – Data Science Foundations System</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -105,9 +105,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="assets/css/cdi.css">
@@ -122,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00-preface.html">Foundations</a></li><li class="breadcrumb-item"><a href="./03-data-cleaning-and-preparation.html"><span class="chapter-title">Data Cleaning and Preparation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-load-and-explore-dataset.html">Data Inspection and Preparation</a></li><li class="breadcrumb-item"><a href="./03-data-cleaning-and-preparation.html"><span class="chapter-title">Data Cleaning and Preparation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Data Science Foundations</a> 
+      <a href="./">Data Science Foundations System</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -155,7 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Foundations</span></a>
+ <span class="menu-text">System Orientation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -172,6 +169,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="./01-setting-up-environment.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Setting Up Your Environment</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Inspection and Preparation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-load-and-explore-dataset.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Load and Explore a Dataset</span></a>
@@ -182,6 +190,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="./03-data-cleaning-and-preparation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Data Cleaning and Preparation</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Transformation and Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-data-wrangling-basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data Wrangling Basics</span></a>
@@ -197,27 +216,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="./06-summary-statistics-and-insights.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Summary Statistics and Insights</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">From Analysis to Modeling</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-from-analysis-to-ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Analysis to Machine Learning</span></a>
+  <a href="./07-from-analysis-to-ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Analysis to Modeling</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./99-complete-free-track.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Completing the Foundations Track</span></a>
+  <a href="./99-complete-free-track.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Completing the Foundations System</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
  <span class="menu-text">Reference</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./999-appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Appendix</span></a>
@@ -240,26 +270,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#lesson-overview" id="toc-lesson-overview" class="nav-link active" data-scroll-target="#lesson-overview">Lesson Overview</a></li>
-  <li><a href="#cleaning-philosophy" id="toc-cleaning-philosophy" class="nav-link" data-scroll-target="#cleaning-philosophy">Cleaning Philosophy</a></li>
-  <li><a href="#load-the-dataset" id="toc-load-the-dataset" class="nav-link" data-scroll-target="#load-the-dataset">Load the Dataset</a></li>
-  <li><a href="#initial-inspection" id="toc-initial-inspection" class="nav-link" data-scroll-target="#initial-inspection">Initial Inspection</a></li>
-  <li><a href="#detect-column-types" id="toc-detect-column-types" class="nav-link" data-scroll-target="#detect-column-types">Detect Column Types</a></li>
-  <li><a href="#detect-and-remove-duplicates" id="toc-detect-and-remove-duplicates" class="nav-link" data-scroll-target="#detect-and-remove-duplicates">Detect and Remove Duplicates</a></li>
-  <li><a href="#column-name-hygiene" id="toc-column-name-hygiene" class="nav-link" data-scroll-target="#column-name-hygiene">Column Name Hygiene</a></li>
-  <li><a href="#handle-missing-values" id="toc-handle-missing-values" class="nav-link" data-scroll-target="#handle-missing-values">Handle Missing Values</a></li>
-  <li><a href="#fix-data-types" id="toc-fix-data-types" class="nav-link" data-scroll-target="#fix-data-types">Fix Data Types</a></li>
-  <li><a href="#validation-checks" id="toc-validation-checks" class="nav-link" data-scroll-target="#validation-checks">Validation Checks</a></li>
-  <li><a href="#save-clean-dataset" id="toc-save-clean-dataset" class="nav-link" data-scroll-target="#save-clean-dataset">Save Clean Dataset</a></li>
+  <li><a href="#lesson-overview" id="toc-lesson-overview" class="nav-link active" data-scroll-target="#lesson-overview">Lesson overview</a></li>
+  <li><a href="#chapter-workflow" id="toc-chapter-workflow" class="nav-link" data-scroll-target="#chapter-workflow">Chapter workflow</a></li>
+  <li><a href="#cleaning-philosophy" id="toc-cleaning-philosophy" class="nav-link" data-scroll-target="#cleaning-philosophy">Cleaning philosophy</a></li>
+  <li><a href="#load-the-dataset" id="toc-load-the-dataset" class="nav-link" data-scroll-target="#load-the-dataset">Load the dataset</a></li>
+  <li><a href="#initial-inspection" id="toc-initial-inspection" class="nav-link" data-scroll-target="#initial-inspection">Initial inspection</a></li>
+  <li><a href="#detect-column-types" id="toc-detect-column-types" class="nav-link" data-scroll-target="#detect-column-types">Detect column types</a></li>
+  <li><a href="#detect-and-remove-duplicates" id="toc-detect-and-remove-duplicates" class="nav-link" data-scroll-target="#detect-and-remove-duplicates">Detect and remove duplicates</a></li>
+  <li><a href="#column-name-hygiene" id="toc-column-name-hygiene" class="nav-link" data-scroll-target="#column-name-hygiene">Column name hygiene</a></li>
+  <li><a href="#handle-missing-values" id="toc-handle-missing-values" class="nav-link" data-scroll-target="#handle-missing-values">Handle missing values</a></li>
+  <li><a href="#fix-data-types" id="toc-fix-data-types" class="nav-link" data-scroll-target="#fix-data-types">Fix data types</a></li>
+  <li><a href="#validation-checks" id="toc-validation-checks" class="nav-link" data-scroll-target="#validation-checks">Validation checks</a></li>
+  <li><a href="#save-the-cleaned-dataset" id="toc-save-the-cleaned-dataset" class="nav-link" data-scroll-target="#save-the-cleaned-dataset">Save the cleaned dataset</a></li>
+  <li><a href="#run-the-reusable-cleaning-script" id="toc-run-the-reusable-cleaning-script" class="nav-link" data-scroll-target="#run-the-reusable-cleaning-script">Run the reusable cleaning script</a></li>
+  <li><a href="#what-the-cleaning-script-does" id="toc-what-the-cleaning-script-does" class="nav-link" data-scroll-target="#what-the-cleaning-script-does">What the cleaning script does</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
+  <li><a href="#cdi-insight" id="toc-cdi-insight" class="nav-link" data-scroll-target="#cdi-insight">CDI Insight</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#next-step" id="toc-next-step" class="nav-link" data-scroll-target="#next-step">Next Step</a></li>
+  <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking Ahead</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./00-preface.html">Foundations</a></li><li class="breadcrumb-item"><a href="./03-data-cleaning-and-preparation.html"><span class="chapter-title">Data Cleaning and Preparation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-load-and-explore-dataset.html">Data Inspection and Preparation</a></li><li class="breadcrumb-item"><a href="./03-data-cleaning-and-preparation.html"><span class="chapter-title">Data Cleaning and Preparation</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="lesson03" class="quarto-section-identifier"><span class="chapter-title">Data Cleaning and Preparation</span></span></h1>
 </div>
@@ -272,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Mar 2026</p>
+      <p class="date">Jun 2026</p>
     </div>
   </div>
   
@@ -292,356 +327,297 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Theme:</strong> Cleaning discipline, validation checks, and reproducible preparation</li>
 </ul>
 </div>
-<p>In this lesson, you will apply essential data cleaning steps used in real analytical workflows.</p>
-<p>As in previous chapters, all code runs inside this Quarto (<code>.qmd</code>) file.</p>
-<p>When the book is rendered, Python code is executed and results are embedded directly into the page.</p>
+<p>Data cleaning is not just a technical step.</p>
+<p>It is a decision-making process.</p>
+<p>Before a dataset is used for summaries, visualizations, modeling, or reporting, it should be checked for common quality issues and prepared in a reproducible way.</p>
+<p>In CDI systems, cleaning should be:</p>
+<ul>
+<li>measured before modification</li>
+<li>minimal and justified</li>
+<li>reproducible</li>
+<li>validated with explicit checks</li>
+<li>saved as a new output rather than silently overwriting the original table</li>
+</ul>
+<p>This lesson continues from Chapter 02, where we created and inspected:</p>
+<pre class="text"><code>data/iris.csv</code></pre>
+<p>In this chapter, we clean that dataset and save a downstream-ready version:</p>
+<pre class="text"><code>data/iris_clean.csv</code></pre>
 <hr>
 <section id="lesson-overview" class="level2">
-<h2 class="anchored" data-anchor-id="lesson-overview">Lesson Overview</h2>
+<h2 class="anchored" data-anchor-id="lesson-overview">Lesson overview</h2>
 <p>By the end of this lesson, you will be able to:</p>
 <ul>
-<li>inspect a dataset for common quality issues<br>
-</li>
-<li>detect and handle duplicate rows<br>
-</li>
-<li>standardize column names<br>
-</li>
-<li>handle missing values using clear rules<br>
-</li>
-<li>correct inconsistent data types<br>
-</li>
+<li>inspect a dataset for common quality issues</li>
+<li>detect and handle duplicate rows</li>
+<li>standardize column names</li>
+<li>handle missing values using clear rules</li>
+<li>correct inconsistent data types</li>
 <li>validate and save a cleaned dataset</li>
+<li>run a reusable cleaning script from the command line</li>
 </ul>
+<hr>
+</section>
+<section id="chapter-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-workflow">Chapter workflow</h2>
+<p>This chapter introduces the second reusable Python script in the system:</p>
+<pre class="text"><code>03-data-cleaning-and-preparation.qmd
+        ↓
+scripts/python/clean_example_data.py
+        ↓
+data/iris_clean.csv
+results/cleaning/cleaning-report.txt</code></pre>
+<p>The cleaned dataset becomes the input for downstream wrangling, visualization, and summary statistics.</p>
 <hr>
 </section>
 <section id="cleaning-philosophy" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-philosophy">Cleaning Philosophy</h2>
-<p>Data cleaning should be:</p>
-<ul>
-<li>measured before modification<br>
-</li>
-<li>minimal and justified<br>
-</li>
-<li>reproducible<br>
-</li>
-<li>verified with explicit checks</li>
-</ul>
+<h2 class="anchored" data-anchor-id="cleaning-philosophy">Cleaning philosophy</h2>
+<p>A responsible cleaning workflow follows a simple rule:</p>
+<pre class="text"><code>inspect first
+clean second
+validate third
+save last</code></pre>
 <p>Never modify data without first understanding what is being changed.</p>
 <p>Always validate the results of cleaning steps with explicit checks.</p>
+<div class="cdi-message">
+<p>Cleaning should not hide uncertainty.<br>
+It should make data preparation decisions visible and reproducible.</p>
+</div>
 <hr>
 </section>
 <section id="load-the-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="load-the-dataset">Load the Dataset</h2>
-<div id="cell-03-load-dataset" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/iris.csv"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div id="load-dataset" class="cell-output cell-output-display" data-execution_count="1">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">sepal_length</th>
-<th data-quarto-table-cell-role="th">sepal_width</th>
-<th data-quarto-table-cell-role="th">petal_length</th>
-<th data-quarto-table-cell-role="th">petal_width</th>
-<th data-quarto-table-cell-role="th">species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>5.1</td>
-<td>3.5</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>4.9</td>
-<td>3.0</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>4.7</td>
-<td>3.2</td>
-<td>1.3</td>
-<td>0.2</td>
-<td>setosa</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4.6</td>
-<td>3.1</td>
-<td>1.5</td>
-<td>0.2</td>
-<td>setosa</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5.0</td>
-<td>3.6</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
+<h2 class="anchored" data-anchor-id="load-the-dataset">Load the dataset</h2>
+<p>Start from the table created in Chapter 02.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/iris.csv"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="initial-inspection" class="level2">
-<h2 class="anchored" data-anchor-id="initial-inspection">Initial Inspection</h2>
-<div id="basic-inspection" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape:"</span>, df.shape)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Column names:"</span>, df.columns.tolist())</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Data types:"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Shape: (150, 5)
-
-Column names: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']
-
-Data types:
-sepal_length    float64
-sepal_width     float64
-petal_length    float64
-petal_width     float64
-species             str
-dtype: object</code></pre>
-</div>
-</div>
-<div id="summary-missingness" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Summary statistics:"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe(include<span class="op">=</span><span class="st">"all"</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Missing values per column:"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Summary statistics:
-        sepal_length  sepal_width  petal_length  petal_width species
-count     150.000000   150.000000    150.000000   150.000000     150
-unique           NaN          NaN           NaN          NaN       3
-top              NaN          NaN           NaN          NaN  setosa
-freq             NaN          NaN           NaN          NaN      50
-mean        5.843333     3.057333      3.758000     1.199333     NaN
-std         0.828066     0.435866      1.765298     0.762238     NaN
-min         4.300000     2.000000      1.000000     0.100000     NaN
-25%         5.100000     2.800000      1.600000     0.300000     NaN
-50%         5.800000     3.000000      4.350000     1.300000     NaN
-75%         6.400000     3.300000      5.100000     1.800000     NaN
-max         7.900000     4.400000      6.900000     2.500000     NaN
-
-Missing values per column:
-sepal_length    0
-sepal_width     0
-petal_length    0
-petal_width     0
-species         0
-dtype: int64</code></pre>
-</div>
-</div>
+<h2 class="anchored" data-anchor-id="initial-inspection">Initial inspection</h2>
+<p>Check the table structure before making changes.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape:"</span>, df.shape)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Column names:"</span>, df.columns.tolist())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Data types:"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then check summary statistics and missing values.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Summary statistics:"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe(include<span class="op">=</span><span class="st">"all"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Missing values per column:"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="detect-column-types" class="level2">
-<h2 class="anchored" data-anchor-id="detect-column-types">Detect Column Types</h2>
-<div id="detect-column-types" class="cell" data-execution_count="4">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Numeric columns:"</span>, num_cols)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Categorical columns:"</span>, cat_cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Numeric columns: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
-Categorical columns: ['species']</code></pre>
-</div>
-</div>
+<h2 class="anchored" data-anchor-id="detect-column-types">Detect column types</h2>
+<p>Separating numeric and categorical columns helps us apply appropriate cleaning rules.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Numeric columns:"</span>, num_cols)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Categorical columns:"</span>, cat_cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this dataset, the measurement columns are numeric and <code>species</code> is categorical.</p>
 <hr>
 </section>
 <section id="detect-and-remove-duplicates" class="level2">
-<h2 class="anchored" data-anchor-id="detect-and-remove-duplicates">Detect and Remove Duplicates</h2>
-<div id="duplicates-check" class="cell" data-execution_count="5">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dup_count <span class="op">=</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>())</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows found:"</span>, dup_count)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Inspect duplicates carefully before removal."</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df[df.duplicated()].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Duplicate rows found: 1
-
-Inspect duplicates carefully before removal.
-     sepal_length  sepal_width  petal_length  petal_width    species
-142           5.8          2.7           5.1          1.9  virginica</code></pre>
-</div>
-</div>
-<div id="drop-duplicates" class="cell" data-execution_count="6">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<h2 class="anchored" data-anchor-id="detect-and-remove-duplicates">Detect and remove duplicates</h2>
+<p>Duplicate rows can distort counts, summaries, visualizations, and model training.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dup_count <span class="op">=</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>())</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows found:"</span>, dup_count)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Inspect duplicates carefully before removal."</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df[df.duplicated()].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If duplicates exist, remove them only after inspection.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop_duplicates().reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape after duplicate handling:"</span>, df.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Shape after duplicate handling: (149, 5)</code></pre>
-</div>
-</div>
+<p>For a real project, duplicate handling should always be explained in the analysis notes.</p>
 <hr>
 </section>
 <section id="column-name-hygiene" class="level2">
-<h2 class="anchored" data-anchor-id="column-name-hygiene">Column Name Hygiene</h2>
-<div id="column-name-hygiene" class="cell" data-execution_count="7">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(c).strip().lower().replace(<span class="st">" "</span>, <span class="st">"_"</span>).replace(<span class="st">"("</span>, <span class="st">""</span>).replace(<span class="st">")"</span>, <span class="st">""</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> df.columns</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated columns:"</span>, df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Updated columns: ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'species']</code></pre>
-</div>
-</div>
+<h2 class="anchored" data-anchor-id="column-name-hygiene">Column name hygiene</h2>
+<p>Clean column names make downstream code easier to read and less error-prone.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(c)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    .strip()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    .lower()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">"("</span>, <span class="st">""</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">")"</span>, <span class="st">""</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> df.columns</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated columns:"</span>, df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This keeps column names consistent with the tidy-table style used across CDI systems.</p>
 <hr>
 </section>
 <section id="handle-missing-values" class="level2">
-<h2 class="anchored" data-anchor-id="handle-missing-values">Handle Missing Values</h2>
-<div id="missingness-check" class="cell" data-execution_count="8">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>sepal_length    0
-sepal_width     0
-petal_length    0
-petal_width     0
-species         0
-dtype: int64</code></pre>
-</div>
-</div>
-<div id="imputation-pattern" class="cell" data-execution_count="9">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df[num_cols] <span class="op">=</span> df[num_cols].fillna(df[num_cols].median())</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df[c].isna().<span class="bu">any</span>():</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> df[c].fillna(df[c].mode().iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<h2 class="anchored" data-anchor-id="handle-missing-values">Handle missing values</h2>
+<p>First, measure missingness.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then apply a clear rule.</p>
+<p>For this lesson, we use a simple starter pattern:</p>
+<ul>
+<li>numeric columns: fill missing values with the median</li>
+<li>categorical columns: fill missing values with the most frequent value</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df[num_cols] <span class="op">=</span> df[num_cols].fillna(df[num_cols].median())</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df[c].isna().<span class="bu">any</span>():</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> df[c].fillna(df[c].mode().iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cdi-message">
+<p>This imputation rule is useful for teaching, but it is not universal.<br>
+In real projects, missing value handling should reflect the data source, study design, and analysis goal.</p>
 </div>
 <hr>
 </section>
 <section id="fix-data-types" class="level2">
-<h2 class="anchored" data-anchor-id="fix-data-types">Fix Data Types</h2>
-<div id="fix-dtypes" class="cell" data-execution_count="10">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> num_cols:</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"species"</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"species"</span>] <span class="op">=</span> df[<span class="st">"species"</span>].astype(<span class="st">"category"</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>sepal_length     float64
-sepal_width      float64
-petal_length     float64
-petal_width      float64
-species         category
-dtype: object</code></pre>
-</div>
-</div>
+<h2 class="anchored" data-anchor-id="fix-data-types">Fix data types</h2>
+<p>After cleaning, confirm that columns have appropriate types.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> num_cols:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"species"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"species"</span>] <span class="op">=</span> df[<span class="st">"species"</span>].astype(<span class="st">"category"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This step protects later analysis from hidden type problems, such as numeric values stored as text.</p>
 <hr>
 </section>
 <section id="validation-checks" class="level2">
-<h2 class="anchored" data-anchor-id="validation-checks">Validation Checks</h2>
-<div id="validation-checks" class="cell" data-execution_count="11">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final shape:"</span>, df.shape)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total missing values:"</span>, <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()))</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows:"</span>, <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values remain."</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Duplicates remain."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Final shape: (149, 5)
-Total missing values: 0
-Duplicate rows: 0</code></pre>
+<h2 class="anchored" data-anchor-id="validation-checks">Validation checks</h2>
+<p>Validation confirms that cleaning produced the expected result.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final shape:"</span>, df.shape)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total missing values:"</span>, <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows:"</span>, <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()))</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values remain."</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Duplicates remain."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Assertions are useful because they stop the workflow when expected conditions are not met.</p>
+<hr>
+</section>
+<section id="save-the-cleaned-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-cleaned-dataset">Save the cleaned dataset</h2>
+<p>Save the cleaned table as a new file.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"data"</span>).mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/iris_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved cleaned dataset to: data/iris_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The original input remains available as:</p>
+<pre class="text"><code>data/iris.csv</code></pre>
+<p>The cleaned downstream version is:</p>
+<pre class="text"><code>data/iris_clean.csv</code></pre>
+<hr>
+</section>
+<section id="run-the-reusable-cleaning-script" class="level2">
+<h2 class="anchored" data-anchor-id="run-the-reusable-cleaning-script">Run the reusable cleaning script</h2>
+<p>The manual steps above explain the logic. The reusable script applies the same cleaning pattern from the command line.</p>
+<p>Run this from the project root:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected output:</p>
+<pre class="text"><code>data/iris_clean.csv
+results/cleaning/cleaning-report.txt</code></pre>
+<p>This makes the cleaning step repeatable and easy to test as the system grows.</p>
+<hr>
+</section>
+<section id="what-the-cleaning-script-does" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-cleaning-script-does">What the cleaning script does</h2>
+<p>The script:</p>
+<ul>
+<li>reads the input table</li>
+<li>standardizes column names</li>
+<li>detects duplicate rows</li>
+<li>removes duplicate rows</li>
+<li>fills missing numeric values with medians</li>
+<li>fills missing categorical values with modes</li>
+<li>converts numeric-like columns where appropriate</li>
+<li>converts <code>species</code> to a categorical-style column</li>
+<li>validates that no missing values or duplicates remain</li>
+<li>writes a cleaned table</li>
+<li>writes a plain-text cleaning report</li>
+</ul>
+<hr>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<p>Try the following:</p>
+<ol type="1">
+<li>Open <code>results/cleaning/cleaning-report.txt</code>.</li>
+<li>Confirm the input and output row counts.</li>
+<li>Confirm the number of missing values after cleaning.</li>
+<li>Rerun the Chapter 02 inspection script on the cleaned table.</li>
+</ol>
+<p>Use:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then compare:</p>
+<pre class="text"><code>results/inspection/
+results/inspection-cleaned/</code></pre>
+<hr>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A cleaned table can be inspected using the same reusable inspection script:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected outputs:</p>
+<pre class="text"><code>results/inspection-cleaned/
+├── table-inspection-summary.txt
+├── table-column-summary.tsv
+└── table-missing-values.tsv</code></pre>
+<p>The key idea is that cleaning does not end with saving a file.<br>
+It should be followed by inspection and validation.</p>
+</div>
 </div>
 </div>
 <hr>
 </section>
-<section id="save-clean-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="save-clean-dataset">Save Clean Dataset</h2>
-<div id="save-clean-dataset" class="cell" data-execution_count="12">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"data"</span>).mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/iris_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved cleaned dataset to: data/iris_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Saved cleaned dataset to: data/iris_clean.csv</code></pre>
-</div>
-</div>
+<section id="cdi-insight" class="level2">
+<h2 class="anchored" data-anchor-id="cdi-insight">CDI Insight</h2>
+<p>Cleaning is not about making data look perfect.</p>
+<p>It is about making preparation decisions explicit, reproducible, and testable.</p>
+<p>A cleaned dataset should be easier to analyze, but it should also preserve the logic of how it was produced.</p>
+<p>That is why CDI systems keep both:</p>
+<pre class="text"><code>input table
+cleaning script
+cleaned output table
+cleaning report</code></pre>
+<p>Together, these make the workflow easier to trust.</p>
 <hr>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this lesson, you:</p>
 <ul>
-<li>You inspected dataset quality<br>
-</li>
-<li>You applied disciplined cleaning steps<br>
-</li>
-<li>You validated the dataset explicitly<br>
-</li>
-<li>You saved a reproducible cleaned version for later lessons</li>
+<li>inspected dataset quality</li>
+<li>checked missing values and duplicates</li>
+<li>standardized column names</li>
+<li>applied simple missing value handling rules</li>
+<li>fixed data types</li>
+<li>validated the cleaned table</li>
+<li>saved <code>data/iris_clean.csv</code></li>
+<li>created a cleaning report with <code>clean_example_data.py</code></li>
 </ul>
 <hr>
 </section>
-<section id="next-step" class="level2">
-<h2 class="anchored" data-anchor-id="next-step">Next Step</h2>
-<p>Transform and organize the cleaned dataset for analysis.</p>
+<section id="looking-ahead" class="level2">
+<h2 class="anchored" data-anchor-id="looking-ahead">Looking Ahead</h2>
+<p>In the next chapter, we transform and organize the cleaned dataset for analysis. The cleaned table produced here becomes the input for wrangling.</p>
 
 
 </section>

@@ -1,0 +1,24 @@
+CDI Data Science Foundations System
+Wrangling Report
+
+Input file: data/iris_clean.csv
+Wrangled table: data/iris_wrangled.csv
+Output directory: results/wrangling
+
+Rows before wrangling: 149
+Rows after wrangling: 149
+Species groups detected: 3
+
+Outputs created:
+- data/iris_wrangled.csv
+- results/wrangling/species-summary.tsv
+- results/wrangling/iris-long.tsv
+- results/wrangling/wrangling-report.txt
+
+Wrangling steps applied:
+- Created petal_area
+- Created size_category using median petal_area
+- Sorted table by petal_area
+- Created species-level summary table
+- Created long-format measurement table
+- Validated missing values and expected columns

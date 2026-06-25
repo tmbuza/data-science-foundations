@@ -13,11 +13,11 @@ In CDI, environment setup is not a technical formality — it is part of the ana
 
 If your environment is inconsistent, your results can be:
 
-- incorrect  
-- non-reproducible  
-- or silently misleading  
+- incorrect
+- non-reproducible
+- or silently misleading
 
-You will write and run code inside Quarto chapter files (`.qmd`). When you render the book, Quarto executes Python chunks and embeds results directly into the final output.
+You will write code inside Quarto chapter files (`.qmd`), but the setup commands in this lesson are shown as examples for users to run manually in the terminal.
 
 ---
 
@@ -25,11 +25,12 @@ You will write and run code inside Quarto chapter files (`.qmd`). When you rende
 
 By the end of this lesson you will have:
 
-- Python installed and accessible from the terminal  
-- A project virtual environment (`.venv`)  
-- Required packages installed  
-- Quarto installed and working  
-- A working build pipeline that renders into `docs/`  
+- Python installed and accessible from the terminal
+- Quarto installed and working
+- a manually prepared `requirements.txt` file
+- a project virtual environment (`.venv`)
+- required packages installed
+- a working build pipeline that renders into `docs/`
 
 ---
 
@@ -39,16 +40,15 @@ By the end of this lesson you will have:
 
 Check if Python is available:
 
-```{bash}
-#| label: 01-check-python
+```bash
 python3 --version
 ```
 
 If this fails, install Python:
 
-- macOS: `brew install python`  
-- Windows: Install from python.org (enable “Add to PATH”)  
-- Linux: Use your package manager (`apt`, `dnf`, `pacman`)  
+- macOS: `brew install python`
+- Windows: Install from python.org and enable “Add to PATH”
+- Linux: Use your package manager, such as `apt`, `dnf`, or `pacman`
 
 ---
 
@@ -58,12 +58,30 @@ Quarto renders the book and executes code.
 
 Check installation:
 
-```{bash}
-#| label: 01-check-quarto
+```bash
 quarto --version
 ```
 
-If missing, install from https://quarto.org and confirm the version prints.
+If Quarto is missing, install it.
+
+On macOS with Homebrew:
+
+```bash
+brew install --cask quarto
+```
+
+After installation, confirm that Quarto is available:
+
+```bash
+quarto --version
+```
+
+Windows and Linux users can install Quarto from the official Quarto website, then rerun the version check.
+
+:::cdi-message
+Quarto should be installed before rendering the book.  
+The Python environment controls the analysis packages, while Quarto controls document rendering.
+:::
 
 ---
 
@@ -71,9 +89,10 @@ If missing, install from https://quarto.org and confirm the version prints.
 
 A good default is **VS Code** because it supports:
 
-- `.qmd` editing  
-- Python integration  
-- Git workflow  
+- `.qmd` editing
+- Python integration
+- terminal use
+- Git workflow
 
 ---
 
@@ -81,26 +100,63 @@ A good default is **VS Code** because it supports:
 
 This project uses a **local virtual environment** to ensure reproducibility.
 
-### Use the setup script
+The environment setup has two parts:
+
+```text
+requirements.txt
+        ↓
+scripts/bash/setup-env.sh
+        ↓
+.venv/
+```
+
+The `requirements.txt` file defines the Python packages required by the project.
+
+The setup script creates the environment and installs those packages.
+
+---
+
+## Prepare `requirements.txt`
+
+Before running the setup script, create a file named `requirements.txt` in the project root.
+
+Use this starter version:
+
+```text
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+ipykernel
+```
+
+This file should be prepared manually so that learners understand which packages the project depends on.
+
+:::cdi-message
+In CDI systems, `requirements.txt` is part of reproducibility.  
+It records the packages needed to rerun the workflow on another machine.
+:::
+
+---
+
+## Use the setup script
 
 From the project root:
 
-```{bash}
-#| label: 01-setup-env-script
+```bash
 bash scripts/bash/setup-env.sh
 ```
 
 Activate the environment:
 
-```{bash}
-#| label: 01-activate-venv
+```bash
 source .venv/bin/activate
 ```
 
 Verify:
 
-```{bash}
-#| label: 01-which-python
+```bash
 which python
 python --version
 ```
@@ -110,19 +166,24 @@ The path should point to `.venv`.
 :::cdi-message
 If you are on Windows:
 
-- PowerShell: `.venv\Scripts\Activate.ps1`  
-- cmd: `.venv\Scripts\activate.bat`  
+- PowerShell: `.venv\Scripts\Activate.ps1`
+- cmd: `.venv\Scripts\activate.bat`
 :::
 
 ---
 
-### What the script does
+## What the script does
 
-- Creates `.venv/`  
-- Installs packages from `requirements.txt`  
-- Optionally registers a Jupyter kernel  
+The setup script:
 
-CDI workflow primarily uses Quarto rendering, not notebooks.
+- checks that `requirements.txt` exists
+- creates `.venv/`
+- activates the virtual environment
+- upgrades `pip`
+- installs packages from `requirements.txt`
+- registers a Jupyter kernel named `CDI Data Science`
+
+CDI workflow primarily uses Quarto rendering, not notebooks. The Jupyter kernel is included because Quarto can use it to execute Python code.
 
 ---
 
@@ -130,37 +191,33 @@ CDI workflow primarily uses Quarto rendering, not notebooks.
 
 With the environment active:
 
-```{bash}
-#| label: 01-build-book-script
+```bash
 bash scripts/bash/build.sh
 ```
 
-This runs `quarto render` and outputs to `docs/`.
+This runs `quarto render` and outputs the rendered site to `docs/`.
 
 ---
 
-## Sanity check (critical step)
+## Sanity check
 
 Open the generated site.
 
 ### macOS
 
-```{bash}
-#| label: 01-open-mac
+```bash
 open docs/index.html
 ```
 
 ### Linux
 
-```{bash}
-#| label: 01-open-linux
+```bash
 xdg-open docs/index.html
 ```
 
 ### Windows
 
-```{powershell}
-#| label: 01-open-windows
+```powershell
 start docs/index.html
 ```
 
@@ -168,14 +225,15 @@ If the site loads and navigation works, your environment is correctly configured
 
 ---
 
-## Development mode (optional)
+## Development mode
 
-```{bash}
-#| label: 01-preview-book
+You can also preview the book while editing:
+
+```bash
 quarto preview
 ```
 
-This launches a live server that reloads on changes.
+This launches a local live preview that reloads when files change.
 
 ---
 
@@ -185,9 +243,10 @@ Environment setup is the **first step in reproducibility**.
 
 Before analyzing data, you must ensure:
 
-- your tools are consistent  
-- your dependencies are controlled  
-- your workflow is repeatable  
+- your tools are consistent
+- your dependencies are documented
+- your environment can be recreated
+- your workflow is repeatable
 
 This is what allows your results to be trusted.
 
@@ -195,13 +254,20 @@ This is what allows your results to be trusted.
 
 ## Summary
 
-- Python and Quarto are installed  
-- A reproducible `.venv` environment is created  
-- The Quarto book builds successfully  
-- You are ready to start working with data  
+In this lesson, you prepared the project environment.
+
+You now have:
+
+- Python and Quarto available
+- a manually prepared `requirements.txt` file
+- a reproducible `.venv` environment
+- required Python packages installed
+- a working Quarto book build
+
+You are now ready to begin the data workflow.
 
 ---
 
-## Next Step
+## Looking Ahead
 
-→ **Load and explore your first dataset**
+In the next chapter, we load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.
