@@ -612,20 +612,23 @@ __pycache__/
 </section>
 <section id="start-working" class="level2">
 <h2 class="anchored" data-anchor-id="start-working">Start Working</h2>
-<p>With <code>.venv</code> active, start JupyterLab:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>JupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the <code>notebooks/</code> folder and follow the examples in the online guide.</p>
-<p>Stop JupyterLab by returning to the terminal and pressing:</p>
-<pre class="text"><code>Ctrl+C</code></pre>
+<p>Keep <code>.venv</code> active and open the project folder in Visual Studio Code:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Open or create a <code>.ipynb notebook</code>, then select the Python interpreter from the project’s <code>.venv</code> environment as the notebook kernel.</p>
+<p>If you prefer the JupyterLab browser interface, you can optionally start it with:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="optional-use-the-prepared-guide-project" class="level2">
 <h2 class="anchored" data-anchor-id="optional-use-the-prepared-guide-project">Optional: Use the Prepared Guide Project</h2>
-<p>You do not need the public repository to follow the online guide. If you prefer to work with CDI’s prepared project files, you can open the guide’s public GitHub repository and either:</p>
+<p>You do not need the public repository to follow this online guide. If you prefer to use CDI’s prepared project files, open the <a href="https://github.com/tmbuza/data-science-foundations">Data Science Foundations GitHub repository</a>.</p>
+<p>You can then either:</p>
 <ul>
-<li>select <strong>Code → Download ZIP</strong>, extract the archive, and open the extracted folder; or</li>
-<li>clone the repository with Git.</li>
+<li>select <strong>Code → Download ZIP</strong>, extract the archive, and open the extracted folder in VS Code; or</li>
+<li>clone the repository with Git:</li>
 </ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/tmbuza/data-science-foundations.git</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> data-science-foundations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The prepared project may include the guide source, example data, supporting scripts, <code>requirements.txt</code>, and Quarto configuration. Create a separate <code>.venv</code> inside that downloaded or cloned project and install its supplied requirements before running it.</p>
 <hr>
 </section>
@@ -633,10 +636,10 @@ __pycache__/
 <h2 class="anchored" data-anchor-id="optional-preview-or-render-the-guide">Optional: Preview or Render the Guide</h2>
 <p>The local project you created in this chapter is designed for running the analysis examples; it does not contain the source files for rebuilding the complete CDI website.</p>
 <p>If you downloaded or cloned the prepared guide repository and want to view the complete guide locally, activate that project’s <code>.venv</code>, then run:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Stop the preview with <code>Ctrl+C</code>.</p>
 <p>To build the complete guide from its source:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cdi-message">
 <p>Previewing or rendering the complete guide is optional. It requires the prepared guide source from the public repository. It is not required for following the online chapters or running their analyses.</p>
 </div>
@@ -652,19 +655,19 @@ __pycache__/
 <li>Run <code>jupyter lab</code> or open the project in your preferred editor.</li>
 </ol>
 <p>When you finish working, deactivate the environment:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Deactivation does not delete the environment or its packages.</p>
 <p>If <code>requirements.txt</code> changes, reactivate <code>.venv</code> and run:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="optional-cdi-helper-scripts" class="level2">
 <h2 class="anchored" data-anchor-id="optional-cdi-helper-scripts">Optional CDI Helper Scripts</h2>
 <p>If you use the prepared repository and it includes CDI helper scripts, they may automate the same transparent steps described above.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/setup-env.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/setup-env.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>may create <code>.venv</code>, upgrade <code>pip</code>, and install <code>requirements.txt</code>, while:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/build.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/build.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>may run <code>quarto render</code>.</p>
 <p>The direct commands remain the canonical workflow because they work without custom scripts and make each setup step visible. Before using a helper script, review it and confirm that it matches the documented workflow.</p>
 <hr>
@@ -682,26 +685,26 @@ __pycache__/
 <section id="packages-install-outside-.venv" class="level3">
 <h3 class="anchored" data-anchor-id="packages-install-outside-.venv">Packages install outside <code>.venv</code></h3>
 <p>Activate <code>.venv</code>, verify the Python path, and use:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="jupyter-cannot-find-a-package" class="level3">
 <h3 class="anchored" data-anchor-id="jupyter-cannot-find-a-package">Jupyter cannot find a package</h3>
 <p>Activate <code>.venv</code> in the same terminal, then run:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If the problem continues, reinstall the requirements while <code>.venv</code> is active.</p>
 </section>
 <section id="quarto-cannot-find-jupyter-or-a-package" class="level3">
 <h3 class="anchored" data-anchor-id="quarto-cannot-find-jupyter-or-a-package">Quarto cannot find Jupyter or a package</h3>
 <p>This issue applies when previewing or rendering the prepared guide source. Activate that project’s <code>.venv</code>, then run:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> check</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> check</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="a-quarto-render-uses-cached-results" class="level3">
 <h3 class="anchored" data-anchor-id="a-quarto-render-uses-cached-results">A Quarto render uses cached results</h3>
 <p>The prepared guide project may use Quarto’s <code>freeze</code> option to avoid unnecessary re-execution. When you intentionally need to recompute all executable content, run:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render <span class="at">--cache-refresh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render <span class="at">--cache-refresh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Use a full refresh deliberately because it may take longer than an ordinary render.</p>
 <hr>
 </section>

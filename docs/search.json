@@ -289,7 +289,7 @@
     "href": "01-setting-up-environment.html#start-working",
     "title": "Setting Up Your Environment",
     "section": "Start Working",
-    "text": "Start Working\nWith .venv active, start JupyterLab:\njupyter lab\nJupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the notebooks/ folder and follow the examples in the online guide.\nStop JupyterLab by returning to the terminal and pressing:\nCtrl+C",
+    "text": "Start Working\nKeep .venv active and open the project folder in Visual Studio Code:\ncode .\nOpen or create a .ipynb notebook, then select the Python interpreter from the project’s .venv environment as the notebook kernel.\nIf you prefer the JupyterLab browser interface, you can optionally start it with:\njupyter lab",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
@@ -300,7 +300,7 @@
     "href": "01-setting-up-environment.html#optional-use-the-prepared-guide-project",
     "title": "Setting Up Your Environment",
     "section": "Optional: Use the Prepared Guide Project",
-    "text": "Optional: Use the Prepared Guide Project\nYou do not need the public repository to follow the online guide. If you prefer to work with CDI’s prepared project files, you can open the guide’s public GitHub repository and either:\n\nselect Code → Download ZIP, extract the archive, and open the extracted folder; or\nclone the repository with Git.\n\nThe prepared project may include the guide source, example data, supporting scripts, requirements.txt, and Quarto configuration. Create a separate .venv inside that downloaded or cloned project and install its supplied requirements before running it.",
+    "text": "Optional: Use the Prepared Guide Project\nYou do not need the public repository to follow this online guide. If you prefer to use CDI’s prepared project files, open the Data Science Foundations GitHub repository.\nYou can then either:\n\nselect Code → Download ZIP, extract the archive, and open the extracted folder in VS Code; or\nclone the repository with Git:\n\ngit clone https://github.com/tmbuza/data-science-foundations.git\ncd data-science-foundations\nThe prepared project may include the guide source, example data, supporting scripts, requirements.txt, and Quarto configuration. Create a separate .venv inside that downloaded or cloned project and install its supplied requirements before running it.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
