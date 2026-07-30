@@ -400,28 +400,35 @@ If you use Git, commit `requirements.txt` because it documents how to recreate t
 
 ## Start Working
 
-With `.venv` active, start JupyterLab:
+Keep `.venv` active and open the project folder in Visual Studio Code:
+
+```bash
+code .
+```
+
+Open or create a `.ipynb notebook`, then select the Python interpreter from the project’s `.venv` environment as the notebook kernel.
+
+If you prefer the JupyterLab browser interface, you can optionally start it with:
 
 ```bash
 jupyter lab
-```
-
-JupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the `notebooks/` folder and follow the examples in the online guide.
-
-Stop JupyterLab by returning to the terminal and pressing:
-
-```text
-Ctrl+C
 ```
 
 ---
 
 ## Optional: Use the Prepared Guide Project
 
-You do not need the public repository to follow the online guide. If you prefer to work with CDI's prepared project files, you can open the guide's public GitHub repository and either:
+You do not need the public repository to follow this online guide. If you prefer to use CDI’s prepared project files, open the [Data Science Foundations GitHub repository](https://github.com/tmbuza/data-science-foundations).
 
-- select **Code → Download ZIP**, extract the archive, and open the extracted folder; or
-- clone the repository with Git.
+You can then either:
+
+- select **Code → Download ZIP**, extract the archive, and open the extracted folder in VS Code; or
+- clone the repository with Git:
+
+```bash
+git clone https://github.com/tmbuza/data-science-foundations.git
+cd data-science-foundations
+```
 
 The prepared project may include the guide source, example data, supporting scripts, `requirements.txt`, and Quarto configuration. Create a separate `.venv` inside that downloaded or cloned project and install its supplied requirements before running it.
 
