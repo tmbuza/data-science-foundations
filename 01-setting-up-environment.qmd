@@ -3,271 +3,604 @@
 :::cdi-message
 - **ID:** DS-L01
 - **Type:** Foundation
-- **Audience:** Beginner / Intermediate
+- **Audience:** Beginner-friendly
 - **Theme:** Reproducibility starts before analysis
 :::
 
-This guide is **Python-first** and **Quarto-first**.
+This guide is **Python-first** and **Quarto-first**. Python provides the tools for working with data, while Quarto combines code, results, explanations, and references in a reproducible document.
 
-In CDI, environment setup is not a technical formality — it is part of the analytical process.
+Environment setup is part of the analytical workflow. A project that records its software requirements and keeps them separate from other projects is easier to run, review, share, and reproduce.
 
-If your environment is inconsistent, your results can be:
-
-- incorrect
-- non-reproducible
-- or silently misleading
-
-You will write code inside Quarto chapter files (`.qmd`), but the setup commands in this lesson are shown as examples for users to run manually in the terminal.
+In this chapter, you will create a local project folder, add a simple folder structure, create a project-specific Python virtual environment named `.venv`, record the guide's dependencies in `requirements.txt`, and install them.
 
 ---
 
-## What you are setting up
+## What You Will Set Up
 
-By the end of this lesson you will have:
+By the end of this chapter, you will have:
 
-- Python installed and accessible from the terminal
+- Python 3.12 installed and accessible from a terminal
 - Quarto installed and working
-- a manually prepared `requirements.txt` file
-- a project virtual environment (`.venv`)
-- required packages installed
-- a working build pipeline that renders into `docs/`
+- a local `data-science-foundations` project folder
+- folders for data, notebooks, and reports
+- a project-specific virtual environment named `.venv`
+- a `requirements.txt` file containing the guide's direct dependencies
+- the guide's Python dependencies installed in `.venv`
+- a verified connection between Python, Jupyter, and Quarto
+- a working environment for running the guide's examples
+- an optional local preview and book-rendering workflow
+
+:::cdi-message
+You do not need an existing Python environment. Follow the steps in order and use the instructions for your operating system.
+:::
+
+You can follow this guide and run its analyses without cloning or downloading the guide repository. This chapter shows you how to build the required local project from scratch.
+
+The public GitHub repository remains available as an optional convenience for learners who want the prepared guide source, example files, and complete project structure.
 
 ---
 
-## Required software
+## Understand the Local Project
 
-### Python (3.10 or newer)
+The project uses two related components:
 
-Check if Python is available:
+```text
+requirements.txt
+        ↓
+python -m pip install -r requirements.txt
+        ↓
+.venv/
+```
+
+`requirements.txt` is a small text file that you will create in the project root. It records the direct Python packages and compatible version ranges used by the guide.
+
+`.venv` is the local environment created on your computer. It contains the installed packages for this project and keeps them separate from packages used by other projects.
+
+If the project is placed under version control, it should include `requirements.txt` but should **not** include `.venv/`. The environment can be recreated whenever needed from the recorded requirements.
+
+---
+
+## Install the Required Software
+
+### Python 3.12
+
+This guide is developed and tested with **Python 3.12**. Later compatible Python versions may work, but Python 3.12 is the supported reference environment for this edition.
+
+Check whether it is already installed.
+
+On macOS or Linux:
 
 ```bash
 python3 --version
 ```
 
-If this fails, install Python:
+On Windows PowerShell:
 
-- macOS: `brew install python`
-- Windows: Install from python.org and enable “Add to PATH”
-- Linux: Use your package manager, such as `apt`, `dnf`, or `pacman`
+```powershell
+py --version
+```
 
----
+The result should begin with `Python 3.12`.
+
+If Python is not installed, download Python 3.12 from the [official Python website](https://www.python.org/downloads/).
+
+:::cdi-message
+On Windows, allow the Python installer to add the Python launcher to your system. After installation, close and reopen PowerShell before checking the version again.
+:::
 
 ### Quarto
 
-Quarto renders the book and executes code.
+Quarto renders the guide and executes its computational content.
 
-Check installation:
-
-```bash
-quarto --version
-```
-
-If Quarto is missing, install it.
-
-On macOS with Homebrew:
-
-```bash
-brew install --cask quarto
-```
-
-After installation, confirm that Quarto is available:
+Check whether Quarto is installed:
 
 ```bash
 quarto --version
 ```
 
-Windows and Linux users can install Quarto from the official Quarto website, then rerun the version check.
+If the command is not found, install Quarto from the [official Quarto website](https://quarto.org/docs/get-started/).
+
+After installation, close and reopen the terminal, then run the version check again.
 
 :::cdi-message
-Quarto should be installed before rendering the book.  
-The Python environment controls the analysis packages, while Quarto controls document rendering.
+Python manages the analytical environment and packages. Quarto manages the document, code execution, navigation, and rendered output.
 :::
 
----
+### A Code Editor
 
-## Recommended editor
+You can use any editor that supports plain-text files and an integrated terminal. Suitable options include:
 
-A good default is **VS Code** because it supports:
+- Visual Studio Code
+- Positron
+- JupyterLab
+- another editor with Python and Quarto support
 
-- `.qmd` editing
-- Python integration
-- terminal use
-- Git workflow
-
----
-
-## Project environment
-
-This project uses a **local virtual environment** to ensure reproducibility.
-
-The environment setup has two parts:
-
-```text
-requirements.txt
-        ↓
-scripts/bash/setup-env.sh
-        ↓
-.venv/
-```
-
-The `requirements.txt` file defines the Python packages required by the project.
-
-The setup script creates the environment and installs those packages.
+The commands in this chapter are run in a terminal from the project root—the `data-science-foundations` folder you will create below.
 
 ---
 
-## Prepare `requirements.txt`
+## Create the Local Project
 
-Before running the setup script, create a file named `requirements.txt` in the project root.
+Choose a location on your computer where you keep analytical projects. Open a terminal in that location, then create the project folder.
 
-Use this starter version:
-
-```text
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-ipykernel
-```
-
-This file should be prepared manually so that learners understand which packages the project depends on.
-
-:::cdi-message
-In CDI systems, `requirements.txt` is part of reproducibility.  
-It records the packages needed to rerun the workflow on another machine.
-:::
-
----
-
-## Use the setup script
-
-From the project root:
+### macOS or Linux
 
 ```bash
-bash scripts/bash/setup-env.sh
+mkdir data-science-foundations
+cd data-science-foundations
 ```
 
-Activate the environment:
+### Windows PowerShell
+
+```powershell
+New-Item -ItemType Directory data-science-foundations
+Set-Location data-science-foundations
+```
+
+This folder is now the **project root**. The virtual environment, dependency file, data, notebooks, and results created while following the guide will remain together here.
+
+Confirm your current location.
+
+On macOS or Linux:
+
+```bash
+pwd
+```
+
+On Windows PowerShell:
+
+```powershell
+Get-Location
+```
+
+:::cdi-message
+Run the remaining setup commands from the `data-science-foundations` project root. Commands run from another folder may create files or an environment in the wrong location.
+:::
+
+---
+
+## Create the Project Folders
+
+Create a small structure for the files used throughout the guide.
+
+### macOS or Linux
+
+```bash
+mkdir -p data/raw data/processed
+mkdir -p notebooks reports/figures
+```
+
+### Windows PowerShell
+
+```powershell
+New-Item -ItemType Directory -Force data/raw, data/processed
+New-Item -ItemType Directory -Force notebooks, reports/figures
+```
+
+The project should now have this structure:
+
+```text
+data-science-foundations/
+├── data/
+│   ├── raw/
+│   └── processed/
+├── notebooks/
+└── reports/
+    └── figures/
+```
+
+These folders have distinct roles:
+
+- `data/raw/` stores original data that should remain unchanged.
+- `data/processed/` stores cleaned or transformed data.
+- `notebooks/` stores exploratory notebooks.
+- `reports/figures/` stores figures produced during analysis.
+
+Additional files and folders can be added when later chapters require them.
+
+---
+
+## Create `requirements.txt`
+
+Dependencies must be written down so that the project environment can be recreated later. Create a plain-text file named `requirements.txt` in the project root using your code editor.
+
+Add the following direct packages and compatible version ranges:
+
+```text
+jupyter>=1.1,<2
+ipykernel>=6.29,<8
+matplotlib>=3.9,<4
+numpy>=2.0,<3
+pandas>=2.2,<4
+scikit-learn>=1.5,<2
+seaborn>=0.13,<1
+```
+
+Save the file. Do not add Markdown code fences to the actual `requirements.txt`; it should contain only the package lines shown above.
+
+These compatible version ranges provide reasonable stability while allowing tested updates. Packages that are installed automatically to support these direct dependencies do not need to be listed individually.
+
+Do not replace `requirements.txt` with the complete output of `pip freeze`. That command records every package installed in the current environment, including indirect and sometimes platform-specific dependencies. Its output can be useful for troubleshooting or documenting a temporary environment snapshot, but it is not the maintained dependency specification for this guide.
+
+:::cdi-message
+**Dependency roles**
+
+- `requirements.txt` records the packages the project intends to use.
+- `.venv/` contains the packages installed locally on your computer.
+- A version-controlled project keeps `requirements.txt` but excludes `.venv/`.
+:::
+
+---
+
+## Create the Virtual Environment
+
+Create one environment for this project. Run the command from the project root.
+
+### macOS or Linux
+
+```bash
+python3 -m venv .venv
+```
+
+### Windows PowerShell
+
+```powershell
+py -3.12 -m venv .venv
+```
+
+The command creates a local `.venv` directory. Creation may take a few moments and may not display a success message.
+
+---
+
+## Activate the Environment
+
+Activation makes the terminal use the project's Python installation and packages.
+
+### macOS or Linux
 
 ```bash
 source .venv/bin/activate
 ```
 
-Verify:
+### Windows PowerShell
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### Windows Command Prompt
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+After activation, the terminal prompt will usually begin with `(.venv)`.
+
+Verify the active Python:
 
 ```bash
-which python
 python --version
 ```
 
-The path should point to `.venv`.
+On macOS or Linux:
+
+```bash
+which python
+```
+
+On Windows PowerShell:
+
+```powershell
+Get-Command python
+```
+
+The reported path should point inside the project's `.venv` directory.
 
 :::cdi-message
-If you are on Windows:
+If PowerShell blocks the activation script, open PowerShell normally and run:
 
-- PowerShell: `.venv\Scripts\Activate.ps1`
-- cmd: `.venv\Scripts\activate.bat`
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+Review and accept the change only if it is permitted on your computer, then activate `.venv` again. On a managed computer, follow your organization's policy or ask its technical support team.
 :::
 
 ---
 
-## What the script does
+## Install the Project Dependencies
 
-The setup script:
+Keep the virtual environment active, then upgrade its packaging tools:
 
-- checks that `requirements.txt` exists
-- creates `.venv/`
-- activates the virtual environment
-- upgrades `pip`
-- installs packages from `requirements.txt`
-- registers a Jupyter kernel named `CDI Data Science`
+```bash
+python -m pip install --upgrade pip
+```
 
-CDI workflow primarily uses Quarto rendering, not notebooks. The Jupyter kernel is included because Quarto can use it to execute Python code.
+Install the packages recorded in `requirements.txt`:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Using `python -m pip` ensures that packages are installed into the Python environment currently selected by the terminal.
+
+Installation may take several minutes. Warnings about a newer version of `pip` can usually be resolved by repeating the upgrade command. Errors should be addressed before continuing.
+
+Check that the installed packages have compatible dependencies:
+
+```bash
+python -m pip check
+```
+
+A successful check reports:
+
+```text
+No broken requirements found.
+```
 
 ---
 
-## Render the book
+## Verify the Environment
 
-With the environment active:
+First, confirm that the main packages can be imported and report their versions:
 
 ```bash
-bash scripts/bash/build.sh
+python -c "import numpy, pandas, matplotlib, seaborn, sklearn; print('NumPy:', numpy.__version__); print('pandas:', pandas.__version__); print('Matplotlib:', matplotlib.__version__); print('Seaborn:', seaborn.__version__); print('scikit-learn:', sklearn.__version__)"
 ```
 
-This runs `quarto render` and outputs the rendered site to `docs/`.
+Then confirm that Jupyter is available:
+
+```bash
+python -m jupyter --version
+```
+
+Confirm the dependency check once more if you installed or updated any packages:
+
+```bash
+python -m pip check
+```
+
+If you installed Quarto, confirm that it can detect Python and Jupyter:
+
+```bash
+quarto check
+```
+
+The checks should complete without errors that prevent Python or Jupyter execution.
+
+### Optional: Register a Named Jupyter Kernel
+
+Most learners do not need to register a separate kernel because Jupyter and Quarto can use the Python environment active in the terminal.
+
+If you also want to select this environment by name in JupyterLab or an editor, run:
+
+```bash
+python -m ipykernel install --user --name cdi-data-science-foundations --display-name "CDI Data Science Foundations"
+```
+
+This step registers a kernel; it does not create another environment.
 
 ---
 
-## Sanity check
+## Keep `.venv` Out of Version Control
 
-Open the generated site.
+The project's `.gitignore` should include:
 
-### macOS
-
-```bash
-open docs/index.html
+```gitignore
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
 ```
 
-### Linux
-
-```bash
-xdg-open docs/index.html
-```
-
-### Windows
-
-```powershell
-start docs/index.html
-```
-
-If the site loads and navigation works, your environment is correctly configured.
+If you use Git, commit `requirements.txt` because it documents how to recreate the environment. Do not commit `.venv/` because it is large, machine-specific, and reproducible from the requirements file.
 
 ---
 
-## Development mode
+## Start Working
 
-You can also preview the book while editing:
+With `.venv` active, start JupyterLab:
+
+```bash
+jupyter lab
+```
+
+JupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the `notebooks/` folder and follow the examples in the online guide.
+
+Stop JupyterLab by returning to the terminal and pressing:
+
+```text
+Ctrl+C
+```
+
+---
+
+## Optional: Use the Prepared Guide Project
+
+You do not need the public repository to follow the online guide. If you prefer to work with CDI's prepared project files, you can open the guide's public GitHub repository and either:
+
+- select **Code → Download ZIP**, extract the archive, and open the extracted folder; or
+- clone the repository with Git.
+
+The prepared project may include the guide source, example data, supporting scripts, `requirements.txt`, and Quarto configuration. Create a separate `.venv` inside that downloaded or cloned project and install its supplied requirements before running it.
+
+---
+
+## Optional: Preview or Render the Guide
+
+The local project you created in this chapter is designed for running the analysis examples; it does not contain the source files for rebuilding the complete CDI website.
+
+If you downloaded or cloned the prepared guide repository and want to view the complete guide locally, activate that project's `.venv`, then run:
 
 ```bash
 quarto preview
 ```
 
-This launches a local live preview that reloads when files change.
+Stop the preview with `Ctrl+C`.
+
+To build the complete guide from its source:
+
+```bash
+quarto render
+```
+
+:::cdi-message
+Previewing or rendering the complete guide is optional. It requires the prepared guide source from the public repository. It is not required for following the online chapters or running their analyses.
+:::
+
+---
+
+## Return to the Project Later
+
+You create `.venv` and install the requirements only once unless the environment is removed or the requirements change.
+
+When returning to the project:
+
+1. Open a terminal in the project root.
+2. Activate `.venv`.
+3. Run `jupyter lab` or open the project in your preferred editor.
+
+When you finish working, deactivate the environment:
+
+```bash
+deactivate
+```
+
+Deactivation does not delete the environment or its packages.
+
+If `requirements.txt` changes, reactivate `.venv` and run:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+---
+
+## Optional CDI Helper Scripts
+
+If you use the prepared repository and it includes CDI helper scripts, they may automate the same transparent steps described above.
+
+For example:
+
+```bash
+bash scripts/bash/setup-env.sh
+```
+
+may create `.venv`, upgrade `pip`, and install `requirements.txt`, while:
+
+```bash
+bash scripts/bash/build.sh
+```
+
+may run `quarto render`.
+
+The direct commands remain the canonical workflow because they work without custom scripts and make each setup step visible. Before using a helper script, review it and confirm that it matches the documented workflow.
+
+---
+
+## Troubleshooting
+
+### The terminal cannot find Python
+
+Close and reopen the terminal after installation. On Windows, try `py --version`. On macOS or Linux, try `python3 --version`.
+
+### The environment does not activate
+
+Confirm that you created `.venv` in the current project root and used the activation command for your operating system and shell.
+
+### Packages install outside `.venv`
+
+Activate `.venv`, verify the Python path, and use:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Jupyter cannot find a package
+
+Activate `.venv` in the same terminal, then run:
+
+```bash
+python -m jupyter --version
+python -m pip check
+```
+
+If the problem continues, reinstall the requirements while `.venv` is active.
+
+### Quarto cannot find Jupyter or a package
+
+This issue applies when previewing or rendering the prepared guide source. Activate that project's `.venv`, then run:
+
+```bash
+python -m jupyter --version
+quarto check
+quarto render
+```
+
+### A Quarto render uses cached results
+
+The prepared guide project may use Quarto's `freeze` option to avoid unnecessary re-execution. When you intentionally need to recompute all executable content, run:
+
+```bash
+quarto render --cache-refresh
+```
+
+Use a full refresh deliberately because it may take longer than an ordinary render.
 
 ---
 
 ## CDI Insight
 
-Environment setup is the **first step in reproducibility**.
+Reproducibility begins before data is loaded.
 
-Before analyzing data, you must ensure:
+A reproducible environment makes it possible to answer:
 
-- your tools are consistent
-- your dependencies are documented
-- your environment can be recreated
-- your workflow is repeatable
+- Which Python version was supported?
+- Which direct packages did the project require?
+- Were those packages isolated from other projects?
+- Can another learner recreate the environment?
+- Can the analysis be run again in a recreated environment?
 
-This is what allows your results to be trusted.
+The combination of a documented Python version, a maintained `requirements.txt`, a local `.venv`, and an organized project structure provides a clear foundation for those answers.
+
+---
+
+## Completion Check
+
+Before continuing, confirm that you can:
+
+- run `python --version` and see Python 3.12
+- confirm that the Python path points inside `.venv`
+- import the guide's main packages
+- run `python -m pip check` without dependency errors
+- run `python -m jupyter --version`
+- start JupyterLab from the active environment
+- explain why `requirements.txt` may be committed but `.venv/` should not be
+
+If you are using the prepared guide source, also confirm that you can run `quarto check` and preview or render the guide.
 
 ---
 
 ## Summary
 
-In this lesson, you prepared the project environment.
+In this chapter, you:
 
-You now have:
+- installed or verified Python and Quarto
+- created an organized local project
+- created the guide's dependency specification
+- created and activated a project-specific virtual environment
+- installed packages from `requirements.txt`
+- checked the installed dependencies for conflicts
+- verified Python, Jupyter, and Quarto
+- started a local Jupyter working session
+- learned when the optional public repository is useful
+- learned how to reactivate the environment later
 
-- Python and Quarto available
-- a manually prepared `requirements.txt` file
-- a reproducible `.venv` environment
-- required Python packages installed
-- a working Quarto book build
-
-You are now ready to begin the data workflow.
+You now have a documented and reproducible foundation for the data workflow.
 
 ---
 
 ## Looking Ahead
 
-In the next chapter, we load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.
+In the next chapter, you will load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.

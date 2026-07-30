@@ -3,210 +3,209 @@
 :::cdi-message
 - **ID:** DS-000
 - **Type:** Preface
-- **Audience:** Beginner to Intermediate
-- **Theme:** From tidy data to reusable analytical thinking
+- **Audience:** Beginner-friendly
+- **Theme:** From structured data to defensible insight
 :::
 
-## System Role
+## About This Guide
 
-The **CDI Data Science Foundations System** is a reusable parent system for tidy-table analysis across CDI pathways.
+The **CDI Data Science Foundations System** introduces a reusable Python workflow for working with structured tabular data.
 
-It provides a Python-based workflow for inspecting, cleaning, wrangling, visualizing, summarizing, and interpreting tidy, analysis-ready tables.
+The guide begins with data organized into rows and columns. The data may still contain missing values, inconsistent entries, unsuitable data types, or other issues that must be understood and addressed before analysis.
 
-Any CDI pathway that produces structured tables can reuse this system, including:
-
-- Omics result tables
-- Clinical and medical cohort tables
-- AI evaluation tables
-- Decision-support tables
+You will learn to move through a complete foundational workflow:
 
 ```text
-Tidy analysis-ready table
-        ↓
-Data Science Foundations System
-        ↓
-inspection, cleaning, wrangling, visualization, summary, interpretation
+load → inspect → clean → wrangle → visualize → summarize → interpret → communicate
 ```
 
-## Why This System Exists
-
-The **Data Science Foundations System** exists to provide a reusable analytical foundation for the wider Complex Data Insights ecosystem.
-
-Across CDI pathways, the raw data may look very different:
-
-- sequencing files in omics
-- abundance tables in microbiome analysis
-- protein result tables in proteomics
-- cohort tables in clinical and medical data
-- evaluation tables in AI and decision systems
-
-But once pathway-specific processing is complete, many workflows converge into the same starting point:
-
-> a tidy, analysis-ready table.
-
-This system begins at that point.
-
-It teaches the reusable skills needed to inspect, clean, transform, visualize, summarize, and interpret structured data tables.
-
-The goal is not only to learn Python.
-
-The goal is to develop a repeatable way of thinking about data so that the same foundations can be reused across CDI pathways.
+The aim is not simply to learn individual Python commands. It is to develop a repeatable way of approaching data: understand the question, examine the evidence, make documented analytical choices, and communicate conclusions without overstating what the data can support.
 
 ---
 
-## The Role of Data Science Foundations in CDI
+## Who This Guide Is For
 
-Within the CDI architecture, this system acts as the shared parent layer for table-based analysis.
+This guide is designed for:
 
-```text
-CDI pathway-specific processing
-        ↓
-Tidy, analysis-ready tables
-        ↓
-Data Science Foundations System
-        ↓
-Analysis, visualization, summary, and interpretation
-```
+- learners beginning data analysis with Python
+- researchers moving from spreadsheets or manual workflows into reproducible analysis
+- learners who know some Python but need a coherent analytical workflow
+- professionals who want to strengthen their approach to data inspection, cleaning, visualization, and interpretation
+- CDI learners preparing for domain-specific guides or structured Practicals
 
-For example:
+The chapters are beginner-friendly, but the habits they develop remain useful in more advanced analytical work.
 
-```text
-RNA-Seq differential expression table
-        ↓
-Data Science Foundations System
+---
 
-Microbiome diversity or abundance table
-        ↓
-Data Science Foundations System
+## What You Need Before Starting
 
-Proteomics differential protein table
-        ↓
-Data Science Foundations System
+You do not need prior experience in machine learning.
 
-Clinical cohort table
-        ↓
-Data Science Foundations System
+Basic familiarity with computers, files, and folders will be helpful. You should also be willing to run and adapt Python code as you work through the examples.
 
-AI evaluation table
-        ↓
-Data Science Foundations System
-```
+You do not need an existing Python environment. Chapter 01 guides you through installing the required tools, creating a project-specific virtual environment, and installing the guide’s dependencies.
 
-This makes the system reusable across domains.
-
-It does not replace domain-specific systems. Instead, it supports them once they produce structured tables that are ready for analysis.
+No domain-specific background in omics, clinical research, or Artificial Intelligence is required. The guide focuses on general table-based analysis.
 
 ---
 
 ## What You Will Learn
 
-This system introduces a practical workflow for working with tidy data in Python.
-
 You will learn how to:
 
-- set up a basic Python analysis environment
-- load and inspect datasets
-- understand rows, columns, variables, and values
-- identify missing values and inconsistent data
-- clean and prepare data for analysis
-- filter, select, group, and summarize data
-- create basic visualizations
-- interpret patterns carefully
-- communicate findings clearly
-- understand how analysis connects to later modeling workflows
+- set up a suitable Python analysis environment
+- load structured datasets and inspect their contents
+- understand observations, variables, values, and data types
+- identify missing, inconsistent, duplicated, or implausible data
+- clean and prepare data while documenting important decisions
+- select, filter, sort, group, reshape, and summarize data
+- create clear foundational visualizations
+- use summary statistics to describe patterns in the data
+- distinguish observations from interpretations
+- communicate findings, uncertainty, and limitations clearly
+- recognize when a question may require modeling rather than descriptive analysis alone
 
-The focus is on building confidence with the core operations that appear repeatedly in real analytical work.
-
----
-
-## What This System Does Not Cover
-
-This is a foundations system, so it intentionally avoids going too deep into advanced modeling or production workflows.
-
-It does not focus on:
-
-- advanced machine learning
-- model deployment
-- APIs
-- monitoring and drift
-- deep learning
-- production software engineering
-
-Those topics belong in the **Applied Data Science System** and later CDI AI and decision systems.
-
-Here, the priority is to build the reusable base: tidy data, inspection, cleaning, transformation, visualization, summary, and interpretation.
+These skills form the foundation for more specialized data science and domain-specific workflows.
 
 ---
 
-## How This Guide Is Structured
+## The Foundations Workflow
 
-Each chapter follows a practical pattern:
-
-1. **Concept**  
-   What the chapter is about and why it matters.
-
-2. **Workflow**  
-   The steps used to work through the data.
-
-3. **Code**  
-   A practical Python implementation.
-
-4. **Interpretation**  
-   What the output means.
-
-5. **Summary**  
-   The key ideas to retain.
-
-This structure is intentional.
-
-Data science is not only about writing code. It is about knowing what the code is doing, why it matters, and how to interpret the result responsibly.
-
----
-
-## How to Approach This System
-
-Work through the chapters in order if you are new to structured data analysis.
-
-If you already have experience, you can use the system as a reference for CDI-style table-based workflows.
-
-As you work through the guide, focus on three habits:
-
-- inspect the data before analyzing it
-- document the choices you make
-- interpret outputs in the context of the original question
-
-These habits are simple, but they are central to reliable data work.
-
----
-
-## The CDI Foundations Workflow
-
-The core workflow in this system is:
+The guide follows a question-led analytical process:
 
 ```{mermaid}
 flowchart TB
-  A[Question or Objective] --> B[Load Data]
-  B --> C[Inspect Structure]
-  C --> D[Clean & Prepare]
-  D --> E[Wrangle & Transform]
+  A[Define the Question] --> B[Load the Data]
+  B --> C[Inspect the Structure]
+  C --> D[Clean and Prepare]
+  D --> E[Wrangle and Transform]
   E --> F[Visualize Patterns]
   F --> G[Summarize Results]
   G --> H[Interpret Findings]
   H --> I[Communicate Clearly]
 ```
 
-This workflow is intentionally simple.
+Although the chapters present these stages in a clear sequence, real analysis is often iterative. A visualization may reveal a data-quality issue, a summary may lead to a revised question, or an interpretation may require you to revisit an earlier decision.
 
-It is the foundation that later supports more advanced work such as modeling, evaluation, decision-making, and domain-specific interpretation.
+The workflow therefore provides structure without implying that analysis always proceeds in a perfectly straight line.
+
+---
+
+## What You Will Be Able to Produce
+
+By the end of the guide, you should be able to produce:
+
+- an inspected and documented dataset
+- a cleaned, analysis-ready table
+- a record of important data-quality and preparation decisions
+- reproducible data transformations
+- appropriate exploratory figures
+- clear summary tables and statistics
+- a concise, evidence-based interpretation
+- a reproducible analytical record that another person can review
+
+The emphasis is on outputs that are understandable, traceable, and appropriate for the question being addressed.
+
+---
+
+## How This Guide Is Structured
+
+The guide develops the workflow in stages:
+
+1. **System orientation and environment**  
+   Understand the purpose of the guide and prepare the tools used throughout it.
+
+2. **Data inspection and preparation**  
+   Load a dataset, examine its structure and quality, and prepare it for analysis.
+
+3. **Data transformation and analysis**  
+   Wrangle data, create foundational visualizations, calculate summaries, and interpret patterns.
+
+4. **From analysis to modeling**  
+   Recognize when descriptive analysis is sufficient and when a modeling workflow may be appropriate.
+
+5. **Complete workflow and reference material**  
+   Bring the stages together and use the appendices as a continuing reference.
+
+Within individual chapters, explanations, code, outputs, and interpretation are presented together. This reflects the central principle of the guide: reliable data science requires more than code alone.
+
+---
+
+## What This Guide Does Not Cover
+
+This is a foundations guide. It introduces the transition from analysis to modeling but does not attempt to provide comprehensive coverage of:
+
+- advanced machine learning
+- deep learning
+- model deployment
+- APIs and production services
+- model monitoring and drift
+- production software engineering
+
+Model building, evaluation, and interpretation are developed in later CDI guides. Deployment, monitoring, deep learning, and production engineering remain outside the scope of this foundations system.
+
+Keeping these boundaries clear allows this guide to concentrate on the analytical skills that should come first: inspection, cleaning, transformation, visualization, summary, interpretation, and communication.
+
+---
+
+## How This Guide Fits Within CDI
+
+Different CDI domains work with different forms of data. Once those data are organized into structured tables, many of the same foundational practices become useful.
+
+Examples include:
+
+- differential expression results in Omics & Bioinformatics
+- cohort or outcome tables in Clinical & Medical Data
+- model-evaluation tables in Artificial Intelligence
+- project, survey, or evidence tables in Research & Innovation
+
+This guide does not replace domain-specific knowledge or workflows. It provides general analytical foundations that can be reused where table-based analysis is appropriate.
+
+CDI approaches Artificial Intelligence as a human-directed tool: it can support analysis, reasoning, creativity, and decision-making, while people remain responsible for judgment, verification, and outcomes.
+
+---
+
+## From Open Guide to Practicals
+
+This open guide teaches concepts, reasoning, and reusable workflow patterns. **CDI Practicals** provide bounded exercises in which you apply those skills to a defined task and produce evidence of what you can do.
+
+The closest Practical connections are:
+
+- **Data Cleaning and Validation Practical** — applies data inspection, cleaning, validation, and documentation
+- **Exploratory Data Analysis Practical** — applies structured exploration, visualization, summary, and interpretation
+- **Data Visualization Practical** — develops the selection, construction, and communication of appropriate figures
+- **Intro to Machine Learning Practical** — continues the transition introduced in Chapter 07
+
+The guide and Practicals serve different purposes. The guide helps you understand the workflow; a Practical asks you to carry it out and produce a concrete result.
+
+---
+
+## How to Use This Guide
+
+If you are new to structured data analysis, work through the chapters in order and run the code as you go. Do not focus only on obtaining the same output. Ask what each step does, why it is needed, and how the result affects the next decision.
+
+If you already have experience, you can use individual chapters as references while retaining the overall workflow.
+
+Throughout the guide, build these habits:
+
+- inspect data before analyzing it
+- keep the question visible throughout the workflow
+- document cleaning and transformation decisions
+- choose methods that match the data and purpose
+- separate what the data show from what you infer
+- communicate uncertainty and limitations
+- keep analysis reproducible and reviewable
+
+These habits are simple, but they are central to defensible analytical work.
 
 ---
 
 ## Looking Ahead
 
-By the end of this system, you should be able to take a tidy, analysis-ready table and move through a complete foundational workflow:
+By the end of this system, you should be able to take a structured tabular dataset and develop it into a documented, analysis-ready table and a clear analytical summary.
 
-```text
-load → inspect → clean → wrangle → visualize → summarize → interpret → communicate
-```
+You will also be prepared to decide what should happen next: conclude with a descriptive finding, apply the workflow in a CDI Practical, continue into a domain-specific guide, or begin a carefully framed modeling task.
 
-That workflow becomes a reusable base for the rest of the CDI ecosystem.
+The methods will continue to evolve as your work becomes more specialized. The underlying discipline remains the same:
+
+> understand the question, inspect the evidence, document the process, and make claims the analysis can support.

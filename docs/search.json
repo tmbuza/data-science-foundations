@@ -14,40 +14,40 @@
     "href": "00-preface.html",
     "title": "Preface",
     "section": "",
-    "text": "System Role\nThe CDI Data Science Foundations System is a reusable parent system for tidy-table analysis across CDI pathways.\nIt provides a Python-based workflow for inspecting, cleaning, wrangling, visualizing, summarizing, and interpreting tidy, analysis-ready tables.\nAny CDI pathway that produces structured tables can reuse this system, including:",
+    "text": "About This Guide\nThe CDI Data Science Foundations System introduces a reusable Python workflow for working with structured tabular data.\nThe guide begins with data organized into rows and columns. The data may still contain missing values, inconsistent entries, unsuitable data types, or other issues that must be understood and addressed before analysis.\nYou will learn to move through a complete foundational workflow:\nThe aim is not simply to learn individual Python commands. It is to develop a repeatable way of approaching data: understand the question, examine the evidence, make documented analytical choices, and communicate conclusions without overstating what the data can support.",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#system-role",
-    "href": "00-preface.html#system-role",
+    "objectID": "00-preface.html#about-this-guide",
+    "href": "00-preface.html#about-this-guide",
     "title": "Preface",
     "section": "",
-    "text": "Omics result tables\nClinical and medical cohort tables\nAI evaluation tables\nDecision-support tables\n\nTidy analysis-ready table\n        ↓\nData Science Foundations System\n        ↓\ninspection, cleaning, wrangling, visualization, summary, interpretation",
+    "text": "load → inspect → clean → wrangle → visualize → summarize → interpret → communicate",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#why-this-system-exists",
-    "href": "00-preface.html#why-this-system-exists",
+    "objectID": "00-preface.html#who-this-guide-is-for",
+    "href": "00-preface.html#who-this-guide-is-for",
     "title": "Preface",
-    "section": "Why This System Exists",
-    "text": "Why This System Exists\nThe Data Science Foundations System exists to provide a reusable analytical foundation for the wider Complex Data Insights ecosystem.\nAcross CDI pathways, the raw data may look very different:\n\nsequencing files in omics\nabundance tables in microbiome analysis\nprotein result tables in proteomics\ncohort tables in clinical and medical data\nevaluation tables in AI and decision systems\n\nBut once pathway-specific processing is complete, many workflows converge into the same starting point:\n\na tidy, analysis-ready table.\n\nThis system begins at that point.\nIt teaches the reusable skills needed to inspect, clean, transform, visualize, summarize, and interpret structured data tables.\nThe goal is not only to learn Python.\nThe goal is to develop a repeatable way of thinking about data so that the same foundations can be reused across CDI pathways.",
+    "section": "Who This Guide Is For",
+    "text": "Who This Guide Is For\nThis guide is designed for:\n\nlearners beginning data analysis with Python\nresearchers moving from spreadsheets or manual workflows into reproducible analysis\nlearners who know some Python but need a coherent analytical workflow\nprofessionals who want to strengthen their approach to data inspection, cleaning, visualization, and interpretation\nCDI learners preparing for domain-specific guides or structured Practicals\n\nThe chapters are beginner-friendly, but the habits they develop remain useful in more advanced analytical work.",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#the-role-of-data-science-foundations-in-cdi",
-    "href": "00-preface.html#the-role-of-data-science-foundations-in-cdi",
+    "objectID": "00-preface.html#what-you-need-before-starting",
+    "href": "00-preface.html#what-you-need-before-starting",
     "title": "Preface",
-    "section": "The Role of Data Science Foundations in CDI",
-    "text": "The Role of Data Science Foundations in CDI\nWithin the CDI architecture, this system acts as the shared parent layer for table-based analysis.\nCDI pathway-specific processing\n        ↓\nTidy, analysis-ready tables\n        ↓\nData Science Foundations System\n        ↓\nAnalysis, visualization, summary, and interpretation\nFor example:\nRNA-Seq differential expression table\n        ↓\nData Science Foundations System\n\nMicrobiome diversity or abundance table\n        ↓\nData Science Foundations System\n\nProteomics differential protein table\n        ↓\nData Science Foundations System\n\nClinical cohort table\n        ↓\nData Science Foundations System\n\nAI evaluation table\n        ↓\nData Science Foundations System\nThis makes the system reusable across domains.\nIt does not replace domain-specific systems. Instead, it supports them once they produce structured tables that are ready for analysis.",
+    "section": "What You Need Before Starting",
+    "text": "What You Need Before Starting\nYou do not need prior experience in machine learning.\nBasic familiarity with computers, files, and folders will be helpful. You should also be willing to run and adapt Python code as you work through the examples.\nYou do not need an existing Python environment. Chapter 01 guides you through installing the required tools, creating a project-specific virtual environment, and installing the guide’s dependencies.\nNo domain-specific background in omics, clinical research, or Artificial Intelligence is required. The guide focuses on general table-based analysis.",
     "crumbs": [
       "System Orientation",
       "Preface"
@@ -58,18 +58,29 @@
     "href": "00-preface.html#what-you-will-learn",
     "title": "Preface",
     "section": "What You Will Learn",
-    "text": "What You Will Learn\nThis system introduces a practical workflow for working with tidy data in Python.\nYou will learn how to:\n\nset up a basic Python analysis environment\nload and inspect datasets\nunderstand rows, columns, variables, and values\nidentify missing values and inconsistent data\nclean and prepare data for analysis\nfilter, select, group, and summarize data\ncreate basic visualizations\ninterpret patterns carefully\ncommunicate findings clearly\nunderstand how analysis connects to later modeling workflows\n\nThe focus is on building confidence with the core operations that appear repeatedly in real analytical work.",
+    "text": "What You Will Learn\nYou will learn how to:\n\nset up a suitable Python analysis environment\nload structured datasets and inspect their contents\nunderstand observations, variables, values, and data types\nidentify missing, inconsistent, duplicated, or implausible data\nclean and prepare data while documenting important decisions\nselect, filter, sort, group, reshape, and summarize data\ncreate clear foundational visualizations\nuse summary statistics to describe patterns in the data\ndistinguish observations from interpretations\ncommunicate findings, uncertainty, and limitations clearly\nrecognize when a question may require modeling rather than descriptive analysis alone\n\nThese skills form the foundation for more specialized data science and domain-specific workflows.",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#what-this-system-does-not-cover",
-    "href": "00-preface.html#what-this-system-does-not-cover",
+    "objectID": "00-preface.html#the-foundations-workflow",
+    "href": "00-preface.html#the-foundations-workflow",
     "title": "Preface",
-    "section": "What This System Does Not Cover",
-    "text": "What This System Does Not Cover\nThis is a foundations system, so it intentionally avoids going too deep into advanced modeling or production workflows.\nIt does not focus on:\n\nadvanced machine learning\nmodel deployment\nAPIs\nmonitoring and drift\ndeep learning\nproduction software engineering\n\nThose topics belong in the Applied Data Science System and later CDI AI and decision systems.\nHere, the priority is to build the reusable base: tidy data, inspection, cleaning, transformation, visualization, summary, and interpretation.",
+    "section": "The Foundations Workflow",
+    "text": "The Foundations Workflow\nThe guide follows a question-led analytical process:\n\n\nCode\nflowchart TB\n  A[Define the Question] --&gt; B[Load the Data]\n  B --&gt; C[Inspect the Structure]\n  C --&gt; D[Clean and Prepare]\n  D --&gt; E[Wrangle and Transform]\n  E --&gt; F[Visualize Patterns]\n  F --&gt; G[Summarize Results]\n  G --&gt; H[Interpret Findings]\n  H --&gt; I[Communicate Clearly]\n\n\n\n\n\nflowchart TB\n  A[Define the Question] --&gt; B[Load the Data]\n  B --&gt; C[Inspect the Structure]\n  C --&gt; D[Clean and Prepare]\n  D --&gt; E[Wrangle and Transform]\n  E --&gt; F[Visualize Patterns]\n  F --&gt; G[Summarize Results]\n  G --&gt; H[Interpret Findings]\n  H --&gt; I[Communicate Clearly]\n\n\n\n\n\n\nAlthough the chapters present these stages in a clear sequence, real analysis is often iterative. A visualization may reveal a data-quality issue, a summary may lead to a revised question, or an interpretation may require you to revisit an earlier decision.\nThe workflow therefore provides structure without implying that analysis always proceeds in a perfectly straight line.",
+    "crumbs": [
+      "System Orientation",
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "00-preface.html#what-you-will-be-able-to-produce",
+    "href": "00-preface.html#what-you-will-be-able-to-produce",
+    "title": "Preface",
+    "section": "What You Will Be Able to Produce",
+    "text": "What You Will Be Able to Produce\nBy the end of the guide, you should be able to produce:\n\nan inspected and documented dataset\na cleaned, analysis-ready table\na record of important data-quality and preparation decisions\nreproducible data transformations\nappropriate exploratory figures\nclear summary tables and statistics\na concise, evidence-based interpretation\na reproducible analytical record that another person can review\n\nThe emphasis is on outputs that are understandable, traceable, and appropriate for the question being addressed.",
     "crumbs": [
       "System Orientation",
       "Preface"
@@ -80,29 +91,51 @@
     "href": "00-preface.html#how-this-guide-is-structured",
     "title": "Preface",
     "section": "How This Guide Is Structured",
-    "text": "How This Guide Is Structured\nEach chapter follows a practical pattern:\n\nConcept\nWhat the chapter is about and why it matters.\nWorkflow\nThe steps used to work through the data.\nCode\nA practical Python implementation.\nInterpretation\nWhat the output means.\nSummary\nThe key ideas to retain.\n\nThis structure is intentional.\nData science is not only about writing code. It is about knowing what the code is doing, why it matters, and how to interpret the result responsibly.",
+    "text": "How This Guide Is Structured\nThe guide develops the workflow in stages:\n\nSystem orientation and environment\nUnderstand the purpose of the guide and prepare the tools used throughout it.\nData inspection and preparation\nLoad a dataset, examine its structure and quality, and prepare it for analysis.\nData transformation and analysis\nWrangle data, create foundational visualizations, calculate summaries, and interpret patterns.\nFrom analysis to modeling\nRecognize when descriptive analysis is sufficient and when a modeling workflow may be appropriate.\nComplete workflow and reference material\nBring the stages together and use the appendices as a continuing reference.\n\nWithin individual chapters, explanations, code, outputs, and interpretation are presented together. This reflects the central principle of the guide: reliable data science requires more than code alone.",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#how-to-approach-this-system",
-    "href": "00-preface.html#how-to-approach-this-system",
+    "objectID": "00-preface.html#what-this-guide-does-not-cover",
+    "href": "00-preface.html#what-this-guide-does-not-cover",
     "title": "Preface",
-    "section": "How to Approach This System",
-    "text": "How to Approach This System\nWork through the chapters in order if you are new to structured data analysis.\nIf you already have experience, you can use the system as a reference for CDI-style table-based workflows.\nAs you work through the guide, focus on three habits:\n\ninspect the data before analyzing it\ndocument the choices you make\ninterpret outputs in the context of the original question\n\nThese habits are simple, but they are central to reliable data work.",
+    "section": "What This Guide Does Not Cover",
+    "text": "What This Guide Does Not Cover\nThis is a foundations guide. It introduces the transition from analysis to modeling but does not attempt to provide comprehensive coverage of:\n\nadvanced machine learning\ndeep learning\nmodel deployment\nAPIs and production services\nmodel monitoring and drift\nproduction software engineering\n\nModel building, evaluation, and interpretation are developed in later CDI guides. Deployment, monitoring, deep learning, and production engineering remain outside the scope of this foundations system.\nKeeping these boundaries clear allows this guide to concentrate on the analytical skills that should come first: inspection, cleaning, transformation, visualization, summary, interpretation, and communication.",
     "crumbs": [
       "System Orientation",
       "Preface"
     ]
   },
   {
-    "objectID": "00-preface.html#the-cdi-foundations-workflow",
-    "href": "00-preface.html#the-cdi-foundations-workflow",
+    "objectID": "00-preface.html#how-this-guide-fits-within-cdi",
+    "href": "00-preface.html#how-this-guide-fits-within-cdi",
     "title": "Preface",
-    "section": "The CDI Foundations Workflow",
-    "text": "The CDI Foundations Workflow\nThe core workflow in this system is:\n\n\nCode\nflowchart TB\n  A[Question or Objective] --&gt; B[Load Data]\n  B --&gt; C[Inspect Structure]\n  C --&gt; D[Clean & Prepare]\n  D --&gt; E[Wrangle & Transform]\n  E --&gt; F[Visualize Patterns]\n  F --&gt; G[Summarize Results]\n  G --&gt; H[Interpret Findings]\n  H --&gt; I[Communicate Clearly]\n\n\n\n\n\nflowchart TB\n  A[Question or Objective] --&gt; B[Load Data]\n  B --&gt; C[Inspect Structure]\n  C --&gt; D[Clean & Prepare]\n  D --&gt; E[Wrangle & Transform]\n  E --&gt; F[Visualize Patterns]\n  F --&gt; G[Summarize Results]\n  G --&gt; H[Interpret Findings]\n  H --&gt; I[Communicate Clearly]\n\n\n\n\n\n\nThis workflow is intentionally simple.\nIt is the foundation that later supports more advanced work such as modeling, evaluation, decision-making, and domain-specific interpretation.",
+    "section": "How This Guide Fits Within CDI",
+    "text": "How This Guide Fits Within CDI\nDifferent CDI domains work with different forms of data. Once those data are organized into structured tables, many of the same foundational practices become useful.\nExamples include:\n\ndifferential expression results in Omics & Bioinformatics\ncohort or outcome tables in Clinical & Medical Data\nmodel-evaluation tables in Artificial Intelligence\nproject, survey, or evidence tables in Research & Innovation\n\nThis guide does not replace domain-specific knowledge or workflows. It provides general analytical foundations that can be reused where table-based analysis is appropriate.\nCDI approaches Artificial Intelligence as a human-directed tool: it can support analysis, reasoning, creativity, and decision-making, while people remain responsible for judgment, verification, and outcomes.",
+    "crumbs": [
+      "System Orientation",
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "00-preface.html#from-open-guide-to-practicals",
+    "href": "00-preface.html#from-open-guide-to-practicals",
+    "title": "Preface",
+    "section": "From Open Guide to Practicals",
+    "text": "From Open Guide to Practicals\nThis open guide teaches concepts, reasoning, and reusable workflow patterns. CDI Practicals provide bounded exercises in which you apply those skills to a defined task and produce evidence of what you can do.\nThe closest Practical connections are:\n\nData Cleaning and Validation Practical — applies data inspection, cleaning, validation, and documentation\nExploratory Data Analysis Practical — applies structured exploration, visualization, summary, and interpretation\nData Visualization Practical — develops the selection, construction, and communication of appropriate figures\nIntro to Machine Learning Practical — continues the transition introduced in Chapter 07\n\nThe guide and Practicals serve different purposes. The guide helps you understand the workflow; a Practical asks you to carry it out and produce a concrete result.",
+    "crumbs": [
+      "System Orientation",
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "00-preface.html#how-to-use-this-guide",
+    "href": "00-preface.html#how-to-use-this-guide",
+    "title": "Preface",
+    "section": "How to Use This Guide",
+    "text": "How to Use This Guide\nIf you are new to structured data analysis, work through the chapters in order and run the code as you go. Do not focus only on obtaining the same output. Ask what each step does, why it is needed, and how the result affects the next decision.\nIf you already have experience, you can use individual chapters as references while retaining the overall workflow.\nThroughout the guide, build these habits:\n\ninspect data before analyzing it\nkeep the question visible throughout the workflow\ndocument cleaning and transformation decisions\nchoose methods that match the data and purpose\nseparate what the data show from what you infer\ncommunicate uncertainty and limitations\nkeep analysis reproducible and reviewable\n\nThese habits are simple, but they are central to defensible analytical work.",
     "crumbs": [
       "System Orientation",
       "Preface"
@@ -113,7 +146,7 @@
     "href": "00-preface.html#looking-ahead",
     "title": "Preface",
     "section": "Looking Ahead",
-    "text": "Looking Ahead\nBy the end of this system, you should be able to take a tidy, analysis-ready table and move through a complete foundational workflow:\nload → inspect → clean → wrangle → visualize → summarize → interpret → communicate\nThat workflow becomes a reusable base for the rest of the CDI ecosystem.",
+    "text": "Looking Ahead\nBy the end of this system, you should be able to take a structured tabular dataset and develop it into a documented, analysis-ready table and a clear analytical summary.\nYou will also be prepared to decide what should happen next: conclude with a descriptive finding, apply the workflow in a CDI Practical, continue into a domain-specific guide, or begin a carefully framed modeling task.\nThe methods will continue to evolve as your work becomes more specialized. The underlying discipline remains the same:\n\nunderstand the question, inspect the evidence, document the process, and make claims the analysis can support.",
     "crumbs": [
       "System Orientation",
       "Preface"
@@ -124,117 +157,194 @@
     "href": "01-setting-up-environment.html",
     "title": "Setting Up Your Environment",
     "section": "",
-    "text": "What you are setting up\nThis guide is Python-first and Quarto-first.\nIn CDI, environment setup is not a technical formality — it is part of the analytical process.\nIf your environment is inconsistent, your results can be:\nYou will write code inside Quarto chapter files (.qmd), but the setup commands in this lesson are shown as examples for users to run manually in the terminal.\nBy the end of this lesson you will have:",
+    "text": "What You Will Set Up\nThis guide is Python-first and Quarto-first. Python provides the tools for working with data, while Quarto combines code, results, explanations, and references in a reproducible document.\nEnvironment setup is part of the analytical workflow. A project that records its software requirements and keeps them separate from other projects is easier to run, review, share, and reproduce.\nIn this chapter, you will create a local project folder, add a simple folder structure, create a project-specific Python virtual environment named .venv, record the guide’s dependencies in requirements.txt, and install them.\nBy the end of this chapter, you will have:\nYou can follow this guide and run its analyses without cloning or downloading the guide repository. This chapter shows you how to build the required local project from scratch.\nThe public GitHub repository remains available as an optional convenience for learners who want the prepared guide source, example files, and complete project structure.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#what-you-are-setting-up",
-    "href": "01-setting-up-environment.html#what-you-are-setting-up",
+    "objectID": "01-setting-up-environment.html#what-you-will-set-up",
+    "href": "01-setting-up-environment.html#what-you-will-set-up",
     "title": "Setting Up Your Environment",
     "section": "",
-    "text": "Python installed and accessible from the terminal\nQuarto installed and working\na manually prepared requirements.txt file\na project virtual environment (.venv)\nrequired packages installed\na working build pipeline that renders into docs/",
+    "text": "Python 3.12 installed and accessible from a terminal\nQuarto installed and working\na local data-science-foundations project folder\nfolders for data, notebooks, and reports\na project-specific virtual environment named .venv\na requirements.txt file containing the guide’s direct dependencies\nthe guide’s Python dependencies installed in .venv\na verified connection between Python, Jupyter, and Quarto\na working environment for running the guide’s examples\nan optional local preview and book-rendering workflow\n\n\nYou do not need an existing Python environment. Follow the steps in order and use the instructions for your operating system.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#required-software",
-    "href": "01-setting-up-environment.html#required-software",
+    "objectID": "01-setting-up-environment.html#understand-the-local-project",
+    "href": "01-setting-up-environment.html#understand-the-local-project",
     "title": "Setting Up Your Environment",
-    "section": "Required software",
-    "text": "Required software\n\nPython (3.10 or newer)\nCheck if Python is available:\npython3 --version\nIf this fails, install Python:\n\nmacOS: brew install python\nWindows: Install from python.org and enable “Add to PATH”\nLinux: Use your package manager, such as apt, dnf, or pacman\n\n\n\n\nQuarto\nQuarto renders the book and executes code.\nCheck installation:\nquarto --version\nIf Quarto is missing, install it.\nOn macOS with Homebrew:\nbrew install --cask quarto\nAfter installation, confirm that Quarto is available:\nquarto --version\nWindows and Linux users can install Quarto from the official Quarto website, then rerun the version check.\n\nQuarto should be installed before rendering the book.\nThe Python environment controls the analysis packages, while Quarto controls document rendering.",
+    "section": "Understand the Local Project",
+    "text": "Understand the Local Project\nThe project uses two related components:\nrequirements.txt\n        ↓\npython -m pip install -r requirements.txt\n        ↓\n.venv/\nrequirements.txt is a small text file that you will create in the project root. It records the direct Python packages and compatible version ranges used by the guide.\n.venv is the local environment created on your computer. It contains the installed packages for this project and keeps them separate from packages used by other projects.\nIf the project is placed under version control, it should include requirements.txt but should not include .venv/. The environment can be recreated whenever needed from the recorded requirements.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#recommended-editor",
-    "href": "01-setting-up-environment.html#recommended-editor",
+    "objectID": "01-setting-up-environment.html#install-the-required-software",
+    "href": "01-setting-up-environment.html#install-the-required-software",
     "title": "Setting Up Your Environment",
-    "section": "Recommended editor",
-    "text": "Recommended editor\nA good default is VS Code because it supports:\n\n.qmd editing\nPython integration\nterminal use\nGit workflow",
+    "section": "Install the Required Software",
+    "text": "Install the Required Software\n\nPython 3.12\nThis guide is developed and tested with Python 3.12. Later compatible Python versions may work, but Python 3.12 is the supported reference environment for this edition.\nCheck whether it is already installed.\nOn macOS or Linux:\npython3 --version\nOn Windows PowerShell:\npy --version\nThe result should begin with Python 3.12.\nIf Python is not installed, download Python 3.12 from the official Python website.\n\nOn Windows, allow the Python installer to add the Python launcher to your system. After installation, close and reopen PowerShell before checking the version again.\n\n\n\nQuarto\nQuarto renders the guide and executes its computational content.\nCheck whether Quarto is installed:\nquarto --version\nIf the command is not found, install Quarto from the official Quarto website.\nAfter installation, close and reopen the terminal, then run the version check again.\n\nPython manages the analytical environment and packages. Quarto manages the document, code execution, navigation, and rendered output.\n\n\n\nA Code Editor\nYou can use any editor that supports plain-text files and an integrated terminal. Suitable options include:\n\nVisual Studio Code\nPositron\nJupyterLab\nanother editor with Python and Quarto support\n\nThe commands in this chapter are run in a terminal from the project root—the data-science-foundations folder you will create below.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#project-environment",
-    "href": "01-setting-up-environment.html#project-environment",
+    "objectID": "01-setting-up-environment.html#create-the-local-project",
+    "href": "01-setting-up-environment.html#create-the-local-project",
     "title": "Setting Up Your Environment",
-    "section": "Project environment",
-    "text": "Project environment\nThis project uses a local virtual environment to ensure reproducibility.\nThe environment setup has two parts:\nrequirements.txt\n        ↓\nscripts/bash/setup-env.sh\n        ↓\n.venv/\nThe requirements.txt file defines the Python packages required by the project.\nThe setup script creates the environment and installs those packages.",
+    "section": "Create the Local Project",
+    "text": "Create the Local Project\nChoose a location on your computer where you keep analytical projects. Open a terminal in that location, then create the project folder.\n\nmacOS or Linux\nmkdir data-science-foundations\ncd data-science-foundations\n\n\nWindows PowerShell\nNew-Item -ItemType Directory data-science-foundations\nSet-Location data-science-foundations\nThis folder is now the project root. The virtual environment, dependency file, data, notebooks, and results created while following the guide will remain together here.\nConfirm your current location.\nOn macOS or Linux:\npwd\nOn Windows PowerShell:\nGet-Location\n\nRun the remaining setup commands from the data-science-foundations project root. Commands run from another folder may create files or an environment in the wrong location.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#prepare-requirements.txt",
-    "href": "01-setting-up-environment.html#prepare-requirements.txt",
+    "objectID": "01-setting-up-environment.html#create-the-project-folders",
+    "href": "01-setting-up-environment.html#create-the-project-folders",
     "title": "Setting Up Your Environment",
-    "section": "Prepare requirements.txt",
-    "text": "Prepare requirements.txt\nBefore running the setup script, create a file named requirements.txt in the project root.\nUse this starter version:\npandas\nnumpy\nmatplotlib\nseaborn\nscikit-learn\nipykernel\nThis file should be prepared manually so that learners understand which packages the project depends on.\n\nIn CDI systems, requirements.txt is part of reproducibility.\nIt records the packages needed to rerun the workflow on another machine.",
+    "section": "Create the Project Folders",
+    "text": "Create the Project Folders\nCreate a small structure for the files used throughout the guide.\n\nmacOS or Linux\nmkdir -p data/raw data/processed\nmkdir -p notebooks reports/figures\n\n\nWindows PowerShell\nNew-Item -ItemType Directory -Force data/raw, data/processed\nNew-Item -ItemType Directory -Force notebooks, reports/figures\nThe project should now have this structure:\ndata-science-foundations/\n├── data/\n│   ├── raw/\n│   └── processed/\n├── notebooks/\n└── reports/\n    └── figures/\nThese folders have distinct roles:\n\ndata/raw/ stores original data that should remain unchanged.\ndata/processed/ stores cleaned or transformed data.\nnotebooks/ stores exploratory notebooks.\nreports/figures/ stores figures produced during analysis.\n\nAdditional files and folders can be added when later chapters require them.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#use-the-setup-script",
-    "href": "01-setting-up-environment.html#use-the-setup-script",
+    "objectID": "01-setting-up-environment.html#create-requirements.txt",
+    "href": "01-setting-up-environment.html#create-requirements.txt",
     "title": "Setting Up Your Environment",
-    "section": "Use the setup script",
-    "text": "Use the setup script\nFrom the project root:\nbash scripts/bash/setup-env.sh\nActivate the environment:\nsource .venv/bin/activate\nVerify:\nwhich python\npython --version\nThe path should point to .venv.\n\nIf you are on Windows:\n\nPowerShell: .venv\\Scripts\\Activate.ps1\ncmd: .venv\\Scripts\\activate.bat",
+    "section": "Create requirements.txt",
+    "text": "Create requirements.txt\nDependencies must be written down so that the project environment can be recreated later. Create a plain-text file named requirements.txt in the project root using your code editor.\nAdd the following direct packages and compatible version ranges:\njupyter&gt;=1.1,&lt;2\nipykernel&gt;=6.29,&lt;8\nmatplotlib&gt;=3.9,&lt;4\nnumpy&gt;=2.0,&lt;3\npandas&gt;=2.2,&lt;4\nscikit-learn&gt;=1.5,&lt;2\nseaborn&gt;=0.13,&lt;1\nSave the file. Do not add Markdown code fences to the actual requirements.txt; it should contain only the package lines shown above.\nThese compatible version ranges provide reasonable stability while allowing tested updates. Packages that are installed automatically to support these direct dependencies do not need to be listed individually.\nDo not replace requirements.txt with the complete output of pip freeze. That command records every package installed in the current environment, including indirect and sometimes platform-specific dependencies. Its output can be useful for troubleshooting or documenting a temporary environment snapshot, but it is not the maintained dependency specification for this guide.\n\nDependency roles\n\nrequirements.txt records the packages the project intends to use.\n.venv/ contains the packages installed locally on your computer.\nA version-controlled project keeps requirements.txt but excludes .venv/.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#what-the-script-does",
-    "href": "01-setting-up-environment.html#what-the-script-does",
+    "objectID": "01-setting-up-environment.html#create-the-virtual-environment",
+    "href": "01-setting-up-environment.html#create-the-virtual-environment",
     "title": "Setting Up Your Environment",
-    "section": "What the script does",
-    "text": "What the script does\nThe setup script:\n\nchecks that requirements.txt exists\ncreates .venv/\nactivates the virtual environment\nupgrades pip\ninstalls packages from requirements.txt\nregisters a Jupyter kernel named CDI Data Science\n\nCDI workflow primarily uses Quarto rendering, not notebooks. The Jupyter kernel is included because Quarto can use it to execute Python code.",
+    "section": "Create the Virtual Environment",
+    "text": "Create the Virtual Environment\nCreate one environment for this project. Run the command from the project root.\n\nmacOS or Linux\npython3 -m venv .venv\n\n\nWindows PowerShell\npy -3.12 -m venv .venv\nThe command creates a local .venv directory. Creation may take a few moments and may not display a success message.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#render-the-book",
-    "href": "01-setting-up-environment.html#render-the-book",
+    "objectID": "01-setting-up-environment.html#activate-the-environment",
+    "href": "01-setting-up-environment.html#activate-the-environment",
     "title": "Setting Up Your Environment",
-    "section": "Render the book",
-    "text": "Render the book\nWith the environment active:\nbash scripts/bash/build.sh\nThis runs quarto render and outputs the rendered site to docs/.",
+    "section": "Activate the Environment",
+    "text": "Activate the Environment\nActivation makes the terminal use the project’s Python installation and packages.\n\nmacOS or Linux\nsource .venv/bin/activate\n\n\nWindows PowerShell\n.venv\\Scripts\\Activate.ps1\n\n\nWindows Command Prompt\n.venv\\Scripts\\activate.bat\nAfter activation, the terminal prompt will usually begin with (.venv).\nVerify the active Python:\npython --version\nOn macOS or Linux:\nwhich python\nOn Windows PowerShell:\nGet-Command python\nThe reported path should point inside the project’s .venv directory.\n\nIf PowerShell blocks the activation script, open PowerShell normally and run:\nSet-ExecutionPolicy -Scope CurrentUser RemoteSigned\nReview and accept the change only if it is permitted on your computer, then activate .venv again. On a managed computer, follow your organization’s policy or ask its technical support team.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#sanity-check",
-    "href": "01-setting-up-environment.html#sanity-check",
+    "objectID": "01-setting-up-environment.html#install-the-project-dependencies",
+    "href": "01-setting-up-environment.html#install-the-project-dependencies",
     "title": "Setting Up Your Environment",
-    "section": "Sanity check",
-    "text": "Sanity check\nOpen the generated site.\n\nmacOS\nopen docs/index.html\n\n\nLinux\nxdg-open docs/index.html\n\n\nWindows\nstart docs/index.html\nIf the site loads and navigation works, your environment is correctly configured.",
+    "section": "Install the Project Dependencies",
+    "text": "Install the Project Dependencies\nKeep the virtual environment active, then upgrade its packaging tools:\npython -m pip install --upgrade pip\nInstall the packages recorded in requirements.txt:\npython -m pip install -r requirements.txt\nUsing python -m pip ensures that packages are installed into the Python environment currently selected by the terminal.\nInstallation may take several minutes. Warnings about a newer version of pip can usually be resolved by repeating the upgrade command. Errors should be addressed before continuing.\nCheck that the installed packages have compatible dependencies:\npython -m pip check\nA successful check reports:\nNo broken requirements found.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
     ]
   },
   {
-    "objectID": "01-setting-up-environment.html#development-mode",
-    "href": "01-setting-up-environment.html#development-mode",
+    "objectID": "01-setting-up-environment.html#verify-the-environment",
+    "href": "01-setting-up-environment.html#verify-the-environment",
     "title": "Setting Up Your Environment",
-    "section": "Development mode",
-    "text": "Development mode\nYou can also preview the book while editing:\nquarto preview\nThis launches a local live preview that reloads when files change.",
+    "section": "Verify the Environment",
+    "text": "Verify the Environment\nFirst, confirm that the main packages can be imported and report their versions:\npython -c \"import numpy, pandas, matplotlib, seaborn, sklearn; print('NumPy:', numpy.__version__); print('pandas:', pandas.__version__); print('Matplotlib:', matplotlib.__version__); print('Seaborn:', seaborn.__version__); print('scikit-learn:', sklearn.__version__)\"\nThen confirm that Jupyter is available:\npython -m jupyter --version\nConfirm the dependency check once more if you installed or updated any packages:\npython -m pip check\nIf you installed Quarto, confirm that it can detect Python and Jupyter:\nquarto check\nThe checks should complete without errors that prevent Python or Jupyter execution.\n\nOptional: Register a Named Jupyter Kernel\nMost learners do not need to register a separate kernel because Jupyter and Quarto can use the Python environment active in the terminal.\nIf you also want to select this environment by name in JupyterLab or an editor, run:\npython -m ipykernel install --user --name cdi-data-science-foundations --display-name \"CDI Data Science Foundations\"\nThis step registers a kernel; it does not create another environment.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#keep-.venv-out-of-version-control",
+    "href": "01-setting-up-environment.html#keep-.venv-out-of-version-control",
+    "title": "Setting Up Your Environment",
+    "section": "Keep .venv Out of Version Control",
+    "text": "Keep .venv Out of Version Control\nThe project’s .gitignore should include:\n.venv/\n__pycache__/\n*.py[cod]\n.ipynb_checkpoints/\n.DS_Store\nIf you use Git, commit requirements.txt because it documents how to recreate the environment. Do not commit .venv/ because it is large, machine-specific, and reproducible from the requirements file.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#start-working",
+    "href": "01-setting-up-environment.html#start-working",
+    "title": "Setting Up Your Environment",
+    "section": "Start Working",
+    "text": "Start Working\nWith .venv active, start JupyterLab:\njupyter lab\nJupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the notebooks/ folder and follow the examples in the online guide.\nStop JupyterLab by returning to the terminal and pressing:\nCtrl+C",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#optional-use-the-prepared-guide-project",
+    "href": "01-setting-up-environment.html#optional-use-the-prepared-guide-project",
+    "title": "Setting Up Your Environment",
+    "section": "Optional: Use the Prepared Guide Project",
+    "text": "Optional: Use the Prepared Guide Project\nYou do not need the public repository to follow the online guide. If you prefer to work with CDI’s prepared project files, you can open the guide’s public GitHub repository and either:\n\nselect Code → Download ZIP, extract the archive, and open the extracted folder; or\nclone the repository with Git.\n\nThe prepared project may include the guide source, example data, supporting scripts, requirements.txt, and Quarto configuration. Create a separate .venv inside that downloaded or cloned project and install its supplied requirements before running it.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#optional-preview-or-render-the-guide",
+    "href": "01-setting-up-environment.html#optional-preview-or-render-the-guide",
+    "title": "Setting Up Your Environment",
+    "section": "Optional: Preview or Render the Guide",
+    "text": "Optional: Preview or Render the Guide\nThe local project you created in this chapter is designed for running the analysis examples; it does not contain the source files for rebuilding the complete CDI website.\nIf you downloaded or cloned the prepared guide repository and want to view the complete guide locally, activate that project’s .venv, then run:\nquarto preview\nStop the preview with Ctrl+C.\nTo build the complete guide from its source:\nquarto render\n\nPreviewing or rendering the complete guide is optional. It requires the prepared guide source from the public repository. It is not required for following the online chapters or running their analyses.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#return-to-the-project-later",
+    "href": "01-setting-up-environment.html#return-to-the-project-later",
+    "title": "Setting Up Your Environment",
+    "section": "Return to the Project Later",
+    "text": "Return to the Project Later\nYou create .venv and install the requirements only once unless the environment is removed or the requirements change.\nWhen returning to the project:\n\nOpen a terminal in the project root.\nActivate .venv.\nRun jupyter lab or open the project in your preferred editor.\n\nWhen you finish working, deactivate the environment:\ndeactivate\nDeactivation does not delete the environment or its packages.\nIf requirements.txt changes, reactivate .venv and run:\npython -m pip install -r requirements.txt",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#optional-cdi-helper-scripts",
+    "href": "01-setting-up-environment.html#optional-cdi-helper-scripts",
+    "title": "Setting Up Your Environment",
+    "section": "Optional CDI Helper Scripts",
+    "text": "Optional CDI Helper Scripts\nIf you use the prepared repository and it includes CDI helper scripts, they may automate the same transparent steps described above.\nFor example:\nbash scripts/bash/setup-env.sh\nmay create .venv, upgrade pip, and install requirements.txt, while:\nbash scripts/bash/build.sh\nmay run quarto render.\nThe direct commands remain the canonical workflow because they work without custom scripts and make each setup step visible. Before using a helper script, review it and confirm that it matches the documented workflow.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#troubleshooting",
+    "href": "01-setting-up-environment.html#troubleshooting",
+    "title": "Setting Up Your Environment",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nThe terminal cannot find Python\nClose and reopen the terminal after installation. On Windows, try py --version. On macOS or Linux, try python3 --version.\n\n\nThe environment does not activate\nConfirm that you created .venv in the current project root and used the activation command for your operating system and shell.\n\n\nPackages install outside .venv\nActivate .venv, verify the Python path, and use:\npython -m pip install -r requirements.txt\n\n\nJupyter cannot find a package\nActivate .venv in the same terminal, then run:\npython -m jupyter --version\npython -m pip check\nIf the problem continues, reinstall the requirements while .venv is active.\n\n\nQuarto cannot find Jupyter or a package\nThis issue applies when previewing or rendering the prepared guide source. Activate that project’s .venv, then run:\npython -m jupyter --version\nquarto check\nquarto render\n\n\nA Quarto render uses cached results\nThe prepared guide project may use Quarto’s freeze option to avoid unnecessary re-execution. When you intentionally need to recompute all executable content, run:\nquarto render --cache-refresh\nUse a full refresh deliberately because it may take longer than an ordinary render.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
@@ -245,7 +355,18 @@
     "href": "01-setting-up-environment.html#cdi-insight",
     "title": "Setting Up Your Environment",
     "section": "CDI Insight",
-    "text": "CDI Insight\nEnvironment setup is the first step in reproducibility.\nBefore analyzing data, you must ensure:\n\nyour tools are consistent\nyour dependencies are documented\nyour environment can be recreated\nyour workflow is repeatable\n\nThis is what allows your results to be trusted.",
+    "text": "CDI Insight\nReproducibility begins before data is loaded.\nA reproducible environment makes it possible to answer:\n\nWhich Python version was supported?\nWhich direct packages did the project require?\nWere those packages isolated from other projects?\nCan another learner recreate the environment?\nCan the analysis be run again in a recreated environment?\n\nThe combination of a documented Python version, a maintained requirements.txt, a local .venv, and an organized project structure provides a clear foundation for those answers.",
+    "crumbs": [
+      "System Orientation",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
+    ]
+  },
+  {
+    "objectID": "01-setting-up-environment.html#completion-check",
+    "href": "01-setting-up-environment.html#completion-check",
+    "title": "Setting Up Your Environment",
+    "section": "Completion Check",
+    "text": "Completion Check\nBefore continuing, confirm that you can:\n\nrun python --version and see Python 3.12\nconfirm that the Python path points inside .venv\nimport the guide’s main packages\nrun python -m pip check without dependency errors\nrun python -m jupyter --version\nstart JupyterLab from the active environment\nexplain why requirements.txt may be committed but .venv/ should not be\n\nIf you are using the prepared guide source, also confirm that you can run quarto check and preview or render the guide.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
@@ -256,7 +377,7 @@
     "href": "01-setting-up-environment.html#summary",
     "title": "Setting Up Your Environment",
     "section": "Summary",
-    "text": "Summary\nIn this lesson, you prepared the project environment.\nYou now have:\n\nPython and Quarto available\na manually prepared requirements.txt file\na reproducible .venv environment\nrequired Python packages installed\na working Quarto book build\n\nYou are now ready to begin the data workflow.",
+    "text": "Summary\nIn this chapter, you:\n\ninstalled or verified Python and Quarto\ncreated an organized local project\ncreated the guide’s dependency specification\ncreated and activated a project-specific virtual environment\ninstalled packages from requirements.txt\nchecked the installed dependencies for conflicts\nverified Python, Jupyter, and Quarto\nstarted a local Jupyter working session\nlearned when the optional public repository is useful\nlearned how to reactivate the environment later\n\nYou now have a documented and reproducible foundation for the data workflow.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"
@@ -267,7 +388,7 @@
     "href": "01-setting-up-environment.html#looking-ahead",
     "title": "Setting Up Your Environment",
     "section": "Looking Ahead",
-    "text": "Looking Ahead\nIn the next chapter, we load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.",
+    "text": "Looking Ahead\nIn the next chapter, you will load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.",
     "crumbs": [
       "System Orientation",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Setting Up Your Environment</span>"

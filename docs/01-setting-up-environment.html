@@ -270,26 +270,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-you-are-setting-up" id="toc-what-you-are-setting-up" class="nav-link active" data-scroll-target="#what-you-are-setting-up">What you are setting up</a></li>
-  <li><a href="#required-software" id="toc-required-software" class="nav-link" data-scroll-target="#required-software">Required software</a>
+  <li><a href="#what-you-will-set-up" id="toc-what-you-will-set-up" class="nav-link active" data-scroll-target="#what-you-will-set-up">What You Will Set Up</a></li>
+  <li><a href="#understand-the-local-project" id="toc-understand-the-local-project" class="nav-link" data-scroll-target="#understand-the-local-project">Understand the Local Project</a></li>
+  <li><a href="#install-the-required-software" id="toc-install-the-required-software" class="nav-link" data-scroll-target="#install-the-required-software">Install the Required Software</a>
   <ul class="collapse">
-  <li><a href="#python-3.10-or-newer" id="toc-python-3.10-or-newer" class="nav-link" data-scroll-target="#python-3.10-or-newer">Python (3.10 or newer)</a></li>
+  <li><a href="#python-3.12" id="toc-python-3.12" class="nav-link" data-scroll-target="#python-3.12">Python 3.12</a></li>
   <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#a-code-editor" id="toc-a-code-editor" class="nav-link" data-scroll-target="#a-code-editor">A Code Editor</a></li>
   </ul></li>
-  <li><a href="#recommended-editor" id="toc-recommended-editor" class="nav-link" data-scroll-target="#recommended-editor">Recommended editor</a></li>
-  <li><a href="#project-environment" id="toc-project-environment" class="nav-link" data-scroll-target="#project-environment">Project environment</a></li>
-  <li><a href="#prepare-requirements.txt" id="toc-prepare-requirements.txt" class="nav-link" data-scroll-target="#prepare-requirements.txt">Prepare <code>requirements.txt</code></a></li>
-  <li><a href="#use-the-setup-script" id="toc-use-the-setup-script" class="nav-link" data-scroll-target="#use-the-setup-script">Use the setup script</a></li>
-  <li><a href="#what-the-script-does" id="toc-what-the-script-does" class="nav-link" data-scroll-target="#what-the-script-does">What the script does</a></li>
-  <li><a href="#render-the-book" id="toc-render-the-book" class="nav-link" data-scroll-target="#render-the-book">Render the book</a></li>
-  <li><a href="#sanity-check" id="toc-sanity-check" class="nav-link" data-scroll-target="#sanity-check">Sanity check</a>
+  <li><a href="#create-the-local-project" id="toc-create-the-local-project" class="nav-link" data-scroll-target="#create-the-local-project">Create the Local Project</a>
   <ul class="collapse">
-  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">macOS</a></li>
-  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
-  <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
+  <li><a href="#macos-or-linux" id="toc-macos-or-linux" class="nav-link" data-scroll-target="#macos-or-linux">macOS or Linux</a></li>
+  <li><a href="#windows-powershell" id="toc-windows-powershell" class="nav-link" data-scroll-target="#windows-powershell">Windows PowerShell</a></li>
   </ul></li>
-  <li><a href="#development-mode" id="toc-development-mode" class="nav-link" data-scroll-target="#development-mode">Development mode</a></li>
+  <li><a href="#create-the-project-folders" id="toc-create-the-project-folders" class="nav-link" data-scroll-target="#create-the-project-folders">Create the Project Folders</a>
+  <ul class="collapse">
+  <li><a href="#macos-or-linux-1" id="toc-macos-or-linux-1" class="nav-link" data-scroll-target="#macos-or-linux-1">macOS or Linux</a></li>
+  <li><a href="#windows-powershell-1" id="toc-windows-powershell-1" class="nav-link" data-scroll-target="#windows-powershell-1">Windows PowerShell</a></li>
+  </ul></li>
+  <li><a href="#create-requirements.txt" id="toc-create-requirements.txt" class="nav-link" data-scroll-target="#create-requirements.txt">Create <code>requirements.txt</code></a></li>
+  <li><a href="#create-the-virtual-environment" id="toc-create-the-virtual-environment" class="nav-link" data-scroll-target="#create-the-virtual-environment">Create the Virtual Environment</a>
+  <ul class="collapse">
+  <li><a href="#macos-or-linux-2" id="toc-macos-or-linux-2" class="nav-link" data-scroll-target="#macos-or-linux-2">macOS or Linux</a></li>
+  <li><a href="#windows-powershell-2" id="toc-windows-powershell-2" class="nav-link" data-scroll-target="#windows-powershell-2">Windows PowerShell</a></li>
+  </ul></li>
+  <li><a href="#activate-the-environment" id="toc-activate-the-environment" class="nav-link" data-scroll-target="#activate-the-environment">Activate the Environment</a>
+  <ul class="collapse">
+  <li><a href="#macos-or-linux-3" id="toc-macos-or-linux-3" class="nav-link" data-scroll-target="#macos-or-linux-3">macOS or Linux</a></li>
+  <li><a href="#windows-powershell-3" id="toc-windows-powershell-3" class="nav-link" data-scroll-target="#windows-powershell-3">Windows PowerShell</a></li>
+  <li><a href="#windows-command-prompt" id="toc-windows-command-prompt" class="nav-link" data-scroll-target="#windows-command-prompt">Windows Command Prompt</a></li>
+  </ul></li>
+  <li><a href="#install-the-project-dependencies" id="toc-install-the-project-dependencies" class="nav-link" data-scroll-target="#install-the-project-dependencies">Install the Project Dependencies</a></li>
+  <li><a href="#verify-the-environment" id="toc-verify-the-environment" class="nav-link" data-scroll-target="#verify-the-environment">Verify the Environment</a>
+  <ul class="collapse">
+  <li><a href="#optional-register-a-named-jupyter-kernel" id="toc-optional-register-a-named-jupyter-kernel" class="nav-link" data-scroll-target="#optional-register-a-named-jupyter-kernel">Optional: Register a Named Jupyter Kernel</a></li>
+  </ul></li>
+  <li><a href="#keep-.venv-out-of-version-control" id="toc-keep-.venv-out-of-version-control" class="nav-link" data-scroll-target="#keep-.venv-out-of-version-control">Keep <code>.venv</code> Out of Version Control</a></li>
+  <li><a href="#start-working" id="toc-start-working" class="nav-link" data-scroll-target="#start-working">Start Working</a></li>
+  <li><a href="#optional-use-the-prepared-guide-project" id="toc-optional-use-the-prepared-guide-project" class="nav-link" data-scroll-target="#optional-use-the-prepared-guide-project">Optional: Use the Prepared Guide Project</a></li>
+  <li><a href="#optional-preview-or-render-the-guide" id="toc-optional-preview-or-render-the-guide" class="nav-link" data-scroll-target="#optional-preview-or-render-the-guide">Optional: Preview or Render the Guide</a></li>
+  <li><a href="#return-to-the-project-later" id="toc-return-to-the-project-later" class="nav-link" data-scroll-target="#return-to-the-project-later">Return to the Project Later</a></li>
+  <li><a href="#optional-cdi-helper-scripts" id="toc-optional-cdi-helper-scripts" class="nav-link" data-scroll-target="#optional-cdi-helper-scripts">Optional CDI Helper Scripts</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#the-terminal-cannot-find-python" id="toc-the-terminal-cannot-find-python" class="nav-link" data-scroll-target="#the-terminal-cannot-find-python">The terminal cannot find Python</a></li>
+  <li><a href="#the-environment-does-not-activate" id="toc-the-environment-does-not-activate" class="nav-link" data-scroll-target="#the-environment-does-not-activate">The environment does not activate</a></li>
+  <li><a href="#packages-install-outside-.venv" id="toc-packages-install-outside-.venv" class="nav-link" data-scroll-target="#packages-install-outside-.venv">Packages install outside <code>.venv</code></a></li>
+  <li><a href="#jupyter-cannot-find-a-package" id="toc-jupyter-cannot-find-a-package" class="nav-link" data-scroll-target="#jupyter-cannot-find-a-package">Jupyter cannot find a package</a></li>
+  <li><a href="#quarto-cannot-find-jupyter-or-a-package" id="toc-quarto-cannot-find-jupyter-or-a-package" class="nav-link" data-scroll-target="#quarto-cannot-find-jupyter-or-a-package">Quarto cannot find Jupyter or a package</a></li>
+  <li><a href="#a-quarto-render-uses-cached-results" id="toc-a-quarto-render-uses-cached-results" class="nav-link" data-scroll-target="#a-quarto-render-uses-cached-results">A Quarto render uses cached results</a></li>
+  </ul></li>
   <li><a href="#cdi-insight" id="toc-cdi-insight" class="nav-link" data-scroll-target="#cdi-insight">CDI Insight</a></li>
+  <li><a href="#completion-check" id="toc-completion-check" class="nav-link" data-scroll-target="#completion-check">Completion Check</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking Ahead</a></li>
   </ul>
@@ -311,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Jun 2026</p>
+      <p class="date">Jul 2026</p>
     </div>
   </div>
   
@@ -327,201 +359,403 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>ID:</strong> DS-L01</li>
 <li><strong>Type:</strong> Foundation</li>
-<li><strong>Audience:</strong> Beginner / Intermediate</li>
+<li><strong>Audience:</strong> Beginner-friendly</li>
 <li><strong>Theme:</strong> Reproducibility starts before analysis</li>
 </ul>
 </div>
-<p>This guide is <strong>Python-first</strong> and <strong>Quarto-first</strong>.</p>
-<p>In CDI, environment setup is not a technical formality — it is part of the analytical process.</p>
-<p>If your environment is inconsistent, your results can be:</p>
-<ul>
-<li>incorrect</li>
-<li>non-reproducible</li>
-<li>or silently misleading</li>
-</ul>
-<p>You will write code inside Quarto chapter files (<code>.qmd</code>), but the setup commands in this lesson are shown as examples for users to run manually in the terminal.</p>
+<p>This guide is <strong>Python-first</strong> and <strong>Quarto-first</strong>. Python provides the tools for working with data, while Quarto combines code, results, explanations, and references in a reproducible document.</p>
+<p>Environment setup is part of the analytical workflow. A project that records its software requirements and keeps them separate from other projects is easier to run, review, share, and reproduce.</p>
+<p>In this chapter, you will create a local project folder, add a simple folder structure, create a project-specific Python virtual environment named <code>.venv</code>, record the guide’s dependencies in <code>requirements.txt</code>, and install them.</p>
 <hr>
-<section id="what-you-are-setting-up" class="level2">
-<h2 class="anchored" data-anchor-id="what-you-are-setting-up">What you are setting up</h2>
-<p>By the end of this lesson you will have:</p>
+<section id="what-you-will-set-up" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-will-set-up">What You Will Set Up</h2>
+<p>By the end of this chapter, you will have:</p>
 <ul>
-<li>Python installed and accessible from the terminal</li>
+<li>Python 3.12 installed and accessible from a terminal</li>
 <li>Quarto installed and working</li>
-<li>a manually prepared <code>requirements.txt</code> file</li>
-<li>a project virtual environment (<code>.venv</code>)</li>
-<li>required packages installed</li>
-<li>a working build pipeline that renders into <code>docs/</code></li>
+<li>a local <code>data-science-foundations</code> project folder</li>
+<li>folders for data, notebooks, and reports</li>
+<li>a project-specific virtual environment named <code>.venv</code></li>
+<li>a <code>requirements.txt</code> file containing the guide’s direct dependencies</li>
+<li>the guide’s Python dependencies installed in <code>.venv</code></li>
+<li>a verified connection between Python, Jupyter, and Quarto</li>
+<li>a working environment for running the guide’s examples</li>
+<li>an optional local preview and book-rendering workflow</li>
 </ul>
+<div class="cdi-message">
+<p>You do not need an existing Python environment. Follow the steps in order and use the instructions for your operating system.</p>
+</div>
+<p>You can follow this guide and run its analyses without cloning or downloading the guide repository. This chapter shows you how to build the required local project from scratch.</p>
+<p>The public GitHub repository remains available as an optional convenience for learners who want the prepared guide source, example files, and complete project structure.</p>
 <hr>
 </section>
-<section id="required-software" class="level2">
-<h2 class="anchored" data-anchor-id="required-software">Required software</h2>
-<section id="python-3.10-or-newer" class="level3">
-<h3 class="anchored" data-anchor-id="python-3.10-or-newer">Python (3.10 or newer)</h3>
-<p>Check if Python is available:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If this fails, install Python:</p>
-<ul>
-<li>macOS: <code>brew install python</code></li>
-<li>Windows: Install from python.org and enable “Add to PATH”</li>
-<li>Linux: Use your package manager, such as <code>apt</code>, <code>dnf</code>, or <code>pacman</code></li>
-</ul>
+<section id="understand-the-local-project" class="level2">
+<h2 class="anchored" data-anchor-id="understand-the-local-project">Understand the Local Project</h2>
+<p>The project uses two related components:</p>
+<pre class="text"><code>requirements.txt
+        ↓
+python -m pip install -r requirements.txt
+        ↓
+.venv/</code></pre>
+<p><code>requirements.txt</code> is a small text file that you will create in the project root. It records the direct Python packages and compatible version ranges used by the guide.</p>
+<p><code>.venv</code> is the local environment created on your computer. It contains the installed packages for this project and keeps them separate from packages used by other projects.</p>
+<p>If the project is placed under version control, it should include <code>requirements.txt</code> but should <strong>not</strong> include <code>.venv/</code>. The environment can be recreated whenever needed from the recorded requirements.</p>
 <hr>
+</section>
+<section id="install-the-required-software" class="level2">
+<h2 class="anchored" data-anchor-id="install-the-required-software">Install the Required Software</h2>
+<section id="python-3.12" class="level3">
+<h3 class="anchored" data-anchor-id="python-3.12">Python 3.12</h3>
+<p>This guide is developed and tested with <strong>Python 3.12</strong>. Later compatible Python versions may work, but Python 3.12 is the supported reference environment for this edition.</p>
+<p>Check whether it is already installed.</p>
+<p>On macOS or Linux:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On Windows PowerShell:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>py <span class="op">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The result should begin with <code>Python 3.12</code>.</p>
+<p>If Python is not installed, download Python 3.12 from the <a href="https://www.python.org/downloads/">official Python website</a>.</p>
+<div class="cdi-message">
+<p>On Windows, allow the Python installer to add the Python launcher to your system. After installation, close and reopen PowerShell before checking the version again.</p>
+</div>
 </section>
 <section id="quarto" class="level3">
 <h3 class="anchored" data-anchor-id="quarto">Quarto</h3>
-<p>Quarto renders the book and executes code.</p>
-<p>Check installation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If Quarto is missing, install it.</p>
-<p>On macOS with Homebrew:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install <span class="at">--cask</span> quarto</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>After installation, confirm that Quarto is available:</p>
+<p>Quarto renders the guide and executes its computational content.</p>
+<p>Check whether Quarto is installed:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Windows and Linux users can install Quarto from the official Quarto website, then rerun the version check.</p>
+<p>If the command is not found, install Quarto from the <a href="https://quarto.org/docs/get-started/">official Quarto website</a>.</p>
+<p>After installation, close and reopen the terminal, then run the version check again.</p>
 <div class="cdi-message">
-<p>Quarto should be installed before rendering the book.<br>
-The Python environment controls the analysis packages, while Quarto controls document rendering.</p>
+<p>Python manages the analytical environment and packages. Quarto manages the document, code execution, navigation, and rendered output.</p>
+</div>
+</section>
+<section id="a-code-editor" class="level3">
+<h3 class="anchored" data-anchor-id="a-code-editor">A Code Editor</h3>
+<p>You can use any editor that supports plain-text files and an integrated terminal. Suitable options include:</p>
+<ul>
+<li>Visual Studio Code</li>
+<li>Positron</li>
+<li>JupyterLab</li>
+<li>another editor with Python and Quarto support</li>
+</ul>
+<p>The commands in this chapter are run in a terminal from the project root—the <code>data-science-foundations</code> folder you will create below.</p>
+<hr>
+</section>
+</section>
+<section id="create-the-local-project" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-local-project">Create the Local Project</h2>
+<p>Choose a location on your computer where you keep analytical projects. Open a terminal in that location, then create the project folder.</p>
+<section id="macos-or-linux" class="level3">
+<h3 class="anchored" data-anchor-id="macos-or-linux">macOS or Linux</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data-science-foundations</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> data-science-foundations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="windows-powershell" class="level3">
+<h3 class="anchored" data-anchor-id="windows-powershell">Windows PowerShell</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">New-Item</span> <span class="op">-</span>ItemType Directory data-science-foundations</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-Location</span> data-science-foundations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This folder is now the <strong>project root</strong>. The virtual environment, dependency file, data, notebooks, and results created while following the guide will remain together here.</p>
+<p>Confirm your current location.</p>
+<p>On macOS or Linux:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On Windows PowerShell:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Location</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cdi-message">
+<p>Run the remaining setup commands from the <code>data-science-foundations</code> project root. Commands run from another folder may create files or an environment in the wrong location.</p>
 </div>
 <hr>
 </section>
 </section>
-<section id="recommended-editor" class="level2">
-<h2 class="anchored" data-anchor-id="recommended-editor">Recommended editor</h2>
-<p>A good default is <strong>VS Code</strong> because it supports:</p>
+<section id="create-the-project-folders" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-project-folders">Create the Project Folders</h2>
+<p>Create a small structure for the files used throughout the guide.</p>
+<section id="macos-or-linux-1" class="level3">
+<h3 class="anchored" data-anchor-id="macos-or-linux-1">macOS or Linux</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/raw data/processed</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> notebooks reports/figures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="windows-powershell-1" class="level3">
+<h3 class="anchored" data-anchor-id="windows-powershell-1">Windows PowerShell</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">New-Item</span> <span class="op">-</span>ItemType Directory <span class="op">-</span>Force <span class="kw">data</span><span class="op">/</span>raw<span class="op">,</span> <span class="kw">data</span><span class="op">/</span>processed</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">New-Item</span> <span class="op">-</span>ItemType Directory <span class="op">-</span>Force notebooks<span class="op">,</span> reports<span class="op">/</span>figures</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The project should now have this structure:</p>
+<pre class="text"><code>data-science-foundations/
+├── data/
+│   ├── raw/
+│   └── processed/
+├── notebooks/
+└── reports/
+    └── figures/</code></pre>
+<p>These folders have distinct roles:</p>
 <ul>
-<li><code>.qmd</code> editing</li>
-<li>Python integration</li>
-<li>terminal use</li>
-<li>Git workflow</li>
+<li><code>data/raw/</code> stores original data that should remain unchanged.</li>
+<li><code>data/processed/</code> stores cleaned or transformed data.</li>
+<li><code>notebooks/</code> stores exploratory notebooks.</li>
+<li><code>reports/figures/</code> stores figures produced during analysis.</li>
 </ul>
+<p>Additional files and folders can be added when later chapters require them.</p>
 <hr>
 </section>
-<section id="project-environment" class="level2">
-<h2 class="anchored" data-anchor-id="project-environment">Project environment</h2>
-<p>This project uses a <strong>local virtual environment</strong> to ensure reproducibility.</p>
-<p>The environment setup has two parts:</p>
-<pre class="text"><code>requirements.txt
-        ↓
-scripts/bash/setup-env.sh
-        ↓
-.venv/</code></pre>
-<p>The <code>requirements.txt</code> file defines the Python packages required by the project.</p>
-<p>The setup script creates the environment and installs those packages.</p>
-<hr>
 </section>
-<section id="prepare-requirements.txt" class="level2">
-<h2 class="anchored" data-anchor-id="prepare-requirements.txt">Prepare <code>requirements.txt</code></h2>
-<p>Before running the setup script, create a file named <code>requirements.txt</code> in the project root.</p>
-<p>Use this starter version:</p>
-<pre class="text"><code>pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-ipykernel</code></pre>
-<p>This file should be prepared manually so that learners understand which packages the project depends on.</p>
+<section id="create-requirements.txt" class="level2">
+<h2 class="anchored" data-anchor-id="create-requirements.txt">Create <code>requirements.txt</code></h2>
+<p>Dependencies must be written down so that the project environment can be recreated later. Create a plain-text file named <code>requirements.txt</code> in the project root using your code editor.</p>
+<p>Add the following direct packages and compatible version ranges:</p>
+<pre class="text"><code>jupyter&gt;=1.1,&lt;2
+ipykernel&gt;=6.29,&lt;8
+matplotlib&gt;=3.9,&lt;4
+numpy&gt;=2.0,&lt;3
+pandas&gt;=2.2,&lt;4
+scikit-learn&gt;=1.5,&lt;2
+seaborn&gt;=0.13,&lt;1</code></pre>
+<p>Save the file. Do not add Markdown code fences to the actual <code>requirements.txt</code>; it should contain only the package lines shown above.</p>
+<p>These compatible version ranges provide reasonable stability while allowing tested updates. Packages that are installed automatically to support these direct dependencies do not need to be listed individually.</p>
+<p>Do not replace <code>requirements.txt</code> with the complete output of <code>pip freeze</code>. That command records every package installed in the current environment, including indirect and sometimes platform-specific dependencies. Its output can be useful for troubleshooting or documenting a temporary environment snapshot, but it is not the maintained dependency specification for this guide.</p>
 <div class="cdi-message">
-<p>In CDI systems, <code>requirements.txt</code> is part of reproducibility.<br>
-It records the packages needed to rerun the workflow on another machine.</p>
-</div>
-<hr>
-</section>
-<section id="use-the-setup-script" class="level2">
-<h2 class="anchored" data-anchor-id="use-the-setup-script">Use the setup script</h2>
-<p>From the project root:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/setup-env.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Activate the environment:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Verify:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> python</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The path should point to <code>.venv</code>.</p>
-<div class="cdi-message">
-<p>If you are on Windows:</p>
+<p><strong>Dependency roles</strong></p>
 <ul>
-<li>PowerShell: <code>.venv\Scripts\Activate.ps1</code></li>
-<li>cmd: <code>.venv\Scripts\activate.bat</code></li>
+<li><code>requirements.txt</code> records the packages the project intends to use.</li>
+<li><code>.venv/</code> contains the packages installed locally on your computer.</li>
+<li>A version-controlled project keeps <code>requirements.txt</code> but excludes <code>.venv/</code>.</li>
 </ul>
 </div>
 <hr>
 </section>
-<section id="what-the-script-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-the-script-does">What the script does</h2>
-<p>The setup script:</p>
+<section id="create-the-virtual-environment" class="level2">
+<h2 class="anchored" data-anchor-id="create-the-virtual-environment">Create the Virtual Environment</h2>
+<p>Create one environment for this project. Run the command from the project root.</p>
+<section id="macos-or-linux-2" class="level3">
+<h3 class="anchored" data-anchor-id="macos-or-linux-2">macOS or Linux</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="windows-powershell-2" class="level3">
+<h3 class="anchored" data-anchor-id="windows-powershell-2">Windows PowerShell</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>py <span class="op">-</span><span class="dv">3.12</span> <span class="op">-</span>m venv <span class="op">.</span><span class="fu">venv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The command creates a local <code>.venv</code> directory. Creation may take a few moments and may not display a success message.</p>
+<hr>
+</section>
+</section>
+<section id="activate-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="activate-the-environment">Activate the Environment</h2>
+<p>Activation makes the terminal use the project’s Python installation and packages.</p>
+<section id="macos-or-linux-3" class="level3">
+<h3 class="anchored" data-anchor-id="macos-or-linux-3">macOS or Linux</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="windows-powershell-3" class="level3">
+<h3 class="anchored" data-anchor-id="windows-powershell-3">Windows PowerShell</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="windows-command-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="windows-command-prompt">Windows Command Prompt</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bat code-with-copy"><code class="sourceCode dosbat"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>.venv\Scripts\activate.bat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After activation, the terminal prompt will usually begin with <code>(.venv)</code>.</p>
+<p>Verify the active Python:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On macOS or Linux:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> python</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On Windows PowerShell:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Command</span> python</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The reported path should point inside the project’s <code>.venv</code> directory.</p>
+<div class="cdi-message">
+<p>If PowerShell blocks the activation script, open PowerShell normally and run:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-ExecutionPolicy</span> <span class="op">-</span>Scope CurrentUser RemoteSigned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Review and accept the change only if it is permitted on your computer, then activate <code>.venv</code> again. On a managed computer, follow your organization’s policy or ask its technical support team.</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="install-the-project-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="install-the-project-dependencies">Install the Project Dependencies</h2>
+<p>Keep the virtual environment active, then upgrade its packaging tools:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">--upgrade</span> pip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Install the packages recorded in <code>requirements.txt</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using <code>python -m pip</code> ensures that packages are installed into the Python environment currently selected by the terminal.</p>
+<p>Installation may take several minutes. Warnings about a newer version of <code>pip</code> can usually be resolved by repeating the upgrade command. Errors should be addressed before continuing.</p>
+<p>Check that the installed packages have compatible dependencies:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A successful check reports:</p>
+<pre class="text"><code>No broken requirements found.</code></pre>
+<hr>
+</section>
+<section id="verify-the-environment" class="level2">
+<h2 class="anchored" data-anchor-id="verify-the-environment">Verify the Environment</h2>
+<p>First, confirm that the main packages can be imported and report their versions:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">"import numpy, pandas, matplotlib, seaborn, sklearn; print('NumPy:', numpy.__version__); print('pandas:', pandas.__version__); print('Matplotlib:', matplotlib.__version__); print('Seaborn:', seaborn.__version__); print('scikit-learn:', sklearn.__version__)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then confirm that Jupyter is available:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Confirm the dependency check once more if you installed or updated any packages:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you installed Quarto, confirm that it can detect Python and Jupyter:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The checks should complete without errors that prevent Python or Jupyter execution.</p>
+<section id="optional-register-a-named-jupyter-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="optional-register-a-named-jupyter-kernel">Optional: Register a Named Jupyter Kernel</h3>
+<p>Most learners do not need to register a separate kernel because Jupyter and Quarto can use the Python environment active in the terminal.</p>
+<p>If you also want to select this environment by name in JupyterLab or an editor, run:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span> cdi-data-science-foundations <span class="at">--display-name</span> <span class="st">"CDI Data Science Foundations"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This step registers a kernel; it does not create another environment.</p>
+<hr>
+</section>
+</section>
+<section id="keep-.venv-out-of-version-control" class="level2">
+<h2 class="anchored" data-anchor-id="keep-.venv-out-of-version-control">Keep <code>.venv</code> Out of Version Control</h2>
+<p>The project’s <code>.gitignore</code> should include:</p>
+<pre class="gitignore"><code>.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store</code></pre>
+<p>If you use Git, commit <code>requirements.txt</code> because it documents how to recreate the environment. Do not commit <code>.venv/</code> because it is large, machine-specific, and reproducible from the requirements file.</p>
+<hr>
+</section>
+<section id="start-working" class="level2">
+<h2 class="anchored" data-anchor-id="start-working">Start Working</h2>
+<p>With <code>.venv</code> active, start JupyterLab:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>JupyterLab will display a local address and usually open in your browser. Create or open notebooks inside the <code>notebooks/</code> folder and follow the examples in the online guide.</p>
+<p>Stop JupyterLab by returning to the terminal and pressing:</p>
+<pre class="text"><code>Ctrl+C</code></pre>
+<hr>
+</section>
+<section id="optional-use-the-prepared-guide-project" class="level2">
+<h2 class="anchored" data-anchor-id="optional-use-the-prepared-guide-project">Optional: Use the Prepared Guide Project</h2>
+<p>You do not need the public repository to follow the online guide. If you prefer to work with CDI’s prepared project files, you can open the guide’s public GitHub repository and either:</p>
 <ul>
-<li>checks that <code>requirements.txt</code> exists</li>
-<li>creates <code>.venv/</code></li>
-<li>activates the virtual environment</li>
-<li>upgrades <code>pip</code></li>
-<li>installs packages from <code>requirements.txt</code></li>
-<li>registers a Jupyter kernel named <code>CDI Data Science</code></li>
+<li>select <strong>Code → Download ZIP</strong>, extract the archive, and open the extracted folder; or</li>
+<li>clone the repository with Git.</li>
 </ul>
-<p>CDI workflow primarily uses Quarto rendering, not notebooks. The Jupyter kernel is included because Quarto can use it to execute Python code.</p>
+<p>The prepared project may include the guide source, example data, supporting scripts, <code>requirements.txt</code>, and Quarto configuration. Create a separate <code>.venv</code> inside that downloaded or cloned project and install its supplied requirements before running it.</p>
 <hr>
 </section>
-<section id="render-the-book" class="level2">
-<h2 class="anchored" data-anchor-id="render-the-book">Render the book</h2>
-<p>With the environment active:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/build.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This runs <code>quarto render</code> and outputs the rendered site to <code>docs/</code>.</p>
+<section id="optional-preview-or-render-the-guide" class="level2">
+<h2 class="anchored" data-anchor-id="optional-preview-or-render-the-guide">Optional: Preview or Render the Guide</h2>
+<p>The local project you created in this chapter is designed for running the analysis examples; it does not contain the source files for rebuilding the complete CDI website.</p>
+<p>If you downloaded or cloned the prepared guide repository and want to view the complete guide locally, activate that project’s <code>.venv</code>, then run:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Stop the preview with <code>Ctrl+C</code>.</p>
+<p>To build the complete guide from its source:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cdi-message">
+<p>Previewing or rendering the complete guide is optional. It requires the prepared guide source from the public repository. It is not required for following the online chapters or running their analyses.</p>
+</div>
 <hr>
 </section>
-<section id="sanity-check" class="level2">
-<h2 class="anchored" data-anchor-id="sanity-check">Sanity check</h2>
-<p>Open the generated site.</p>
-<section id="macos" class="level3">
-<h3 class="anchored" data-anchor-id="macos">macOS</h3>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> docs/index.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="linux" class="level3">
-<h3 class="anchored" data-anchor-id="linux">Linux</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xdg-open</span> docs/index.html</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span> docs<span class="op">/</span>index<span class="op">.</span><span class="fu">html</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If the site loads and navigation works, your environment is correctly configured.</p>
+<section id="return-to-the-project-later" class="level2">
+<h2 class="anchored" data-anchor-id="return-to-the-project-later">Return to the Project Later</h2>
+<p>You create <code>.venv</code> and install the requirements only once unless the environment is removed or the requirements change.</p>
+<p>When returning to the project:</p>
+<ol type="1">
+<li>Open a terminal in the project root.</li>
+<li>Activate <code>.venv</code>.</li>
+<li>Run <code>jupyter lab</code> or open the project in your preferred editor.</li>
+</ol>
+<p>When you finish working, deactivate the environment:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">deactivate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Deactivation does not delete the environment or its packages.</p>
+<p>If <code>requirements.txt</code> changes, reactivate <code>.venv</code> and run:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-</section>
-<section id="development-mode" class="level2">
-<h2 class="anchored" data-anchor-id="development-mode">Development mode</h2>
-<p>You can also preview the book while editing:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This launches a local live preview that reloads when files change.</p>
+<section id="optional-cdi-helper-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="optional-cdi-helper-scripts">Optional CDI Helper Scripts</h2>
+<p>If you use the prepared repository and it includes CDI helper scripts, they may automate the same transparent steps described above.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/setup-env.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>may create <code>.venv</code>, upgrade <code>pip</code>, and install <code>requirements.txt</code>, while:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/build.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>may run <code>quarto render</code>.</p>
+<p>The direct commands remain the canonical workflow because they work without custom scripts and make each setup step visible. Before using a helper script, review it and confirm that it matches the documented workflow.</p>
 <hr>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="the-terminal-cannot-find-python" class="level3">
+<h3 class="anchored" data-anchor-id="the-terminal-cannot-find-python">The terminal cannot find Python</h3>
+<p>Close and reopen the terminal after installation. On Windows, try <code>py --version</code>. On macOS or Linux, try <code>python3 --version</code>.</p>
+</section>
+<section id="the-environment-does-not-activate" class="level3">
+<h3 class="anchored" data-anchor-id="the-environment-does-not-activate">The environment does not activate</h3>
+<p>Confirm that you created <code>.venv</code> in the current project root and used the activation command for your operating system and shell.</p>
+</section>
+<section id="packages-install-outside-.venv" class="level3">
+<h3 class="anchored" data-anchor-id="packages-install-outside-.venv">Packages install outside <code>.venv</code></h3>
+<p>Activate <code>.venv</code>, verify the Python path, and use:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="jupyter-cannot-find-a-package" class="level3">
+<h3 class="anchored" data-anchor-id="jupyter-cannot-find-a-package">Jupyter cannot find a package</h3>
+<p>Activate <code>.venv</code> in the same terminal, then run:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the problem continues, reinstall the requirements while <code>.venv</code> is active.</p>
+</section>
+<section id="quarto-cannot-find-jupyter-or-a-package" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-cannot-find-jupyter-or-a-package">Quarto cannot find Jupyter or a package</h3>
+<p>This issue applies when previewing or rendering the prepared guide source. Activate that project’s <code>.venv</code>, then run:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> jupyter <span class="at">--version</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> check</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-quarto-render-uses-cached-results" class="level3">
+<h3 class="anchored" data-anchor-id="a-quarto-render-uses-cached-results">A Quarto render uses cached results</h3>
+<p>The prepared guide project may use Quarto’s <code>freeze</code> option to avoid unnecessary re-execution. When you intentionally need to recompute all executable content, run:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render <span class="at">--cache-refresh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use a full refresh deliberately because it may take longer than an ordinary render.</p>
+<hr>
+</section>
 </section>
 <section id="cdi-insight" class="level2">
 <h2 class="anchored" data-anchor-id="cdi-insight">CDI Insight</h2>
-<p>Environment setup is the <strong>first step in reproducibility</strong>.</p>
-<p>Before analyzing data, you must ensure:</p>
+<p>Reproducibility begins before data is loaded.</p>
+<p>A reproducible environment makes it possible to answer:</p>
 <ul>
-<li>your tools are consistent</li>
-<li>your dependencies are documented</li>
-<li>your environment can be recreated</li>
-<li>your workflow is repeatable</li>
+<li>Which Python version was supported?</li>
+<li>Which direct packages did the project require?</li>
+<li>Were those packages isolated from other projects?</li>
+<li>Can another learner recreate the environment?</li>
+<li>Can the analysis be run again in a recreated environment?</li>
 </ul>
-<p>This is what allows your results to be trusted.</p>
+<p>The combination of a documented Python version, a maintained <code>requirements.txt</code>, a local <code>.venv</code>, and an organized project structure provides a clear foundation for those answers.</p>
+<hr>
+</section>
+<section id="completion-check" class="level2">
+<h2 class="anchored" data-anchor-id="completion-check">Completion Check</h2>
+<p>Before continuing, confirm that you can:</p>
+<ul>
+<li>run <code>python --version</code> and see Python 3.12</li>
+<li>confirm that the Python path points inside <code>.venv</code></li>
+<li>import the guide’s main packages</li>
+<li>run <code>python -m pip check</code> without dependency errors</li>
+<li>run <code>python -m jupyter --version</code></li>
+<li>start JupyterLab from the active environment</li>
+<li>explain why <code>requirements.txt</code> may be committed but <code>.venv/</code> should not be</li>
+</ul>
+<p>If you are using the prepared guide source, also confirm that you can run <code>quarto check</code> and preview or render the guide.</p>
 <hr>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>In this lesson, you prepared the project environment.</p>
-<p>You now have:</p>
+<p>In this chapter, you:</p>
 <ul>
-<li>Python and Quarto available</li>
-<li>a manually prepared <code>requirements.txt</code> file</li>
-<li>a reproducible <code>.venv</code> environment</li>
-<li>required Python packages installed</li>
-<li>a working Quarto book build</li>
+<li>installed or verified Python and Quarto</li>
+<li>created an organized local project</li>
+<li>created the guide’s dependency specification</li>
+<li>created and activated a project-specific virtual environment</li>
+<li>installed packages from <code>requirements.txt</code></li>
+<li>checked the installed dependencies for conflicts</li>
+<li>verified Python, Jupyter, and Quarto</li>
+<li>started a local Jupyter working session</li>
+<li>learned when the optional public repository is useful</li>
+<li>learned how to reactivate the environment later</li>
 </ul>
-<p>You are now ready to begin the data workflow.</p>
+<p>You now have a documented and reproducible foundation for the data workflow.</p>
 <hr>
 </section>
 <section id="looking-ahead" class="level2">
 <h2 class="anchored" data-anchor-id="looking-ahead">Looking Ahead</h2>
-<p>In the next chapter, we load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.</p>
+<p>In the next chapter, you will load and inspect the first example dataset. This begins the reusable tidy-table workflow that supports analysis across CDI pathways.</p>
 
 
 </section>

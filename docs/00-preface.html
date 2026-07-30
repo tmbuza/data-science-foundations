@@ -274,14 +274,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#system-role" id="toc-system-role" class="nav-link active" data-scroll-target="#system-role">System Role</a></li>
-  <li><a href="#why-this-system-exists" id="toc-why-this-system-exists" class="nav-link" data-scroll-target="#why-this-system-exists">Why This System Exists</a></li>
-  <li><a href="#the-role-of-data-science-foundations-in-cdi" id="toc-the-role-of-data-science-foundations-in-cdi" class="nav-link" data-scroll-target="#the-role-of-data-science-foundations-in-cdi">The Role of Data Science Foundations in CDI</a></li>
+  <li><a href="#about-this-guide" id="toc-about-this-guide" class="nav-link active" data-scroll-target="#about-this-guide">About This Guide</a></li>
+  <li><a href="#who-this-guide-is-for" id="toc-who-this-guide-is-for" class="nav-link" data-scroll-target="#who-this-guide-is-for">Who This Guide Is For</a></li>
+  <li><a href="#what-you-need-before-starting" id="toc-what-you-need-before-starting" class="nav-link" data-scroll-target="#what-you-need-before-starting">What You Need Before Starting</a></li>
   <li><a href="#what-you-will-learn" id="toc-what-you-will-learn" class="nav-link" data-scroll-target="#what-you-will-learn">What You Will Learn</a></li>
-  <li><a href="#what-this-system-does-not-cover" id="toc-what-this-system-does-not-cover" class="nav-link" data-scroll-target="#what-this-system-does-not-cover">What This System Does Not Cover</a></li>
+  <li><a href="#the-foundations-workflow" id="toc-the-foundations-workflow" class="nav-link" data-scroll-target="#the-foundations-workflow">The Foundations Workflow</a></li>
+  <li><a href="#what-you-will-be-able-to-produce" id="toc-what-you-will-be-able-to-produce" class="nav-link" data-scroll-target="#what-you-will-be-able-to-produce">What You Will Be Able to Produce</a></li>
   <li><a href="#how-this-guide-is-structured" id="toc-how-this-guide-is-structured" class="nav-link" data-scroll-target="#how-this-guide-is-structured">How This Guide Is Structured</a></li>
-  <li><a href="#how-to-approach-this-system" id="toc-how-to-approach-this-system" class="nav-link" data-scroll-target="#how-to-approach-this-system">How to Approach This System</a></li>
-  <li><a href="#the-cdi-foundations-workflow" id="toc-the-cdi-foundations-workflow" class="nav-link" data-scroll-target="#the-cdi-foundations-workflow">The CDI Foundations Workflow</a></li>
+  <li><a href="#what-this-guide-does-not-cover" id="toc-what-this-guide-does-not-cover" class="nav-link" data-scroll-target="#what-this-guide-does-not-cover">What This Guide Does Not Cover</a></li>
+  <li><a href="#how-this-guide-fits-within-cdi" id="toc-how-this-guide-fits-within-cdi" class="nav-link" data-scroll-target="#how-this-guide-fits-within-cdi">How This Guide Fits Within CDI</a></li>
+  <li><a href="#from-open-guide-to-practicals" id="toc-from-open-guide-to-practicals" class="nav-link" data-scroll-target="#from-open-guide-to-practicals">From Open Guide to Practicals</a></li>
+  <li><a href="#how-to-use-this-guide" id="toc-how-to-use-this-guide" class="nav-link" data-scroll-target="#how-to-use-this-guide">How to Use This Guide</a></li>
   <li><a href="#looking-ahead" id="toc-looking-ahead" class="nav-link" data-scroll-target="#looking-ahead">Looking Ahead</a></li>
   </ul>
 </nav>
@@ -302,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Jun 2026</p>
+      <p class="date">Jul 2026</p>
     </div>
   </div>
   
@@ -318,174 +321,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>ID:</strong> DS-000</li>
 <li><strong>Type:</strong> Preface</li>
-<li><strong>Audience:</strong> Beginner to Intermediate</li>
-<li><strong>Theme:</strong> From tidy data to reusable analytical thinking</li>
+<li><strong>Audience:</strong> Beginner-friendly</li>
+<li><strong>Theme:</strong> From structured data to defensible insight</li>
 </ul>
 </div>
-<section id="system-role" class="level2">
-<h2 class="anchored" data-anchor-id="system-role">System Role</h2>
-<p>The <strong>CDI Data Science Foundations System</strong> is a reusable parent system for tidy-table analysis across CDI pathways.</p>
-<p>It provides a Python-based workflow for inspecting, cleaning, wrangling, visualizing, summarizing, and interpreting tidy, analysis-ready tables.</p>
-<p>Any CDI pathway that produces structured tables can reuse this system, including:</p>
-<ul>
-<li>Omics result tables</li>
-<li>Clinical and medical cohort tables</li>
-<li>AI evaluation tables</li>
-<li>Decision-support tables</li>
-</ul>
-<pre class="text"><code>Tidy analysis-ready table
-        ↓
-Data Science Foundations System
-        ↓
-inspection, cleaning, wrangling, visualization, summary, interpretation</code></pre>
-</section>
-<section id="why-this-system-exists" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-system-exists">Why This System Exists</h2>
-<p>The <strong>Data Science Foundations System</strong> exists to provide a reusable analytical foundation for the wider Complex Data Insights ecosystem.</p>
-<p>Across CDI pathways, the raw data may look very different:</p>
-<ul>
-<li>sequencing files in omics</li>
-<li>abundance tables in microbiome analysis</li>
-<li>protein result tables in proteomics</li>
-<li>cohort tables in clinical and medical data</li>
-<li>evaluation tables in AI and decision systems</li>
-</ul>
-<p>But once pathway-specific processing is complete, many workflows converge into the same starting point:</p>
-<blockquote class="blockquote">
-<p>a tidy, analysis-ready table.</p>
-</blockquote>
-<p>This system begins at that point.</p>
-<p>It teaches the reusable skills needed to inspect, clean, transform, visualize, summarize, and interpret structured data tables.</p>
-<p>The goal is not only to learn Python.</p>
-<p>The goal is to develop a repeatable way of thinking about data so that the same foundations can be reused across CDI pathways.</p>
+<section id="about-this-guide" class="level2">
+<h2 class="anchored" data-anchor-id="about-this-guide">About This Guide</h2>
+<p>The <strong>CDI Data Science Foundations System</strong> introduces a reusable Python workflow for working with structured tabular data.</p>
+<p>The guide begins with data organized into rows and columns. The data may still contain missing values, inconsistent entries, unsuitable data types, or other issues that must be understood and addressed before analysis.</p>
+<p>You will learn to move through a complete foundational workflow:</p>
+<pre class="text"><code>load → inspect → clean → wrangle → visualize → summarize → interpret → communicate</code></pre>
+<p>The aim is not simply to learn individual Python commands. It is to develop a repeatable way of approaching data: understand the question, examine the evidence, make documented analytical choices, and communicate conclusions without overstating what the data can support.</p>
 <hr>
 </section>
-<section id="the-role-of-data-science-foundations-in-cdi" class="level2">
-<h2 class="anchored" data-anchor-id="the-role-of-data-science-foundations-in-cdi">The Role of Data Science Foundations in CDI</h2>
-<p>Within the CDI architecture, this system acts as the shared parent layer for table-based analysis.</p>
-<pre class="text"><code>CDI pathway-specific processing
-        ↓
-Tidy, analysis-ready tables
-        ↓
-Data Science Foundations System
-        ↓
-Analysis, visualization, summary, and interpretation</code></pre>
-<p>For example:</p>
-<pre class="text"><code>RNA-Seq differential expression table
-        ↓
-Data Science Foundations System
-
-Microbiome diversity or abundance table
-        ↓
-Data Science Foundations System
-
-Proteomics differential protein table
-        ↓
-Data Science Foundations System
-
-Clinical cohort table
-        ↓
-Data Science Foundations System
-
-AI evaluation table
-        ↓
-Data Science Foundations System</code></pre>
-<p>This makes the system reusable across domains.</p>
-<p>It does not replace domain-specific systems. Instead, it supports them once they produce structured tables that are ready for analysis.</p>
+<section id="who-this-guide-is-for" class="level2">
+<h2 class="anchored" data-anchor-id="who-this-guide-is-for">Who This Guide Is For</h2>
+<p>This guide is designed for:</p>
+<ul>
+<li>learners beginning data analysis with Python</li>
+<li>researchers moving from spreadsheets or manual workflows into reproducible analysis</li>
+<li>learners who know some Python but need a coherent analytical workflow</li>
+<li>professionals who want to strengthen their approach to data inspection, cleaning, visualization, and interpretation</li>
+<li>CDI learners preparing for domain-specific guides or structured Practicals</li>
+</ul>
+<p>The chapters are beginner-friendly, but the habits they develop remain useful in more advanced analytical work.</p>
+<hr>
+</section>
+<section id="what-you-need-before-starting" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-need-before-starting">What You Need Before Starting</h2>
+<p>You do not need prior experience in machine learning.</p>
+<p>Basic familiarity with computers, files, and folders will be helpful. You should also be willing to run and adapt Python code as you work through the examples.</p>
+<p>You do not need an existing Python environment. Chapter 01 guides you through installing the required tools, creating a project-specific virtual environment, and installing the guide’s dependencies.</p>
+<p>No domain-specific background in omics, clinical research, or Artificial Intelligence is required. The guide focuses on general table-based analysis.</p>
 <hr>
 </section>
 <section id="what-you-will-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-will-learn">What You Will Learn</h2>
-<p>This system introduces a practical workflow for working with tidy data in Python.</p>
 <p>You will learn how to:</p>
 <ul>
-<li>set up a basic Python analysis environment</li>
-<li>load and inspect datasets</li>
-<li>understand rows, columns, variables, and values</li>
-<li>identify missing values and inconsistent data</li>
-<li>clean and prepare data for analysis</li>
-<li>filter, select, group, and summarize data</li>
-<li>create basic visualizations</li>
-<li>interpret patterns carefully</li>
-<li>communicate findings clearly</li>
-<li>understand how analysis connects to later modeling workflows</li>
+<li>set up a suitable Python analysis environment</li>
+<li>load structured datasets and inspect their contents</li>
+<li>understand observations, variables, values, and data types</li>
+<li>identify missing, inconsistent, duplicated, or implausible data</li>
+<li>clean and prepare data while documenting important decisions</li>
+<li>select, filter, sort, group, reshape, and summarize data</li>
+<li>create clear foundational visualizations</li>
+<li>use summary statistics to describe patterns in the data</li>
+<li>distinguish observations from interpretations</li>
+<li>communicate findings, uncertainty, and limitations clearly</li>
+<li>recognize when a question may require modeling rather than descriptive analysis alone</li>
 </ul>
-<p>The focus is on building confidence with the core operations that appear repeatedly in real analytical work.</p>
+<p>These skills form the foundation for more specialized data science and domain-specific workflows.</p>
 <hr>
 </section>
-<section id="what-this-system-does-not-cover" class="level2">
-<h2 class="anchored" data-anchor-id="what-this-system-does-not-cover">What This System Does Not Cover</h2>
-<p>This is a foundations system, so it intentionally avoids going too deep into advanced modeling or production workflows.</p>
-<p>It does not focus on:</p>
-<ul>
-<li>advanced machine learning</li>
-<li>model deployment</li>
-<li>APIs</li>
-<li>monitoring and drift</li>
-<li>deep learning</li>
-<li>production software engineering</li>
-</ul>
-<p>Those topics belong in the <strong>Applied Data Science System</strong> and later CDI AI and decision systems.</p>
-<p>Here, the priority is to build the reusable base: tidy data, inspection, cleaning, transformation, visualization, summary, and interpretation.</p>
-<hr>
-</section>
-<section id="how-this-guide-is-structured" class="level2">
-<h2 class="anchored" data-anchor-id="how-this-guide-is-structured">How This Guide Is Structured</h2>
-<p>Each chapter follows a practical pattern:</p>
-<ol type="1">
-<li><p><strong>Concept</strong><br>
-What the chapter is about and why it matters.</p></li>
-<li><p><strong>Workflow</strong><br>
-The steps used to work through the data.</p></li>
-<li><p><strong>Code</strong><br>
-A practical Python implementation.</p></li>
-<li><p><strong>Interpretation</strong><br>
-What the output means.</p></li>
-<li><p><strong>Summary</strong><br>
-The key ideas to retain.</p></li>
-</ol>
-<p>This structure is intentional.</p>
-<p>Data science is not only about writing code. It is about knowing what the code is doing, why it matters, and how to interpret the result responsibly.</p>
-<hr>
-</section>
-<section id="how-to-approach-this-system" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-approach-this-system">How to Approach This System</h2>
-<p>Work through the chapters in order if you are new to structured data analysis.</p>
-<p>If you already have experience, you can use the system as a reference for CDI-style table-based workflows.</p>
-<p>As you work through the guide, focus on three habits:</p>
-<ul>
-<li>inspect the data before analyzing it</li>
-<li>document the choices you make</li>
-<li>interpret outputs in the context of the original question</li>
-</ul>
-<p>These habits are simple, but they are central to reliable data work.</p>
-<hr>
-</section>
-<section id="the-cdi-foundations-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="the-cdi-foundations-workflow">The CDI Foundations Workflow</h2>
-<p>The core workflow in this system is:</p>
+<section id="the-foundations-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="the-foundations-workflow">The Foundations Workflow</h2>
+<p>The guide follows a question-led analytical process:</p>
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  A[Question or Objective] --&gt; B[Load Data]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; C[Inspect Structure]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  C --&gt; D[Clean &amp; Prepare]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  D --&gt; E[Wrangle &amp; Transform]</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  E --&gt; F[Visualize Patterns]</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  F --&gt; G[Summarize Results]</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  G --&gt; H[Interpret Findings]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  H --&gt; I[Communicate Clearly]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  A[Define the Question] --&gt; B[Load the Data]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; C[Inspect the Structure]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  C --&gt; D[Clean and Prepare]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  D --&gt; E[Wrangle and Transform]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  E --&gt; F[Visualize Patterns]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  F --&gt; G[Summarize Results]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  G --&gt; H[Interpret Findings]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  H --&gt; I[Communicate Clearly]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TB
-  A[Question or Objective] --&gt; B[Load Data]
-  B --&gt; C[Inspect Structure]
-  C --&gt; D[Clean &amp; Prepare]
-  D --&gt; E[Wrangle &amp; Transform]
+  A[Define the Question] --&gt; B[Load the Data]
+  B --&gt; C[Inspect the Structure]
+  C --&gt; D[Clean and Prepare]
+  D --&gt; E[Wrangle and Transform]
   E --&gt; F[Visualize Patterns]
   F --&gt; G[Summarize Results]
   G --&gt; H[Interpret Findings]
@@ -496,15 +409,111 @@ The key ideas to retain.</p></li>
 </div>
 </div>
 </div>
-<p>This workflow is intentionally simple.</p>
-<p>It is the foundation that later supports more advanced work such as modeling, evaluation, decision-making, and domain-specific interpretation.</p>
+<p>Although the chapters present these stages in a clear sequence, real analysis is often iterative. A visualization may reveal a data-quality issue, a summary may lead to a revised question, or an interpretation may require you to revisit an earlier decision.</p>
+<p>The workflow therefore provides structure without implying that analysis always proceeds in a perfectly straight line.</p>
+<hr>
+</section>
+<section id="what-you-will-be-able-to-produce" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-will-be-able-to-produce">What You Will Be Able to Produce</h2>
+<p>By the end of the guide, you should be able to produce:</p>
+<ul>
+<li>an inspected and documented dataset</li>
+<li>a cleaned, analysis-ready table</li>
+<li>a record of important data-quality and preparation decisions</li>
+<li>reproducible data transformations</li>
+<li>appropriate exploratory figures</li>
+<li>clear summary tables and statistics</li>
+<li>a concise, evidence-based interpretation</li>
+<li>a reproducible analytical record that another person can review</li>
+</ul>
+<p>The emphasis is on outputs that are understandable, traceable, and appropriate for the question being addressed.</p>
+<hr>
+</section>
+<section id="how-this-guide-is-structured" class="level2">
+<h2 class="anchored" data-anchor-id="how-this-guide-is-structured">How This Guide Is Structured</h2>
+<p>The guide develops the workflow in stages:</p>
+<ol type="1">
+<li><p><strong>System orientation and environment</strong><br>
+Understand the purpose of the guide and prepare the tools used throughout it.</p></li>
+<li><p><strong>Data inspection and preparation</strong><br>
+Load a dataset, examine its structure and quality, and prepare it for analysis.</p></li>
+<li><p><strong>Data transformation and analysis</strong><br>
+Wrangle data, create foundational visualizations, calculate summaries, and interpret patterns.</p></li>
+<li><p><strong>From analysis to modeling</strong><br>
+Recognize when descriptive analysis is sufficient and when a modeling workflow may be appropriate.</p></li>
+<li><p><strong>Complete workflow and reference material</strong><br>
+Bring the stages together and use the appendices as a continuing reference.</p></li>
+</ol>
+<p>Within individual chapters, explanations, code, outputs, and interpretation are presented together. This reflects the central principle of the guide: reliable data science requires more than code alone.</p>
+<hr>
+</section>
+<section id="what-this-guide-does-not-cover" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-guide-does-not-cover">What This Guide Does Not Cover</h2>
+<p>This is a foundations guide. It introduces the transition from analysis to modeling but does not attempt to provide comprehensive coverage of:</p>
+<ul>
+<li>advanced machine learning</li>
+<li>deep learning</li>
+<li>model deployment</li>
+<li>APIs and production services</li>
+<li>model monitoring and drift</li>
+<li>production software engineering</li>
+</ul>
+<p>Model building, evaluation, and interpretation are developed in later CDI guides. Deployment, monitoring, deep learning, and production engineering remain outside the scope of this foundations system.</p>
+<p>Keeping these boundaries clear allows this guide to concentrate on the analytical skills that should come first: inspection, cleaning, transformation, visualization, summary, interpretation, and communication.</p>
+<hr>
+</section>
+<section id="how-this-guide-fits-within-cdi" class="level2">
+<h2 class="anchored" data-anchor-id="how-this-guide-fits-within-cdi">How This Guide Fits Within CDI</h2>
+<p>Different CDI domains work with different forms of data. Once those data are organized into structured tables, many of the same foundational practices become useful.</p>
+<p>Examples include:</p>
+<ul>
+<li>differential expression results in Omics &amp; Bioinformatics</li>
+<li>cohort or outcome tables in Clinical &amp; Medical Data</li>
+<li>model-evaluation tables in Artificial Intelligence</li>
+<li>project, survey, or evidence tables in Research &amp; Innovation</li>
+</ul>
+<p>This guide does not replace domain-specific knowledge or workflows. It provides general analytical foundations that can be reused where table-based analysis is appropriate.</p>
+<p>CDI approaches Artificial Intelligence as a human-directed tool: it can support analysis, reasoning, creativity, and decision-making, while people remain responsible for judgment, verification, and outcomes.</p>
+<hr>
+</section>
+<section id="from-open-guide-to-practicals" class="level2">
+<h2 class="anchored" data-anchor-id="from-open-guide-to-practicals">From Open Guide to Practicals</h2>
+<p>This open guide teaches concepts, reasoning, and reusable workflow patterns. <strong>CDI Practicals</strong> provide bounded exercises in which you apply those skills to a defined task and produce evidence of what you can do.</p>
+<p>The closest Practical connections are:</p>
+<ul>
+<li><strong>Data Cleaning and Validation Practical</strong> — applies data inspection, cleaning, validation, and documentation</li>
+<li><strong>Exploratory Data Analysis Practical</strong> — applies structured exploration, visualization, summary, and interpretation</li>
+<li><strong>Data Visualization Practical</strong> — develops the selection, construction, and communication of appropriate figures</li>
+<li><strong>Intro to Machine Learning Practical</strong> — continues the transition introduced in Chapter 07</li>
+</ul>
+<p>The guide and Practicals serve different purposes. The guide helps you understand the workflow; a Practical asks you to carry it out and produce a concrete result.</p>
+<hr>
+</section>
+<section id="how-to-use-this-guide" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use-this-guide">How to Use This Guide</h2>
+<p>If you are new to structured data analysis, work through the chapters in order and run the code as you go. Do not focus only on obtaining the same output. Ask what each step does, why it is needed, and how the result affects the next decision.</p>
+<p>If you already have experience, you can use individual chapters as references while retaining the overall workflow.</p>
+<p>Throughout the guide, build these habits:</p>
+<ul>
+<li>inspect data before analyzing it</li>
+<li>keep the question visible throughout the workflow</li>
+<li>document cleaning and transformation decisions</li>
+<li>choose methods that match the data and purpose</li>
+<li>separate what the data show from what you infer</li>
+<li>communicate uncertainty and limitations</li>
+<li>keep analysis reproducible and reviewable</li>
+</ul>
+<p>These habits are simple, but they are central to defensible analytical work.</p>
 <hr>
 </section>
 <section id="looking-ahead" class="level2">
 <h2 class="anchored" data-anchor-id="looking-ahead">Looking Ahead</h2>
-<p>By the end of this system, you should be able to take a tidy, analysis-ready table and move through a complete foundational workflow:</p>
-<pre class="text"><code>load → inspect → clean → wrangle → visualize → summarize → interpret → communicate</code></pre>
-<p>That workflow becomes a reusable base for the rest of the CDI ecosystem.</p>
+<p>By the end of this system, you should be able to take a structured tabular dataset and develop it into a documented, analysis-ready table and a clear analytical summary.</p>
+<p>You will also be prepared to decide what should happen next: conclude with a descriptive finding, apply the workflow in a CDI Practical, continue into a domain-specific guide, or begin a carefully framed modeling task.</p>
+<p>The methods will continue to evolve as your work becomes more specialized. The underlying discipline remains the same:</p>
+<blockquote class="blockquote">
+<p>understand the question, inspect the evidence, document the process, and make claims the analysis can support.</p>
+</blockquote>
 
 
 </section>
