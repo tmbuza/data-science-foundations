@@ -1444,7 +1444,7 @@
     "href": "06-summary-statistics-and-insights.html#run-the-reusable-summary-script",
     "title": "Summary Statistics and Insights",
     "section": "Run the reusable summary script",
-    "text": "Run the reusable summary script\nRun this from the project root:\npython scripts/python/summarize_table.py \\\n  data/iris_wrangled.csv \\\n  results/summary\nThe script validates the input and creates the same evidence package developed manually in this lesson.",
+    "text": "Run the reusable summary script\nRun this from the project root:\npython scripts/python/summarize_table.py data/iris_wrangled.csv results/summary\nThe script validates the input and creates the same evidence package developed manually in this lesson.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
