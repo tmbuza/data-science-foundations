@@ -3,7 +3,7 @@
 :::cdi-message
 - **ID:** DS-L01
 - **Type:** Foundation
-- **Audience:** Beginner-friendly
+- **Audience:** Beginner and intermediate
 - **Theme:** Reproducibility starts before analysis
 :::
 
