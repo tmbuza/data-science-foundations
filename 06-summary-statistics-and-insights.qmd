@@ -504,9 +504,7 @@ spearman_corr.to_csv(
 Run this from the project root:
 
 ```bash
-python scripts/python/summarize_table.py \
-  data/iris_wrangled.csv \
-  results/summary
+python scripts/python/summarize_table.py data/iris_wrangled.csv results/summary
 ```
 
 The script validates the input and creates the same evidence package developed manually in this lesson.
