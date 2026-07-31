@@ -3,7 +3,8 @@ project:
   output-dir: docs
 
 bibliography: library/references.bib
-date: last-modified
+
+date: 2026-07-31
 date-format: "MMM YYYY"
 
 book:
