@@ -7,15 +7,11 @@
 - **Theme:** Using summary statistics to move from numbers to interpretation
 :::
 
-Summary statistics help move analysis from individual rows to interpretable evidence.
+Summary statistics turn rows of observations into evidence we can compare and explain.
 
-They describe the center, spread, balance, and relationships in a dataset without requiring us to inspect every observation individually.
+No single statistic tells the whole story. The mean describes an arithmetic center, the median provides a center that is less sensitive to unusual values, and the standard deviation and interquartile range describe different aspects of variability. Counts reveal whether groups are balanced, while correlations describe how numeric variables move together.
 
-However, descriptive summaries are only useful when they are connected to careful interpretation.
-
-In this lesson, we compute descriptive statistics, compare grouped summaries, examine simple relationships, and write short insights grounded in evidence.
-
-This chapter closes the core tidy-table workflow introduced in the Data Science Foundations System:
+In this lesson, we combine these summaries with visual checks and write concise insights without making claims that the data cannot support.
 
 ```text
 inspect
@@ -35,19 +31,18 @@ summarize and interpret
 
 By the end of this lesson, you will be able to:
 
-- compute descriptive statistics for numeric variables
-- summarize categorical variables with counts
-- compare groups using means, medians, and standard deviations
-- examine simple relationships between numeric features
-- save reusable summary tables
-- write careful interpretations based on descriptive evidence
-- run a reusable summarization script from the command line
+- summarize numeric variables using mean, median, standard deviation, quartiles, and IQR
+- summarize categorical variables using counts and percentages
+- compare groups using consistent descriptive statistics
+- rank features using a scale-independent measure of group differentiation
+- compare Pearson and Spearman correlations
+- connect statistical tables to visual evidence
+- write careful, evidence-based interpretations
+- save a reusable summary evidence package
 
 ---
 
 ## Chapter workflow
-
-This chapter introduces the fifth reusable Python script in the system:
 
 ```text
 06-summary-statistics-and-insights.qmd
@@ -65,13 +60,11 @@ results/summary/
 ├── numeric-summary.tsv
 ├── species-counts.tsv
 ├── grouped-summary.tsv
-├── median-summary.tsv
-├── feature-separation.tsv
-├── correlation-matrix.tsv
+├── feature-differentiation.tsv
+├── pearson-correlation.tsv
+├── spearman-correlation.tsv
 └── analysis-insights.md
 ```
-
-These outputs provide a compact evidence package for reporting and interpretation.
 
 ---
 
@@ -88,35 +81,23 @@ df = pd.read_csv("data/iris_wrangled.csv")
 df.head()
 ```
 
----
-
-## Inspect the structure
-
-Before summarizing, confirm the structure of the dataset.
+## Inspect before summarizing
 
 ```python
 print("Shape:", df.shape)
 print("\nColumns:", df.columns.tolist())
 print("\nData types:")
 print(df.dtypes)
+print("\nMissing values:")
+print(df.isna().sum())
 ```
 
-### Interpretation
+Before choosing statistics, identify:
 
-Before computing summaries, ask:
-
-- which variables are numeric?
-- which variable defines the groups?
-- which derived features are available?
-- which summaries are likely to be most informative?
-
-For the Iris dataset, the flower measurements and `petal_area` are numeric, while `species` provides a natural grouping variable.
-
----
-
-## Descriptive statistics for numeric variables
-
-`describe()` gives a compact summary of central tendency and spread.
+- the numeric variables to summarize
+- the categorical variable that defines groups
+- any derived features
+- any remaining missing values
 
 ```python
 num_cols = [
@@ -126,28 +107,50 @@ num_cols = [
     "petal_width",
     "petal_area"
 ]
-
-numeric_summary = df[num_cols].describe().transpose()
-numeric_summary
 ```
 
-### Interpretation
-
-This table helps you review:
-
-- the typical range of each feature
-- the approximate center using the mean
-- variability using the standard deviation
-- minimum and maximum values
-- quartiles that describe spread
-
-A numeric summary is often the first checkpoint before deeper comparison.
+`petal_area` is derived from petal length and width. It is useful as a combined size measure, but it is not independent of those two source variables.
 
 ---
 
-## Visual check of numeric distributions
+## Numeric summaries: center and spread
 
-A simple set of histograms helps connect the summary table to visible distributions.
+The most useful first table combines conventional and robust statistics.
+
+```python
+numeric_summary = (
+    df[num_cols]
+    .agg(["count", "mean", "median", "std", "min", "max"])
+    .transpose()
+    .reset_index(names="feature")
+)
+
+numeric_summary["q1"] = df[num_cols].quantile(0.25).values
+numeric_summary["q3"] = df[num_cols].quantile(0.75).values
+numeric_summary["iqr"] = numeric_summary["q3"] - numeric_summary["q1"]
+
+numeric_summary = numeric_summary[
+    ["feature", "count", "mean", "median", "std", "q1", "q3", "iqr", "min", "max"]
+]
+
+numeric_summary
+```
+
+### What each statistic contributes
+
+| Statistic | What it tells you |
+|---|---|
+| `count` | Number of non-missing observations |
+| `mean` | Arithmetic center |
+| `median` | Middle value; less sensitive to extreme values |
+| `std` | Typical variability around the mean |
+| `q1`, `q3` | Boundaries of the middle 50% of values |
+| `iqr` | Spread of the middle 50%; calculated as Q3 − Q1 |
+| `min`, `max` | Observed endpoints |
+
+Compare the mean with the median and the standard deviation with the IQR. Agreement suggests a fairly stable summary; noticeable differences are a reason to inspect the distribution.
+
+## Visual check of distributions
 
 ```python
 df_long = df.melt(
@@ -172,35 +175,29 @@ g.fig.suptitle("Iris — Distributions of Numeric Features", y=1.03)
 plt.show()
 ```
 
-### Interpretation
-
-These histograms help you assess:
-
-- whether distributions are narrow or wide
-- whether some features appear more variable than others
-- whether there may be multiple peaks suggesting subgroup structure
-
-A summary table alone may not reveal distribution shape.
+Histograms add distribution shape to the numeric table. Multiple peaks in the combined data may reflect the three species rather than unusual observations.
 
 ---
 
-## Categorical summary
+## Categorical counts and percentages
 
-For a categorical variable, counts are often the simplest descriptive summary.
+Counts show sample size; percentages make the group balance immediately interpretable.
 
 ```python
 species_counts = (
     df["species"]
     .value_counts()
     .sort_index()
-    .reset_index()
+    .rename_axis("species")
+    .reset_index(name="n")
 )
 
-species_counts.columns = ["species", "n"]
+species_counts["percent"] = (
+    species_counts["n"] / species_counts["n"].sum() * 100
+)
+
 species_counts
 ```
-
-### Visual: species distribution
 
 ```python
 fig, ax = plt.subplots(figsize=(7, 4))
@@ -208,407 +205,323 @@ fig, ax = plt.subplots(figsize=(7, 4))
 sns.countplot(
     data=df,
     x="species",
+    order=sorted(df["species"].unique()),
     ax=ax
 )
 
-ax.set_title("Count of Samples by Species")
+ax.set_title("Number of Samples by Species")
 ax.set_xlabel("Species")
-ax.set_ylabel("Count")
+ax.set_ylabel("Number of samples")
 
 plt.show()
 ```
 
-### Interpretation
-
-Category counts help you assess whether groups are balanced.
-
-Balanced group sizes make comparisons easier to interpret, while strong imbalance can affect how patterns appear in tables and plots.
+Balanced groups receive equal influence in an overall summary. With imbalanced data, always examine group-level results because a large group can dominate the combined mean.
 
 ---
 
-## Grouped summary statistics
+## Grouped summaries
 
-A common workflow is to summarize numeric variables by a grouping column.
+A long-format grouped table is compact, consistent, and easy to filter.
 
 ```python
-group_summary = (
-    df.groupby("species", observed=False)
-      .agg(
-          n=("species", "size"),
-          sepal_length_mean=("sepal_length", "mean"),
-          sepal_length_sd=("sepal_length", "std"),
-          sepal_width_mean=("sepal_width", "mean"),
-          sepal_width_sd=("sepal_width", "std"),
-          petal_length_mean=("petal_length", "mean"),
-          petal_length_sd=("petal_length", "std"),
-          petal_width_mean=("petal_width", "mean"),
-          petal_width_sd=("petal_width", "std"),
-          petal_area_mean=("petal_area", "mean"),
-          petal_area_sd=("petal_area", "std")
-      )
-      .reset_index()
-)
+group_records = []
 
-group_summary
+for species, group in df.groupby("species", observed=False):
+    for feature in num_cols:
+        values = group[feature]
+        q1 = values.quantile(0.25)
+        q3 = values.quantile(0.75)
+
+        group_records.append(
+            {
+                "species": species,
+                "feature": feature,
+                "n": values.count(),
+                "mean": values.mean(),
+                "median": values.median(),
+                "sd": values.std(),
+                "q1": q1,
+                "q3": q3,
+                "iqr": q3 - q1,
+                "min": values.min(),
+                "max": values.max()
+            }
+        )
+
+grouped_summary = pd.DataFrame(group_records)
+
+grouped_summary
 ```
 
-### Interpretation
+This table answers several questions at once:
 
-Grouped summaries help answer questions such as:
+- Which species has the largest typical value?
+- Do the mean and median tell a similar story?
+- Which species is most variable?
+- How much do the middle 50% of observations overlap?
 
-- which species has the largest average petals?
-- which variable differs most across species?
-- which groups appear similar and which appear distinct?
+## Visual comparison with boxplots
 
-This is where descriptive statistics begin to support insight.
-
----
-
-## Median table by species
-
-Means are useful, but medians can provide a more robust summary when you want a center less influenced by unusual values.
+Boxplots are more informative here than bars because they show the median, IQR, overall spread, and potential outliers.
 
 ```python
-median_table = (
-    df.groupby("species", observed=False)[num_cols]
-      .median()
-      .reset_index()
+df_group_long = df.melt(
+    id_vars="species",
+    value_vars=num_cols,
+    var_name="feature",
+    value_name="value"
 )
 
-median_table
-```
-
-### Interpretation
-
-Comparing means and medians helps you assess whether a group's center is stable or influenced by a few values.
-
----
-
-## Visual comparison of group means
-
-```python
-fig, ax = plt.subplots(figsize=(8, 5.5))
-
-sns.barplot(
-    data=df,
+g = sns.catplot(
+    data=df_group_long,
     x="species",
-    y="petal_length",
-    errorbar="sd",
-    ax=ax
+    y="value",
+    col="feature",
+    col_wrap=3,
+    kind="box",
+    sharey=False,
+    height=3.4,
+    aspect=1.1
 )
 
-ax.set_title("Mean Petal Length by Species")
-ax.set_xlabel("Species")
-ax.set_ylabel("Petal Length")
+g.set_axis_labels("Species", "Value")
+g.fig.suptitle("Numeric Features by Species", y=1.03)
 
 plt.show()
 ```
 
-### Interpretation
-
-This plot combines summary and variation.
-
-It helps you compare:
-
-- average petal length across species
-- within-group spread using standard deviation
-- whether group differences appear large or modest
-
-When this agrees with earlier visualizations, confidence in the pattern increases.
+Use the second version in your own analysis because the relationship between each measurement and its species remains explicit.
 
 ---
 
-## Key feature differences
+## Scale-independent group differentiation
 
-A simple way to identify strong descriptive separation is to compare the range of group means across variables.
+Subtracting the smallest group mean from the largest is not suitable for ranking features measured on different scales. A feature with larger numeric units can appear more important simply because its values are larger.
+
+Instead, use eta-squared (η²), a descriptive effect-size measure:
+
+$$
+\eta^2 = \frac{\text{between-group variation}}{\text{total variation}}
+$$
+
+Values range from 0 to 1:
+
+- values near 0 indicate little differentiation among group means
+- larger values indicate that species membership accounts for more of the observed variation
 
 ```python
-feature_separation = []
+feature_differentiation = []
 
 for col in num_cols:
-    group_means = df.groupby("species", observed=False)[col].mean()
-    feature_separation.append(
+    overall_mean = df[col].mean()
+
+    between_ss = sum(
+        len(group) * (group[col].mean() - overall_mean) ** 2
+        for _, group in df.groupby("species", observed=False)
+    )
+
+    total_ss = ((df[col] - overall_mean) ** 2).sum()
+
+    feature_differentiation.append(
         {
             "feature": col,
-            "min_group_mean": group_means.min(),
-            "max_group_mean": group_means.max(),
-            "range_of_group_means": group_means.max() - group_means.min()
+            "eta_squared": between_ss / total_ss
         }
     )
 
-feature_separation = (
-    pd.DataFrame(feature_separation)
-    .sort_values("range_of_group_means", ascending=False)
+feature_differentiation = (
+    pd.DataFrame(feature_differentiation)
+    .sort_values("eta_squared", ascending=False)
+    .reset_index(drop=True)
 )
 
-feature_separation
+feature_differentiation
 ```
 
-### Interpretation
+Eta-squared ranks descriptive group differentiation on a common scale. It does not measure predictive accuracy and does not prove that species causes a measurement.
 
-A larger difference in group means suggests that a feature may separate species more clearly.
-
-This does not establish classification performance, but it provides a useful descriptive signal about which variables are more informative.
+Because `petal_area` is derived from petal length and width, interpret its ranking as a useful summary of combined petal size—not as evidence of a new independent measurement.
 
 ---
 
-## Correlation matrix
+## Pearson and Spearman correlations
 
-Correlations summarize linear relationships among numeric variables.
+Pearson correlation summarizes linear association. Spearman correlation summarizes monotonic association using ranks and is less sensitive to extreme values and nonlinearity.
 
 ```python
-corr = df[num_cols].corr()
-corr
+pearson_corr = df[num_cols].corr(method="pearson")
+spearman_corr = df[num_cols].corr(method="spearman")
+
+pearson_corr
 ```
 
-## Correlation heatmap
+```python
+spearman_corr
+```
 
 ```python
-fig, ax = plt.subplots(figsize=(8, 5.5))
+fig, axes = plt.subplots(1, 2, figsize=(14, 5.5))
 
 sns.heatmap(
-    corr,
+    pearson_corr,
     annot=True,
     fmt=".2f",
-    ax=ax
+    vmin=-1,
+    vmax=1,
+    cmap="vlag",
+    ax=axes[0]
 )
+axes[0].set_title("Pearson Correlation")
 
-ax.set_title("Correlation Heatmap")
+sns.heatmap(
+    spearman_corr,
+    annot=True,
+    fmt=".2f",
+    vmin=-1,
+    vmax=1,
+    cmap="vlag",
+    ax=axes[1]
+)
+axes[1].set_title("Spearman Correlation")
 
+plt.tight_layout()
 plt.show()
 ```
 
-### Interpretation
+When Pearson and Spearman values are similar, the association is likely both linear and monotonic. A noticeable difference suggests that shape or unusual observations deserve closer inspection.
 
-A correlation heatmap helps you see:
+::: callout-important
+Correlation does not establish causation. Correlations in the full Iris dataset may also reflect differences among species. Examine scatterplots and within-species patterns before interpreting a pooled correlation biologically.
+:::
 
-- which measurements tend to increase together
-- which relationships appear weak
-- where redundancy may exist between variables
-
-This can guide later feature selection and interpretation.
+Correlations involving `petal_area` are expected to be strong because that feature was calculated from petal length and width. This is mathematical dependence, not independent confirmation.
 
 ---
 
-## Generate a simple insights report
+## Generate an insights report
 
-An insights report should link evidence to interpretation without overstating what the data can support.
+A useful report includes concrete values, interpretation, and limitations.
 
 ```python
-top_sep = feature_separation.iloc[0]
+top_feature = feature_differentiation.iloc[0]
 
-top_petal_length = (
-    df.groupby("species", observed=False)["petal_length"]
-      .mean()
-      .sort_values(ascending=False)
-      .reset_index(name="petal_length_mean")
+petal_length_by_species = (
+    grouped_summary
+    .query("feature == 'petal_length'")
+    [["species", "n", "mean", "median", "sd", "iqr"]]
 )
 
 report = f"""# Insights Report: Iris Dataset
 
-## 1. Dataset size
+## Dataset and group balance
 
-- Rows: {df.shape[0]}
-- Columns: {df.shape[1]}
+- The dataset contains {df.shape[0]} observations and {df.shape[1]} columns.
+- It contains {df["species"].nunique()} species groups.
+- Group sizes range from {species_counts["n"].min()} to {species_counts["n"].max()} observations.
 
-## 2. Group separation
+## Petal length by species
 
-Petal-related features show strong descriptive differences across species.
+{petal_length_by_species.to_markdown(index=False)}
 
-Mean petal length by species:
+## Strongest descriptive differentiation
 
-{top_petal_length.to_markdown(index=False)}
+`{top_feature["feature"]}` has the largest eta-squared value
+({top_feature["eta_squared"]:.3f}) among the summarized features.
 
-## 3. Strongest descriptive separation
+## Interpretation
 
-The feature with the largest range of group means is `{top_sep["feature"]}`.
+Petal measurements provide clearer descriptive differentiation among species
+than sepal measurements in this dataset.
 
-- Minimum group mean: {top_sep["min_group_mean"]:.3f}
-- Maximum group mean: {top_sep["max_group_mean"]:.3f}
-- Range of group means: {top_sep["range_of_group_means"]:.3f}
+## Limitations
 
-## 4. Consistency with earlier plots
-
-These grouped summaries are consistent with the separation seen in visualization-based exploration.
-
-## 5. Caution
-
-These are descriptive patterns only. They support comparison, but they do not justify causal claims.
+These results describe this dataset. They do not establish causation or
+classification performance. Correlations involving `petal_area` partly reflect
+how that derived feature was calculated.
 """
 
 print(report)
 ```
 
-### Interpretation
+A strong insight states:
 
-A good insights report:
-
-- states what the evidence shows
-- links evidence to careful interpretation
-- avoids claims that go beyond the analysis
-
-This habit is central to CDI-style reasoning.
+1. the evidence,
+2. what the evidence reasonably suggests, and
+3. what the analysis does not establish.
 
 ---
 
 ## Validation checks
 
 ```python
-print("Total missing values:", int(df.isna().sum().sum()))
-print("Numeric columns used:", num_cols)
-print("Grouped summary shape:", group_summary.shape)
-print("Median table shape:", median_table.shape)
+assert int(df.isna().sum().sum()) == 0, "Missing values remain."
+assert "species" in df.columns, "The grouping variable is missing."
+assert set(num_cols).issubset(df.columns), "A numeric feature is missing."
+assert species_counts["n"].sum() == len(df), "Group counts do not match row count."
+assert feature_differentiation["eta_squared"].between(0, 1).all()
+assert pearson_corr.equals(pearson_corr.transpose())
+assert spearman_corr.equals(spearman_corr.transpose())
 
-assert int(df.isna().sum().sum()) == 0, "Missing values remain in the dataset."
-assert "species" in df.columns, "Grouping variable species is missing."
-assert len(num_cols) > 0, "No numeric columns selected."
+print("All summary validation checks passed.")
 ```
-
-### Interpretation
-
-Even in a summary-focused chapter, validation remains important.
-
-It confirms that:
-
-- the dataset is still clean
-- expected variables are present
-- grouped summaries were constructed correctly
 
 ---
 
 ## Save summary outputs
 
-Save the tables and report so they can be reused later.
-
 ```python
 from pathlib import Path
 
-Path("results/summary").mkdir(parents=True, exist_ok=True)
+output_dir = Path("results/summary")
+output_dir.mkdir(parents=True, exist_ok=True)
 
-numeric_summary.to_csv("results/summary/numeric-summary.tsv", sep="\t")
-species_counts.to_csv("results/summary/species-counts.tsv", sep="\t", index=False)
-group_summary.to_csv("results/summary/grouped-summary.tsv", sep="\t", index=False)
-median_table.to_csv("results/summary/median-summary.tsv", sep="\t", index=False)
-feature_separation.to_csv("results/summary/feature-separation.tsv", sep="\t", index=False)
-corr.to_csv("results/summary/correlation-matrix.tsv", sep="\t")
-Path("results/summary/analysis-insights.md").write_text(report, encoding="utf-8")
+numeric_summary.to_csv(
+    output_dir / "numeric-summary.tsv", sep="\t", index=False
+)
+species_counts.to_csv(
+    output_dir / "species-counts.tsv", sep="\t", index=False
+)
+grouped_summary.to_csv(
+    output_dir / "grouped-summary.tsv", sep="\t", index=False
+)
+feature_differentiation.to_csv(
+    output_dir / "feature-differentiation.tsv", sep="\t", index=False
+)
+pearson_corr.to_csv(
+    output_dir / "pearson-correlation.tsv", sep="\t"
+)
+spearman_corr.to_csv(
+    output_dir / "spearman-correlation.tsv", sep="\t"
+)
+(output_dir / "analysis-insights.md").write_text(
+    report, encoding="utf-8"
+)
 ```
 
----
-
 ## Run the reusable summary script
-
-The manual steps above explain the logic. The reusable script creates the summary evidence package from the command line.
 
 Run this from the project root:
 
 ```bash
-python scripts/python/summarize_table.py data/iris_wrangled.csv results/summary
+python scripts/python/summarize_table.py \
+  data/iris_wrangled.csv \
+  results/summary
 ```
 
-Expected outputs:
-
-```text
-results/summary/
-├── numeric-summary.tsv
-├── species-counts.tsv
-├── grouped-summary.tsv
-├── median-summary.tsv
-├── feature-separation.tsv
-├── correlation-matrix.tsv
-└── analysis-insights.md
-```
+The script validates the input and creates the same evidence package developed manually in this lesson.
 
 ---
 
-## What the summary script does
+## Key takeaways
 
-The script:
+- Use both conventional and robust summaries: mean with standard deviation, and median with IQR.
+- Always report group size alongside group statistics.
+- Prefer scale-independent measures when ranking features with different units.
+- Compare Pearson and Spearman correlations and inspect the corresponding plots.
+- Treat derived variables carefully because they can create expected mathematical relationships.
+- Descriptive statistics support interpretation, but they do not establish causation or predictive performance.
 
-- reads the wrangled input table
-- validates required columns
-- creates numeric descriptive summaries
-- creates categorical counts
-- creates grouped mean and standard deviation summaries
-- creates median summaries
-- estimates descriptive feature separation
-- computes a correlation matrix
-- writes a short markdown insights report
+## Next step
 
----
-
-## Exercise
-
-Try the following:
-
-1. Compute the mean and standard deviation of `sepal_width` by species.
-2. Create a table with the median of each numeric feature by species.
-3. Open `results/summary/analysis-insights.md`.
-4. Write one short paragraph interpreting your results without causal language.
-
----
-
-::: {.callout-tip collapse="true"}
-## Solution
-
-```python
-sepal_width_stats = (
-    df.groupby("species", observed=False)
-      .agg(
-          sepal_width_mean=("sepal_width", "mean"),
-          sepal_width_sd=("sepal_width", "std"),
-      )
-      .reset_index()
-)
-
-print("Sepal width mean and standard deviation by species:")
-print(sepal_width_stats)
-
-median_table_ex = (
-    df.groupby("species", observed=False)[num_cols]
-      .median()
-      .reset_index()
-)
-
-print("\nMedian table by species:")
-print(median_table_ex)
-
-print("\nInterpretation:")
-print("The grouped summaries suggest that species differ descriptively across several measurements, with petal-related variables showing clearer separation than sepal-related variables.")
-```
-
-:::
-
----
-
-## CDI Insight
-
-Summary statistics are not the end of analysis.
-
-They are a way to organize evidence so that interpretation becomes clearer and more defensible.
-
-A responsible analyst does not report numbers alone.
-
-They explain what those numbers mean — and what they do not.
-
-In CDI systems, summary tables and insights reports become reusable evidence, not just temporary output.
-
----
-
-## Summary
-
-In this lesson, you:
-
-- computed descriptive statistics for numeric and categorical variables
-- compared group means, standard deviations, and medians
-- used simple visuals to support statistical summaries
-- examined linear relationships using a correlation matrix
-- created reusable summary tables
-- wrote an insights report grounded in descriptive evidence
-- completed the core Data Science Foundations tidy-table workflow
-
----
-
-## Looking Ahead
-
-The Foundations System has now produced a complete tidy-table analysis package: inspected data, cleaned data, wrangled outputs, figures, summary tables, and a written insights report. In the next chapter, we connect this foundation to modeling and the Applied Data Science System.
+In Chapter 07, these descriptive insights become the foundation for moving from analysis to machine learning.

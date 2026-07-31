@@ -86,7 +86,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./999-references.html" rel="next">
-<link href="./99-complete-free-track.html" rel="prev">
+<link href="./07-from-analysis-to-ml.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -249,12 +249,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-from-analysis-to-ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Analysis to Modeling</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./99-complete-free-track.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Completing the Foundations System</span></a>
+  <a href="./07-from-analysis-to-ml.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From Analysis to Machine Learning</span></a>
   </div>
 </li>
       </ul>
@@ -290,28 +285,31 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#project-structure-overview" id="toc-project-structure-overview" class="nav-link active" data-scroll-target="#project-structure-overview">Project Structure Overview</a>
+  <li><a href="#project-structure" id="toc-project-structure" class="nav-link active" data-scroll-target="#project-structure">Project Structure</a></li>
+  <li><a href="#environment-commands" id="toc-environment-commands" class="nav-link" data-scroll-target="#environment-commands">Environment Commands</a>
   <ul class="collapse">
-  <li><a href="#key-directories" id="toc-key-directories" class="nav-link" data-scroll-target="#key-directories">Key Directories</a></li>
+  <li><a href="#create-and-activate-a-virtual-environment" id="toc-create-and-activate-a-virtual-environment" class="nav-link" data-scroll-target="#create-and-activate-a-virtual-environment">Create and activate a virtual environment</a></li>
+  <li><a href="#install-project-packages" id="toc-install-project-packages" class="nav-link" data-scroll-target="#install-project-packages">Install project packages</a></li>
+  <li><a href="#run-a-python-script" id="toc-run-a-python-script" class="nav-link" data-scroll-target="#run-a-python-script">Run a Python script</a></li>
+  <li><a href="#render-the-quarto-guide-or-report" id="toc-render-the-quarto-guide-or-report" class="nav-link" data-scroll-target="#render-the-quarto-guide-or-report">Render the Quarto guide or report</a></li>
   </ul></li>
-  <li><a href="#environment-setup-reference" id="toc-environment-setup-reference" class="nav-link" data-scroll-target="#environment-setup-reference">Environment Setup Reference</a>
+  <li><a href="#reusable-pandas-patterns" id="toc-reusable-pandas-patterns" class="nav-link" data-scroll-target="#reusable-pandas-patterns">Reusable pandas Patterns</a>
   <ul class="collapse">
-  <li><a href="#create-environment-manually" id="toc-create-environment-manually" class="nav-link" data-scroll-target="#create-environment-manually">Create environment manually</a></li>
-  <li><a href="#render-the-book" id="toc-render-the-book" class="nav-link" data-scroll-target="#render-the-book">Render the book</a></li>
-  </ul></li>
-  <li><a href="#quarto-workflow-summary" id="toc-quarto-workflow-summary" class="nav-link" data-scroll-target="#quarto-workflow-summary">Quarto Workflow Summary</a></li>
-  <li><a href="#reusable-pandas-patterns" id="toc-reusable-pandas-patterns" class="nav-link" data-scroll-target="#reusable-pandas-patterns">Reusable Pandas Patterns</a>
-  <ul class="collapse">
+  <li><a href="#inspect-a-dataset" id="toc-inspect-a-dataset" class="nav-link" data-scroll-target="#inspect-a-dataset">Inspect a dataset</a></li>
   <li><a href="#select-columns" id="toc-select-columns" class="nav-link" data-scroll-target="#select-columns">Select columns</a></li>
   <li><a href="#filter-rows" id="toc-filter-rows" class="nav-link" data-scroll-target="#filter-rows">Filter rows</a></li>
-  <li><a href="#group-and-aggregate" id="toc-group-and-aggregate" class="nav-link" data-scroll-target="#group-and-aggregate">Group and aggregate</a></li>
-  <li><a href="#handle-missing-values" id="toc-handle-missing-values" class="nav-link" data-scroll-target="#handle-missing-values">Handle missing values</a></li>
-  <li><a href="#convert-dtype" id="toc-convert-dtype" class="nav-link" data-scroll-target="#convert-dtype">Convert dtype</a></li>
+  <li><a href="#rename-columns" id="toc-rename-columns" class="nav-link" data-scroll-target="#rename-columns">Rename columns</a></li>
+  <li><a href="#convert-a-data-type" id="toc-convert-a-data-type" class="nav-link" data-scroll-target="#convert-a-data-type">Convert a data type</a></li>
+  <li><a href="#identify-missing-values" id="toc-identify-missing-values" class="nav-link" data-scroll-target="#identify-missing-values">Identify missing values</a></li>
+  <li><a href="#fill-missing-numeric-values" id="toc-fill-missing-numeric-values" class="nav-link" data-scroll-target="#fill-missing-numeric-values">Fill missing numeric values</a></li>
+  <li><a href="#identify-duplicate-rows" id="toc-identify-duplicate-rows" class="nav-link" data-scroll-target="#identify-duplicate-rows">Identify duplicate rows</a></li>
+  <li><a href="#group-and-summarize" id="toc-group-and-summarize" class="nav-link" data-scroll-target="#group-and-summarize">Group and summarize</a></li>
+  <li><a href="#save-a-processed-dataset" id="toc-save-a-processed-dataset" class="nav-link" data-scroll-target="#save-a-processed-dataset">Save a processed dataset</a></li>
   </ul></li>
+  <li><a href="#data-validation-checks" id="toc-data-validation-checks" class="nav-link" data-scroll-target="#data-validation-checks">Data Validation Checks</a></li>
   <li><a href="#reproducibility-checklist" id="toc-reproducibility-checklist" class="nav-link" data-scroll-target="#reproducibility-checklist">Reproducibility Checklist</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data Sources</a></li>
+  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">Data Source</a></li>
   <li><a href="#software-and-tools" id="toc-software-and-tools" class="nav-link" data-scroll-target="#software-and-tools">Software and Tools</a></li>
-  <li><a href="#closing-note" id="toc-closing-note" class="nav-link" data-scroll-target="#closing-note">Closing Note</a></li>
   </ul>
 </nav>
     </div>
@@ -348,118 +346,156 @@ div.csl-indent {
 <li><strong>ID:</strong> DS-APP</li>
 <li><strong>Type:</strong> Reference</li>
 <li><strong>Audience:</strong> Public</li>
-<li><strong>Theme:</strong> Environment, structure, and reproducibility reference</li>
+<li><strong>Theme:</strong> Data science foundations quick reference</li>
 </ul>
 </div>
-<p>This appendix collects technical reference material that supports the Foundations Track.</p>
-<p>It documents the project structure, environment setup, rendering workflow, and reusable patterns used throughout the guide.</p>
+<p>This appendix brings together the commands, project structure, and reusable Python patterns introduced throughout the guide. Use it as a quick reference when starting a new analysis.</p>
 <hr>
-<section id="project-structure-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-structure-overview">Project Structure Overview</h2>
-<p>A standard CDI Quarto-first project looks like this:</p>
-<pre><code>data-science/
-├── index.qmd
-├── 00-preface.qmd
-├── 01-setting-up-environment.qmd
-├── ...
+<section id="project-structure" class="level2">
+<h2 class="anchored" data-anchor-id="project-structure">Project Structure</h2>
+<p>A small reproducible data science project may use the following structure:</p>
+<pre class="text"><code>data-science/
 ├── data/
-├── figures/
+│   ├── raw/
+│   └── processed/
+├── results/
+│   ├── figures/
+│   └── tables/
 ├── scripts/
-│   └── bash/
-├── docs/
+│   ├── bash/
+│   └── python/
+├── .gitignore
 ├── _quarto.yml
+├── index.qmd
 └── requirements.txt</code></pre>
-<section id="key-directories" class="level3">
-<h3 class="anchored" data-anchor-id="key-directories">Key Directories</h3>
 <ul>
-<li><p><code>data/</code><br>
-stores raw and cleaned datasets</p></li>
-<li><p><code>figures/</code><br>
-stores plots that are explicitly saved during rendering</p></li>
-<li><p><code>scripts/bash/</code><br>
-contains helper scripts such as <code>setup-env.sh</code> and <code>build.sh</code></p></li>
-<li><p><code>docs/</code><br>
-contains the rendered Quarto site (GitHub Pages output)</p></li>
+<li><code>data/raw/</code> stores unchanged source data.</li>
+<li><code>data/processed/</code> stores cleaned or transformed data.</li>
+<li><code>results/figures/</code> stores saved visualizations.</li>
+<li><code>results/tables/</code> stores summary tables and other tabular outputs.</li>
+<li><code>scripts/python/</code> stores reusable analysis scripts.</li>
+<li><code>scripts/bash/</code> stores setup and build helpers.</li>
+<li><code>requirements.txt</code> records the Python packages required by the project.</li>
 </ul>
+<p>Keeping inputs, code, and outputs separate makes an analysis easier to understand, reproduce, and update.</p>
 <hr>
 </section>
-</section>
-<section id="environment-setup-reference" class="level2">
-<h2 class="anchored" data-anchor-id="environment-setup-reference">Environment Setup Reference</h2>
-<p>This project uses a local virtual environment (<code>.venv</code>) for reproducibility.</p>
-<section id="create-environment-manually" class="level3">
-<h3 class="anchored" data-anchor-id="create-environment-manually">Create environment manually</h3>
+<section id="environment-commands" class="level2">
+<h2 class="anchored" data-anchor-id="environment-commands">Environment Commands</h2>
+<section id="create-and-activate-a-virtual-environment" class="level3">
+<h3 class="anchored" data-anchor-id="create-and-activate-a-virtual-environment">Create and activate a virtual environment</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On Windows PowerShell, activate the environment with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">venv</span>\Scripts\Activate<span class="op">.</span><span class="fu">ps1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="render-the-book" class="level3">
-<h3 class="anchored" data-anchor-id="render-the-book">Render the book</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Or use the helper script:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> scripts/bash/build.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="install-project-packages" class="level3">
+<h3 class="anchored" data-anchor-id="install-project-packages">Install project packages</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="at">-r</span> requirements.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="run-a-python-script" class="level3">
+<h3 class="anchored" data-anchor-id="run-a-python-script">Run a Python script</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/script_name.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="render-the-quarto-guide-or-report" class="level3">
+<h3 class="anchored" data-anchor-id="render-the-quarto-guide-or-report">Render the Quarto guide or report</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-</section>
-<section id="quarto-workflow-summary" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-workflow-summary">Quarto Workflow Summary</h2>
-<p>The workflow for this guide is:</p>
-<pre><code>Python code
-    ↓
-Quarto chapter (.qmd)
-    ↓
-quarto render
-    ↓
-docs/ (static site)</code></pre>
-<p>All figures and outputs are generated during rendering.</p>
-<hr>
 </section>
 <section id="reusable-pandas-patterns" class="level2">
-<h2 class="anchored" data-anchor-id="reusable-pandas-patterns">Reusable Pandas Patterns</h2>
+<h2 class="anchored" data-anchor-id="reusable-pandas-patterns">Reusable pandas Patterns</h2>
+<p>The examples below assume that pandas has been imported and a DataFrame named <code>df</code> already exists.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="inspect-a-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-a-dataset">Inspect a dataset</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.head()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.shape</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df.info()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>df.describe(include<span class="op">=</span><span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="select-columns" class="level3">
 <h3 class="anchored" data-anchor-id="select-columns">Select columns</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"col1"</span>, <span class="st">"col2"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"col1"</span>, <span class="st">"col2"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="filter-rows" class="level3">
 <h3 class="anchored" data-anchor-id="filter-rows">Filter rows</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df[df[<span class="st">"col"</span>] <span class="op">&gt;</span> value]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">"col"</span>] <span class="op">&gt;</span> value]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="group-and-aggregate" class="level3">
-<h3 class="anchored" data-anchor-id="group-and-aggregate">Group and aggregate</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">"group_col"</span>).agg(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    metric<span class="op">=</span>(<span class="st">"value_col"</span>, <span class="st">"mean"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="rename-columns" class="level3">
+<h3 class="anchored" data-anchor-id="rename-columns">Rename columns</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">"old_name"</span>: <span class="st">"new_name"</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="handle-missing-values" class="level3">
-<h3 class="anchored" data-anchor-id="handle-missing-values">Handle missing values</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"col"</span>] <span class="op">=</span> df[<span class="st">"col"</span>].fillna(df[<span class="st">"col"</span>].median())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="convert-a-data-type" class="level3">
+<h3 class="anchored" data-anchor-id="convert-a-data-type">Convert a data type</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"numeric_col"</span>] <span class="op">=</span> pd.to_numeric(df[<span class="st">"numeric_col"</span>], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"category_col"</span>] <span class="op">=</span> df[<span class="st">"category_col"</span>].astype(<span class="st">"category"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="convert-dtype" class="level3">
-<h3 class="anchored" data-anchor-id="convert-dtype">Convert dtype</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"category_col"</span>] <span class="op">=</span> df[<span class="st">"category_col"</span>].astype(<span class="st">"category"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="identify-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="identify-missing-values">Identify missing values</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fill-missing-numeric-values" class="level3">
+<h3 class="anchored" data-anchor-id="fill-missing-numeric-values">Fill missing numeric values</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"numeric_col"</span>] <span class="op">=</span> df[<span class="st">"numeric_col"</span>].fillna(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"numeric_col"</span>].median()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="identify-duplicate-rows" class="level3">
+<h3 class="anchored" data-anchor-id="identify-duplicate-rows">Identify duplicate rows</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.duplicated().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="group-and-summarize" class="level3">
+<h3 class="anchored" data-anchor-id="group-and-summarize">Group and summarize</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> (</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    df.groupby(<span class="st">"group_col"</span>, observed<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        count<span class="op">=</span>(<span class="st">"value_col"</span>, <span class="st">"size"</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        mean<span class="op">=</span>(<span class="st">"value_col"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        median<span class="op">=</span>(<span class="st">"value_col"</span>, <span class="st">"median"</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="save-a-processed-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="save-a-processed-dataset">Save a processed dataset</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/processed/cleaned_data.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
+</section>
+<section id="data-validation-checks" class="level2">
+<h2 class="anchored" data-anchor-id="data-validation-checks">Data Validation Checks</h2>
+<p>Before interpreting results, confirm that:</p>
+<ul>
+<li>rows and columns have the expected meaning;</li>
+<li>column names are clear and consistent;</li>
+<li>numeric, categorical, and text columns use appropriate data types;</li>
+<li>missing values have been identified and handled deliberately;</li>
+<li>duplicate rows have been investigated;</li>
+<li>categorical values use consistent spelling and labels;</li>
+<li>numeric values fall within plausible ranges;</li>
+<li>cleaned data and analytical outputs are saved separately from raw data.</li>
+</ul>
+<p>These checks do not guarantee that a dataset is correct, but they make common data-quality problems visible before they affect the analysis.</p>
+<hr>
 </section>
 <section id="reproducibility-checklist" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility-checklist">Reproducibility Checklist</h2>
-<p>Before finalizing any chapter:</p>
+<p>Before sharing an analysis:</p>
 <ul>
-<li>confirm no missing values remain (unless justified)<br>
-</li>
-<li>confirm no unintended duplicates<br>
-</li>
-<li>confirm correct data types<br>
-</li>
-<li>confirm figures render correctly<br>
-</li>
-<li>rebuild the book (<code>quarto render</code>)<br>
-</li>
-<li>open <code>docs/index.html</code> to verify output</li>
+<li>preserve the original data unchanged;</li>
+<li>record package dependencies in <code>requirements.txt</code>;</li>
+<li>use relative paths within the project;</li>
+<li>keep reusable code in scripts;</li>
+<li>save cleaned data, tables, and figures to clearly named folders;</li>
+<li>rerun the workflow from a clean environment when practical;</li>
+<li>review tables and figures for correctness;</li>
+<li>document important cleaning and analytical decisions.</li>
 </ul>
 <hr>
 </section>
-<section id="data-sources" class="level2">
-<h2 class="anchored" data-anchor-id="data-sources">Data Sources</h2>
+<section id="data-source" class="level2">
+<h2 class="anchored" data-anchor-id="data-source">Data Source</h2>
 <ul>
 <li><strong>Iris dataset</strong> <span class="citation" data-cites="iris">(<a href="999-references.html#ref-iris" role="doc-biblioref">Fisher 1936</a>)</span></li>
 </ul>
@@ -467,35 +503,15 @@ docs/ (static site)</code></pre>
 </section>
 <section id="software-and-tools" class="level2">
 <h2 class="anchored" data-anchor-id="software-and-tools">Software and Tools</h2>
-<p>This guide uses a small set of widely adopted tools for data analysis and visualization:</p>
 <ul>
-<li><strong>Python</strong> <span class="citation" data-cites="python">(<a href="999-references.html#ref-python" role="doc-biblioref">Python Software Foundation 2024</a>)</span> — general-purpose programming language for data analysis<br>
-</li>
-<li><strong>pandas</strong> <span class="citation" data-cites="pandas">(<a href="999-references.html#ref-pandas" role="doc-biblioref">McKinney et al. 2010</a>)</span> — data manipulation and tabular data handling<br>
-</li>
-<li><strong>NumPy</strong> <span class="citation" data-cites="numpy">(<a href="999-references.html#ref-numpy" role="doc-biblioref">Harris et al. 2020</a>)</span> — numerical computing and array operations<br>
-</li>
-<li><strong>matplotlib</strong> <span class="citation" data-cites="matplotlib">(<a href="999-references.html#ref-matplotlib" role="doc-biblioref">Hunter 2007</a>)</span> — foundational plotting library<br>
-</li>
-<li><strong>seaborn</strong> <span class="citation" data-cites="seaborn">(<a href="999-references.html#ref-seaborn" role="doc-biblioref">Waskom 2021</a>)</span> — statistical data visualization built on matplotlib</li>
+<li><strong>Python</strong> <span class="citation" data-cites="python">(<a href="999-references.html#ref-python" role="doc-biblioref">Python Software Foundation 2024</a>)</span> — general-purpose programming language used for the analysis workflow.</li>
+<li><strong>pandas</strong> <span class="citation" data-cites="pandas">(<a href="999-references.html#ref-pandas" role="doc-biblioref">McKinney et al. 2010</a>)</span> — tabular data loading, cleaning, transformation, and summarization.</li>
+<li><strong>NumPy</strong> <span class="citation" data-cites="numpy">(<a href="999-references.html#ref-numpy" role="doc-biblioref">Harris et al. 2020</a>)</span> — numerical operations and array-based computing.</li>
+<li><strong>matplotlib</strong> <span class="citation" data-cites="matplotlib">(<a href="999-references.html#ref-matplotlib" role="doc-biblioref">Hunter 2007</a>)</span> — foundational plotting library.</li>
+<li><strong>seaborn</strong> <span class="citation" data-cites="seaborn">(<a href="999-references.html#ref-seaborn" role="doc-biblioref">Waskom 2021</a>)</span> — statistical visualization built on matplotlib.</li>
+<li><strong>Quarto</strong> <span class="citation" data-cites="quarto">(<a href="999-references.html#ref-quarto" role="doc-biblioref">Posit Software, PBC, n.d.</a>)</span> — reproducible publishing system used to build the guide.</li>
 </ul>
-<p>These tools form a standard ecosystem for reproducible data science workflows.</p>
-<hr>
-</section>
-<section id="closing-note" class="level2">
-<h2 class="anchored" data-anchor-id="closing-note">Closing Note</h2>
-<p>The goal of this Foundations Track is not just to teach syntax.</p>
-<p>It is to teach structure, discipline, and reproducibility.</p>
-<p>The same workflow you used here can be applied to:</p>
-<ul>
-<li>new datasets<br>
-</li>
-<li>new domains<br>
-</li>
-<li>larger analytical projects<br>
-</li>
-<li>future CDI guides</li>
-</ul>
+<p>Together, these tools provide a practical foundation for reproducible data analysis in Python.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -510,6 +526,9 @@ Hunter, J. D. 2007. <span>“Matplotlib: A 2D Graphics Environment.”</span> <e
 </div>
 <div id="ref-pandas" class="csl-entry" role="listitem">
 McKinney, Wes et al. 2010. <span>“Pandas-Dev/Pandas: Pandas.”</span> <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.3509134">https://doi.org/10.5281/zenodo.3509134</a>.
+</div>
+<div id="ref-quarto" class="csl-entry" role="listitem">
+Posit Software, PBC. n.d. <span>“Quarto.”</span> <a href="https://quarto.org/">https://quarto.org/</a>.
 </div>
 <div id="ref-python" class="csl-entry" role="listitem">
 Python Software Foundation. 2024. <span>“Python Language Reference.”</span> <a href="https://www.python.org/">https://www.python.org/</a>.
@@ -924,8 +943,8 @@ Waskom, Michael L. 2021. <span>“Seaborn: Statistical Data Visualization.”</s
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./99-complete-free-track.html" class="pagination-link" aria-label="Completing the Foundations System">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Completing the Foundations System</span></span>
+      <a href="./07-from-analysis-to-ml.html" class="pagination-link" aria-label="From Analysis to Machine Learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From Analysis to Machine Learning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

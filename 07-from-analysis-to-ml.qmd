@@ -1,10 +1,10 @@
-# From Analysis to Modeling {#lesson07}
+# From Analysis to Machine Learning {#lesson07}
 
 :::cdi-message
 - **ID:** DS-L07
 - **Type:** Lesson
 - **Audience:** Beginner / Intermediate
-- **Theme:** Transition from tidy-table analysis to applied modeling systems
+- **Theme:** Transition from foundational analysis to advanced data science
 :::
 
 Up to this point, we have focused on understanding data.
@@ -13,9 +13,11 @@ We inspected a table, cleaned it, transformed it, visualized it, summarized it, 
 
 This is where many learning paths stop.
 
-But in CDI, this point is also a handoff.
+In CDI, this point is also a handoff.
 
-The Data Science Foundations System prepares analysis-ready tables and evidence outputs. The Applied Data Science System builds on those outputs when prediction, modeling, evaluation, or decision support is needed.
+The Data Science Foundations guide prepares analysis-ready data and supporting evidence. The advanced data science guide, maintained in a separate repository, builds on those outputs when machine learning, evaluation, interpretation, or decision support is needed.
+
+This chapter introduces that transition. It does not attempt to teach the advanced workflow.
 
 ---
 
@@ -39,9 +41,7 @@ It helps us ask questions such as:
 - Are the predictions reliable enough to support a decision?
 - What could go wrong when the model is used?
 
-Modeling is not separate from analysis.
-
-It depends on analysis.
+Modeling depends on analysis.
 
 Clean, well-structured, well-understood data is what makes modeling possible.
 
@@ -49,7 +49,7 @@ Clean, well-structured, well-understood data is what makes modeling possible.
 
 ## The CDI handoff point
 
-The Foundations System produces a compact set of reusable outputs:
+The foundations workflow produces a compact set of reusable outputs:
 
 ```text
 data/iris.csv
@@ -68,13 +68,13 @@ These outputs document the journey from raw teaching table to analysis-ready evi
 The handoff point looks like this:
 
 ```text
-Data Science Foundations System
+Data Science Foundations
         ↓
 tidy, cleaned, wrangled table
         ↓
 figures and summary evidence
         ↓
-Applied Data Science System
+Advanced Data Science
         ↓
 modeling, evaluation, interpretation, decision-making
 ```
@@ -85,20 +85,19 @@ It should begin from a table whose structure, quality, and interpretation have a
 
 ---
 
-## A simple workflow extension
+## The workflow continues
 
 ```{mermaid}
-flowchart LR
-    A[Tidy Table] --> B[Inspection]
-    B --> C[Cleaning]
-    C --> D[Wrangling]
-    D --> E[Visualization]
-    E --> F[Summary & Insights]
-    F --> G[Modeling Readiness]
-    G --> H[Applied Data Science System]
+flowchart TD
+    A[Raw or Source Data] --> B[Inspect and Clean]
+    B --> C[Wrangle and Validate]
+    C --> D[Visualize and Summarize]
+    D --> E[Interpret Findings]
+    E --> F[Assess Modeling Readiness]
+    F --> G[Advanced Data Science]
 ```
 
-This workflow shows why Foundations is reusable across CDI pathways.
+This workflow shows why the foundations are reusable across CDI pathways.
 
 Any pathway that produces a tidy table can enter this workflow.
 
@@ -111,7 +110,7 @@ Clinical cohort table
 AI evaluation table
 ```
 
-Each can move through the same foundational process before advanced modeling begins.
+Each can move through the same foundational process before advanced work begins.
 
 ---
 
@@ -134,9 +133,9 @@ Modeling adds questions about:
 - uncertainty
 - monitoring and drift
 
-These topics belong mainly in the Applied Data Science System.
+These topics belong in the separate advanced data science guide.
 
-The Foundations System introduces the transition but does not try to cover all modeling details.
+This foundations chapter introduces the handoff without teaching the full modeling workflow.
 
 ---
 
@@ -153,10 +152,11 @@ Modeling readiness checklist
 [ ] Are duplicates checked?
 [ ] Are feature types clear?
 [ ] Is the target variable clearly defined?
-[ ] Are grouped patterns already explored?
-[ ] Are summary outputs available?
-[ ] Are figures available for interpretation?
+[ ] Have relevant patterns and group differences been explored?
+[ ] Are summaries and figures available to support interpretation?
 [ ] Are limitations documented?
+[ ] Is there enough data for a defensible train/test strategy?
+[ ] Could any feature reveal the target or information from the future?
 ```
 
 If several items are missing, return to inspection, cleaning, wrangling, or summarization before modeling.
@@ -165,9 +165,9 @@ If several items are missing, return to inspection, cleaning, wrangling, or summ
 
 ## A small modeling preview
 
-The following example shows what the next stage may look like. It is intentionally brief.
+The following display-only example previews what the next stage may look like. It is intentionally brief and is not executed as part of this guide.
 
-The goal is not to teach full machine learning here. The goal is to show how the wrangled table could become model-ready input.
+The goal is not to teach machine learning here. It is simply to show how the wrangled Iris table could become model input.
 
 ```python
 import pandas as pd
@@ -196,7 +196,10 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-model = RandomForestClassifier(random_state=42)
+model = RandomForestClassifier(
+    n_estimators=200,
+    random_state=42
+)
 model.fit(X_train, y_train)
 
 predictions = model.predict(X_test)
@@ -214,7 +217,13 @@ This preview introduces several new concepts:
 - prediction
 - performance reporting
 
-Each of these deserves careful treatment in the Applied Data Science System.
+Each of these requires careful treatment in the advanced data science guide.
+
+::: {.callout-note}
+## Keep the result in perspective
+
+One train/test split is only a preview. It is not enough to establish that a model is reliable. Model choice, cross-validation, baselines, leakage checks, uncertainty, interpretation, and responsible use belong to the advanced workflow.
+:::
 
 ---
 
@@ -223,7 +232,7 @@ Each of these deserves careful treatment in the Applied Data Science System.
 A model becomes more useful when it is part of a larger system.
 
 ```{mermaid}
-flowchart LR
+flowchart TD
     A[Analysis-Ready Table] --> B[Model]
     B --> C[Evaluation]
     C --> D[Interpretation]
@@ -233,7 +242,7 @@ flowchart LR
 In more advanced settings, the workflow may extend further:
 
 ```{mermaid}
-flowchart LR
+flowchart TD
     A[Build] --> B[Test]
     B --> C[Deploy]
     C --> D[Monitor]
@@ -247,9 +256,9 @@ It is about applied analytical systems.
 
 ---
 
-## What belongs in the Applied Data Science System
+## What belongs in advanced data science
 
-The Applied Data Science System can build on Foundations with topics such as:
+The separate advanced guide can build on these foundations with topics such as:
 
 - feature engineering
 - model building
@@ -262,17 +271,17 @@ The Applied Data Science System can build on Foundations with topics such as:
 - decision-making
 - responsible use
 
-This creates a clean CDI separation:
+This creates a clear separation of scope:
 
 ```text
-Data Science Foundations System
+Data Science Foundations
     = inspect, clean, wrangle, visualize, summarize, interpret tidy tables
 
-Applied Data Science System
+Advanced Data Science
     = model, evaluate, explain, improve, and support decisions
 ```
 
-Both are part of the broader Data Science Pathway.
+Both belong to the broader Data Science pathway, but they are maintained as separate guides and repositories.
 
 ---
 
@@ -289,7 +298,7 @@ Clinical & Medical Data Pathway
     ↓
 cohort tables, lab tables, outcome tables
 
-AI, Thinking & Decision Pathway
+Human-Centered AI
     ↓
 evaluation tables, prediction logs, decision records
 ```
@@ -305,7 +314,7 @@ summarize
 interpret
 ```
 
-When modeling is needed, the workflow continues into Applied Data Science.
+When modeling is needed, the workflow continues in the advanced data science guide.
 
 ---
 
@@ -323,8 +332,9 @@ Then answer:
 
 1. What is the likely target variable if this dataset were used for classification?
 2. Which features might be useful as model inputs?
-3. Which summary or visualization supports that choice?
-4. What caution should be stated before making claims from a model?
+3. Which summary or visualization supports your choice?
+4. What potential leakage, redundancy, or limitation should be checked?
+5. Why would one train/test split be insufficient for a strong performance claim?
 
 ---
 
@@ -347,12 +357,12 @@ petal_width
 petal_area
 ```
 
-The strongest exploratory support comes from petal-related plots and grouped summaries, which show clearer descriptive separation across species.
+The strongest exploratory support comes from petal-related plots and grouped summaries, which show clearer descriptive separation among species. Because `petal_area` is calculated from `petal_length` and `petal_width`, it is also important to assess redundancy and decide whether the derived feature adds useful information.
 
 A careful caution is:
 
 ```text
-The Iris dataset is small, clean, and educational. Model performance on this dataset should not be treated as evidence that the same workflow will generalize to larger, noisier, real-world datasets without validation.
+The Iris dataset is small, clean, and educational. Performance from one split should not be treated as evidence that the model will generalize to larger, noisier, real-world datasets. Repeated evaluation, suitable baselines, and careful validation are still required.
 ```
 
 :::
@@ -367,7 +377,7 @@ It is the foundation for building reliable analytical systems.
 
 A model built without inspection, cleaning, visualization, and summary interpretation is fragile.
 
-A model built after careful data science foundations is easier to understand, evaluate, and trust.
+A model built after careful data science foundations is easier to understand and evaluate. Trust still depends on appropriate validation, transparent limitations, and responsible use.
 
 ---
 
@@ -376,14 +386,24 @@ A model built after careful data science foundations is easier to understand, ev
 In this lesson, you:
 
 - reviewed the transition from analysis to modeling
-- identified the CDI handoff point between Foundations and Applied Data Science
+- identified the handoff point between foundations and advanced data science
 - saw how a wrangled table can become model-ready input
 - reviewed the responsibilities added by modeling
 - connected the Foundations System to other CDI pathways
-- prepared for the Applied Data Science System
+- identified the advanced topics that belong in the separate guide
 
 ---
 
-## Looking Ahead
+## Foundations Complete
 
-The Data Science Foundations System now has a complete reusable workflow for tidy-table analysis. The next step is to close the foundations track and then continue into the Applied Data Science System when modeling, evaluation, and decision-making are needed.
+You have now completed the Data Science Foundations workflow:
+
+```text
+load → inspect → clean → wrangle → visualize → summarize → interpret
+```
+
+You can return to the appendix whenever you need supporting commands, terminology, or reference material. The appendix is a reference resource rather than another lesson.
+
+When you are ready to continue beyond foundations, move to the separate advanced data science guide. That guide begins where this one ends and develops machine learning, model evaluation, interpretation, and decision support in greater depth.
+
+The most important outcome of this guide is not a single dataset or technique. It is a reusable way of working with data carefully, clearly, and reproducibly.

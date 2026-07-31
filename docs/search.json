@@ -1279,7 +1279,7 @@
     "href": "06-summary-statistics-and-insights.html",
     "title": "Summary Statistics and Insights",
     "section": "",
-    "text": "Lesson overview\nSummary statistics help move analysis from individual rows to interpretable evidence.\nThey describe the center, spread, balance, and relationships in a dataset without requiring us to inspect every observation individually.\nHowever, descriptive summaries are only useful when they are connected to careful interpretation.\nIn this lesson, we compute descriptive statistics, compare grouped summaries, examine simple relationships, and write short insights grounded in evidence.\nThis chapter closes the core tidy-table workflow introduced in the Data Science Foundations System:\nBy the end of this lesson, you will be able to:",
+    "text": "Lesson overview\nSummary statistics turn rows of observations into evidence we can compare and explain.\nNo single statistic tells the whole story. The mean describes an arithmetic center, the median provides a center that is less sensitive to unusual values, and the standard deviation and interquartile range describe different aspects of variability. Counts reveal whether groups are balanced, while correlations describe how numeric variables move together.\nIn this lesson, we combine these summaries with visual checks and write concise insights without making claims that the data cannot support.\nBy the end of this lesson, you will be able to:",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1290,7 +1290,7 @@
     "href": "06-summary-statistics-and-insights.html#lesson-overview",
     "title": "Summary Statistics and Insights",
     "section": "",
-    "text": "compute descriptive statistics for numeric variables\nsummarize categorical variables with counts\ncompare groups using means, medians, and standard deviations\nexamine simple relationships between numeric features\nsave reusable summary tables\nwrite careful interpretations based on descriptive evidence\nrun a reusable summarization script from the command line",
+    "text": "summarize numeric variables using mean, median, standard deviation, quartiles, and IQR\nsummarize categorical variables using counts and percentages\ncompare groups using consistent descriptive statistics\nrank features using a scale-independent measure of group differentiation\ncompare Pearson and Spearman correlations\nconnect statistical tables to visual evidence\nwrite careful, evidence-based interpretations\nsave a reusable summary evidence package",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1301,7 +1301,7 @@
     "href": "06-summary-statistics-and-insights.html#chapter-workflow",
     "title": "Summary Statistics and Insights",
     "section": "Chapter workflow",
-    "text": "Chapter workflow\nThis chapter introduces the fifth reusable Python script in the system:\n06-summary-statistics-and-insights.qmd\n        ↓\nscripts/python/summarize_table.py\n        ↓\ndata/iris_wrangled.csv\nresults/summary/\nExpected outputs:\nresults/summary/\n├── numeric-summary.tsv\n├── species-counts.tsv\n├── grouped-summary.tsv\n├── median-summary.tsv\n├── feature-separation.tsv\n├── correlation-matrix.tsv\n└── analysis-insights.md\nThese outputs provide a compact evidence package for reporting and interpretation.",
+    "text": "Chapter workflow\n06-summary-statistics-and-insights.qmd\n        ↓\nscripts/python/summarize_table.py\n        ↓\ndata/iris_wrangled.csv\nresults/summary/\nExpected outputs:\nresults/summary/\n├── numeric-summary.tsv\n├── species-counts.tsv\n├── grouped-summary.tsv\n├── feature-differentiation.tsv\n├── pearson-correlation.tsv\n├── spearman-correlation.tsv\n└── analysis-insights.md",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1319,121 +1319,99 @@
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#inspect-the-structure",
-    "href": "06-summary-statistics-and-insights.html#inspect-the-structure",
+    "objectID": "06-summary-statistics-and-insights.html#inspect-before-summarizing",
+    "href": "06-summary-statistics-and-insights.html#inspect-before-summarizing",
     "title": "Summary Statistics and Insights",
-    "section": "Inspect the structure",
-    "text": "Inspect the structure\nBefore summarizing, confirm the structure of the dataset.\nprint(\"Shape:\", df.shape)\nprint(\"\\nColumns:\", df.columns.tolist())\nprint(\"\\nData types:\")\nprint(df.dtypes)\n\nInterpretation\nBefore computing summaries, ask:\n\nwhich variables are numeric?\nwhich variable defines the groups?\nwhich derived features are available?\nwhich summaries are likely to be most informative?\n\nFor the Iris dataset, the flower measurements and petal_area are numeric, while species provides a natural grouping variable.",
+    "section": "Inspect before summarizing",
+    "text": "Inspect before summarizing\nprint(\"Shape:\", df.shape)\nprint(\"\\nColumns:\", df.columns.tolist())\nprint(\"\\nData types:\")\nprint(df.dtypes)\nprint(\"\\nMissing values:\")\nprint(df.isna().sum())\nBefore choosing statistics, identify:\n\nthe numeric variables to summarize\nthe categorical variable that defines groups\nany derived features\nany remaining missing values\n\nnum_cols = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"petal_area\"\n]\npetal_area is derived from petal length and width. It is useful as a combined size measure, but it is not independent of those two source variables.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#descriptive-statistics-for-numeric-variables",
-    "href": "06-summary-statistics-and-insights.html#descriptive-statistics-for-numeric-variables",
+    "objectID": "06-summary-statistics-and-insights.html#numeric-summaries-center-and-spread",
+    "href": "06-summary-statistics-and-insights.html#numeric-summaries-center-and-spread",
     "title": "Summary Statistics and Insights",
-    "section": "Descriptive statistics for numeric variables",
-    "text": "Descriptive statistics for numeric variables\ndescribe() gives a compact summary of central tendency and spread.\nnum_cols = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"petal_area\"\n]\n\nnumeric_summary = df[num_cols].describe().transpose()\nnumeric_summary\n\nInterpretation\nThis table helps you review:\n\nthe typical range of each feature\nthe approximate center using the mean\nvariability using the standard deviation\nminimum and maximum values\nquartiles that describe spread\n\nA numeric summary is often the first checkpoint before deeper comparison.",
+    "section": "Numeric summaries: center and spread",
+    "text": "Numeric summaries: center and spread\nThe most useful first table combines conventional and robust statistics.\nnumeric_summary = (\n    df[num_cols]\n    .agg([\"count\", \"mean\", \"median\", \"std\", \"min\", \"max\"])\n    .transpose()\n    .reset_index(names=\"feature\")\n)\n\nnumeric_summary[\"q1\"] = df[num_cols].quantile(0.25).values\nnumeric_summary[\"q3\"] = df[num_cols].quantile(0.75).values\nnumeric_summary[\"iqr\"] = numeric_summary[\"q3\"] - numeric_summary[\"q1\"]\n\nnumeric_summary = numeric_summary[\n    [\"feature\", \"count\", \"mean\", \"median\", \"std\", \"q1\", \"q3\", \"iqr\", \"min\", \"max\"]\n]\n\nnumeric_summary\n\nWhat each statistic contributes\n\n\n\nStatistic\nWhat it tells you\n\n\n\n\ncount\nNumber of non-missing observations\n\n\nmean\nArithmetic center\n\n\nmedian\nMiddle value; less sensitive to extreme values\n\n\nstd\nTypical variability around the mean\n\n\nq1, q3\nBoundaries of the middle 50% of values\n\n\niqr\nSpread of the middle 50%; calculated as Q3 − Q1\n\n\nmin, max\nObserved endpoints\n\n\n\nCompare the mean with the median and the standard deviation with the IQR. Agreement suggests a fairly stable summary; noticeable differences are a reason to inspect the distribution.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#visual-check-of-numeric-distributions",
-    "href": "06-summary-statistics-and-insights.html#visual-check-of-numeric-distributions",
+    "objectID": "06-summary-statistics-and-insights.html#visual-check-of-distributions",
+    "href": "06-summary-statistics-and-insights.html#visual-check-of-distributions",
     "title": "Summary Statistics and Insights",
-    "section": "Visual check of numeric distributions",
-    "text": "Visual check of numeric distributions\nA simple set of histograms helps connect the summary table to visible distributions.\ndf_long = df.melt(\n    value_vars=num_cols,\n    var_name=\"feature\",\n    value_name=\"value\"\n)\n\ng = sns.displot(\n    data=df_long,\n    x=\"value\",\n    col=\"feature\",\n    col_wrap=3,\n    bins=12,\n    kde=True,\n    height=3.3,\n    aspect=1.15\n)\n\ng.fig.suptitle(\"Iris — Distributions of Numeric Features\", y=1.03)\n\nplt.show()\n\nInterpretation\nThese histograms help you assess:\n\nwhether distributions are narrow or wide\nwhether some features appear more variable than others\nwhether there may be multiple peaks suggesting subgroup structure\n\nA summary table alone may not reveal distribution shape.",
+    "section": "Visual check of distributions",
+    "text": "Visual check of distributions\ndf_long = df.melt(\n    value_vars=num_cols,\n    var_name=\"feature\",\n    value_name=\"value\"\n)\n\ng = sns.displot(\n    data=df_long,\n    x=\"value\",\n    col=\"feature\",\n    col_wrap=3,\n    bins=12,\n    kde=True,\n    height=3.3,\n    aspect=1.15\n)\n\ng.fig.suptitle(\"Iris — Distributions of Numeric Features\", y=1.03)\n\nplt.show()\nHistograms add distribution shape to the numeric table. Multiple peaks in the combined data may reflect the three species rather than unusual observations.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#categorical-summary",
-    "href": "06-summary-statistics-and-insights.html#categorical-summary",
+    "objectID": "06-summary-statistics-and-insights.html#categorical-counts-and-percentages",
+    "href": "06-summary-statistics-and-insights.html#categorical-counts-and-percentages",
     "title": "Summary Statistics and Insights",
-    "section": "Categorical summary",
-    "text": "Categorical summary\nFor a categorical variable, counts are often the simplest descriptive summary.\nspecies_counts = (\n    df[\"species\"]\n    .value_counts()\n    .sort_index()\n    .reset_index()\n)\n\nspecies_counts.columns = [\"species\", \"n\"]\nspecies_counts\n\nVisual: species distribution\nfig, ax = plt.subplots(figsize=(7, 4))\n\nsns.countplot(\n    data=df,\n    x=\"species\",\n    ax=ax\n)\n\nax.set_title(\"Count of Samples by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\n\nInterpretation\nCategory counts help you assess whether groups are balanced.\nBalanced group sizes make comparisons easier to interpret, while strong imbalance can affect how patterns appear in tables and plots.",
+    "section": "Categorical counts and percentages",
+    "text": "Categorical counts and percentages\nCounts show sample size; percentages make the group balance immediately interpretable.\nspecies_counts = (\n    df[\"species\"]\n    .value_counts()\n    .sort_index()\n    .rename_axis(\"species\")\n    .reset_index(name=\"n\")\n)\n\nspecies_counts[\"percent\"] = (\n    species_counts[\"n\"] / species_counts[\"n\"].sum() * 100\n)\n\nspecies_counts\nfig, ax = plt.subplots(figsize=(7, 4))\n\nsns.countplot(\n    data=df,\n    x=\"species\",\n    order=sorted(df[\"species\"].unique()),\n    ax=ax\n)\n\nax.set_title(\"Number of Samples by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Number of samples\")\n\nplt.show()\nBalanced groups receive equal influence in an overall summary. With imbalanced data, always examine group-level results because a large group can dominate the combined mean.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#grouped-summary-statistics",
-    "href": "06-summary-statistics-and-insights.html#grouped-summary-statistics",
+    "objectID": "06-summary-statistics-and-insights.html#grouped-summaries",
+    "href": "06-summary-statistics-and-insights.html#grouped-summaries",
     "title": "Summary Statistics and Insights",
-    "section": "Grouped summary statistics",
-    "text": "Grouped summary statistics\nA common workflow is to summarize numeric variables by a grouping column.\ngroup_summary = (\n    df.groupby(\"species\", observed=False)\n      .agg(\n          n=(\"species\", \"size\"),\n          sepal_length_mean=(\"sepal_length\", \"mean\"),\n          sepal_length_sd=(\"sepal_length\", \"std\"),\n          sepal_width_mean=(\"sepal_width\", \"mean\"),\n          sepal_width_sd=(\"sepal_width\", \"std\"),\n          petal_length_mean=(\"petal_length\", \"mean\"),\n          petal_length_sd=(\"petal_length\", \"std\"),\n          petal_width_mean=(\"petal_width\", \"mean\"),\n          petal_width_sd=(\"petal_width\", \"std\"),\n          petal_area_mean=(\"petal_area\", \"mean\"),\n          petal_area_sd=(\"petal_area\", \"std\")\n      )\n      .reset_index()\n)\n\ngroup_summary\n\nInterpretation\nGrouped summaries help answer questions such as:\n\nwhich species has the largest average petals?\nwhich variable differs most across species?\nwhich groups appear similar and which appear distinct?\n\nThis is where descriptive statistics begin to support insight.",
+    "section": "Grouped summaries",
+    "text": "Grouped summaries\nA long-format grouped table is compact, consistent, and easy to filter.\ngroup_records = []\n\nfor species, group in df.groupby(\"species\", observed=False):\n    for feature in num_cols:\n        values = group[feature]\n        q1 = values.quantile(0.25)\n        q3 = values.quantile(0.75)\n\n        group_records.append(\n            {\n                \"species\": species,\n                \"feature\": feature,\n                \"n\": values.count(),\n                \"mean\": values.mean(),\n                \"median\": values.median(),\n                \"sd\": values.std(),\n                \"q1\": q1,\n                \"q3\": q3,\n                \"iqr\": q3 - q1,\n                \"min\": values.min(),\n                \"max\": values.max()\n            }\n        )\n\ngrouped_summary = pd.DataFrame(group_records)\n\ngrouped_summary\nThis table answers several questions at once:\n\nWhich species has the largest typical value?\nDo the mean and median tell a similar story?\nWhich species is most variable?\nHow much do the middle 50% of observations overlap?",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#median-table-by-species",
-    "href": "06-summary-statistics-and-insights.html#median-table-by-species",
+    "objectID": "06-summary-statistics-and-insights.html#visual-comparison-with-boxplots",
+    "href": "06-summary-statistics-and-insights.html#visual-comparison-with-boxplots",
     "title": "Summary Statistics and Insights",
-    "section": "Median table by species",
-    "text": "Median table by species\nMeans are useful, but medians can provide a more robust summary when you want a center less influenced by unusual values.\nmedian_table = (\n    df.groupby(\"species\", observed=False)[num_cols]\n      .median()\n      .reset_index()\n)\n\nmedian_table\n\nInterpretation\nComparing means and medians helps you assess whether a group’s center is stable or influenced by a few values.",
+    "section": "Visual comparison with boxplots",
+    "text": "Visual comparison with boxplots\nBoxplots are more informative here than bars because they show the median, IQR, overall spread, and potential outliers.\ndf_group_long = df.melt(\n    id_vars=\"species\",\n    value_vars=num_cols,\n    var_name=\"feature\",\n    value_name=\"value\"\n)\n\ng = sns.catplot(\n    data=df_group_long,\n    x=\"species\",\n    y=\"value\",\n    col=\"feature\",\n    col_wrap=3,\n    kind=\"box\",\n    sharey=False,\n    height=3.4,\n    aspect=1.1\n)\n\ng.set_axis_labels(\"Species\", \"Value\")\ng.fig.suptitle(\"Numeric Features by Species\", y=1.03)\n\nplt.show()\nUse the second version in your own analysis because the relationship between each measurement and its species remains explicit.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#visual-comparison-of-group-means",
-    "href": "06-summary-statistics-and-insights.html#visual-comparison-of-group-means",
+    "objectID": "06-summary-statistics-and-insights.html#scale-independent-group-differentiation",
+    "href": "06-summary-statistics-and-insights.html#scale-independent-group-differentiation",
     "title": "Summary Statistics and Insights",
-    "section": "Visual comparison of group means",
-    "text": "Visual comparison of group means\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.barplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    errorbar=\"sd\",\n    ax=ax\n)\n\nax.set_title(\"Mean Petal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\nInterpretation\nThis plot combines summary and variation.\nIt helps you compare:\n\naverage petal length across species\nwithin-group spread using standard deviation\nwhether group differences appear large or modest\n\nWhen this agrees with earlier visualizations, confidence in the pattern increases.",
+    "section": "Scale-independent group differentiation",
+    "text": "Scale-independent group differentiation\nSubtracting the smallest group mean from the largest is not suitable for ranking features measured on different scales. A feature with larger numeric units can appear more important simply because its values are larger.\nInstead, use eta-squared (η²), a descriptive effect-size measure:\n\\[\n\\eta^2 = \\frac{\\text{between-group variation}}{\\text{total variation}}\n\\]\nValues range from 0 to 1:\n\nvalues near 0 indicate little differentiation among group means\nlarger values indicate that species membership accounts for more of the observed variation\n\nfeature_differentiation = []\n\nfor col in num_cols:\n    overall_mean = df[col].mean()\n\n    between_ss = sum(\n        len(group) * (group[col].mean() - overall_mean) ** 2\n        for _, group in df.groupby(\"species\", observed=False)\n    )\n\n    total_ss = ((df[col] - overall_mean) ** 2).sum()\n\n    feature_differentiation.append(\n        {\n            \"feature\": col,\n            \"eta_squared\": between_ss / total_ss\n        }\n    )\n\nfeature_differentiation = (\n    pd.DataFrame(feature_differentiation)\n    .sort_values(\"eta_squared\", ascending=False)\n    .reset_index(drop=True)\n)\n\nfeature_differentiation\nEta-squared ranks descriptive group differentiation on a common scale. It does not measure predictive accuracy and does not prove that species causes a measurement.\nBecause petal_area is derived from petal length and width, interpret its ranking as a useful summary of combined petal size—not as evidence of a new independent measurement.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#key-feature-differences",
-    "href": "06-summary-statistics-and-insights.html#key-feature-differences",
+    "objectID": "06-summary-statistics-and-insights.html#pearson-and-spearman-correlations",
+    "href": "06-summary-statistics-and-insights.html#pearson-and-spearman-correlations",
     "title": "Summary Statistics and Insights",
-    "section": "Key feature differences",
-    "text": "Key feature differences\nA simple way to identify strong descriptive separation is to compare the range of group means across variables.\nfeature_separation = []\n\nfor col in num_cols:\n    group_means = df.groupby(\"species\", observed=False)[col].mean()\n    feature_separation.append(\n        {\n            \"feature\": col,\n            \"min_group_mean\": group_means.min(),\n            \"max_group_mean\": group_means.max(),\n            \"range_of_group_means\": group_means.max() - group_means.min()\n        }\n    )\n\nfeature_separation = (\n    pd.DataFrame(feature_separation)\n    .sort_values(\"range_of_group_means\", ascending=False)\n)\n\nfeature_separation\n\nInterpretation\nA larger difference in group means suggests that a feature may separate species more clearly.\nThis does not establish classification performance, but it provides a useful descriptive signal about which variables are more informative.",
+    "section": "Pearson and Spearman correlations",
+    "text": "Pearson and Spearman correlations\nPearson correlation summarizes linear association. Spearman correlation summarizes monotonic association using ranks and is less sensitive to extreme values and nonlinearity.\npearson_corr = df[num_cols].corr(method=\"pearson\")\nspearman_corr = df[num_cols].corr(method=\"spearman\")\n\npearson_corr\nspearman_corr\nfig, axes = plt.subplots(1, 2, figsize=(14, 5.5))\n\nsns.heatmap(\n    pearson_corr,\n    annot=True,\n    fmt=\".2f\",\n    vmin=-1,\n    vmax=1,\n    cmap=\"vlag\",\n    ax=axes[0]\n)\naxes[0].set_title(\"Pearson Correlation\")\n\nsns.heatmap(\n    spearman_corr,\n    annot=True,\n    fmt=\".2f\",\n    vmin=-1,\n    vmax=1,\n    cmap=\"vlag\",\n    ax=axes[1]\n)\naxes[1].set_title(\"Spearman Correlation\")\n\nplt.tight_layout()\nplt.show()\nWhen Pearson and Spearman values are similar, the association is likely both linear and monotonic. A noticeable difference suggests that shape or unusual observations deserve closer inspection.\n\n\n\n\n\n\nImportant\n\n\n\nCorrelation does not establish causation. Correlations in the full Iris dataset may also reflect differences among species. Examine scatterplots and within-species patterns before interpreting a pooled correlation biologically.\n\n\nCorrelations involving petal_area are expected to be strong because that feature was calculated from petal length and width. This is mathematical dependence, not independent confirmation.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#correlation-matrix",
-    "href": "06-summary-statistics-and-insights.html#correlation-matrix",
+    "objectID": "06-summary-statistics-and-insights.html#generate-an-insights-report",
+    "href": "06-summary-statistics-and-insights.html#generate-an-insights-report",
     "title": "Summary Statistics and Insights",
-    "section": "Correlation matrix",
-    "text": "Correlation matrix\nCorrelations summarize linear relationships among numeric variables.\ncorr = df[num_cols].corr()\ncorr",
-    "crumbs": [
-      "Data Transformation and Analysis",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
-    ]
-  },
-  {
-    "objectID": "06-summary-statistics-and-insights.html#correlation-heatmap",
-    "href": "06-summary-statistics-and-insights.html#correlation-heatmap",
-    "title": "Summary Statistics and Insights",
-    "section": "Correlation heatmap",
-    "text": "Correlation heatmap\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.heatmap(\n    corr,\n    annot=True,\n    fmt=\".2f\",\n    ax=ax\n)\n\nax.set_title(\"Correlation Heatmap\")\n\nplt.show()\n\nInterpretation\nA correlation heatmap helps you see:\n\nwhich measurements tend to increase together\nwhich relationships appear weak\nwhere redundancy may exist between variables\n\nThis can guide later feature selection and interpretation.",
-    "crumbs": [
-      "Data Transformation and Analysis",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
-    ]
-  },
-  {
-    "objectID": "06-summary-statistics-and-insights.html#generate-a-simple-insights-report",
-    "href": "06-summary-statistics-and-insights.html#generate-a-simple-insights-report",
-    "title": "Summary Statistics and Insights",
-    "section": "Generate a simple insights report",
-    "text": "Generate a simple insights report\nAn insights report should link evidence to interpretation without overstating what the data can support.\ntop_sep = feature_separation.iloc[0]\n\ntop_petal_length = (\n    df.groupby(\"species\", observed=False)[\"petal_length\"]\n      .mean()\n      .sort_values(ascending=False)\n      .reset_index(name=\"petal_length_mean\")\n)\n\nreport = f\"\"\"# Insights Report: Iris Dataset\n\n## 1. Dataset size\n\n- Rows: {df.shape[0]}\n- Columns: {df.shape[1]}\n\n## 2. Group separation\n\nPetal-related features show strong descriptive differences across species.\n\nMean petal length by species:\n\n{top_petal_length.to_markdown(index=False)}\n\n## 3. Strongest descriptive separation\n\nThe feature with the largest range of group means is `{top_sep[\"feature\"]}`.\n\n- Minimum group mean: {top_sep[\"min_group_mean\"]:.3f}\n- Maximum group mean: {top_sep[\"max_group_mean\"]:.3f}\n- Range of group means: {top_sep[\"range_of_group_means\"]:.3f}\n\n## 4. Consistency with earlier plots\n\nThese grouped summaries are consistent with the separation seen in visualization-based exploration.\n\n## 5. Caution\n\nThese are descriptive patterns only. They support comparison, but they do not justify causal claims.\n\"\"\"\n\nprint(report)\n\nInterpretation\nA good insights report:\n\nstates what the evidence shows\nlinks evidence to careful interpretation\navoids claims that go beyond the analysis\n\nThis habit is central to CDI-style reasoning.",
+    "section": "Generate an insights report",
+    "text": "Generate an insights report\nA useful report includes concrete values, interpretation, and limitations.\ntop_feature = feature_differentiation.iloc[0]\n\npetal_length_by_species = (\n    grouped_summary\n    .query(\"feature == 'petal_length'\")\n    [[\"species\", \"n\", \"mean\", \"median\", \"sd\", \"iqr\"]]\n)\n\nreport = f\"\"\"# Insights Report: Iris Dataset\n\n## Dataset and group balance\n\n- The dataset contains {df.shape[0]} observations and {df.shape[1]} columns.\n- It contains {df[\"species\"].nunique()} species groups.\n- Group sizes range from {species_counts[\"n\"].min()} to {species_counts[\"n\"].max()} observations.\n\n## Petal length by species\n\n{petal_length_by_species.to_markdown(index=False)}\n\n## Strongest descriptive differentiation\n\n`{top_feature[\"feature\"]}` has the largest eta-squared value\n({top_feature[\"eta_squared\"]:.3f}) among the summarized features.\n\n## Interpretation\n\nPetal measurements provide clearer descriptive differentiation among species\nthan sepal measurements in this dataset.\n\n## Limitations\n\nThese results describe this dataset. They do not establish causation or\nclassification performance. Correlations involving `petal_area` partly reflect\nhow that derived feature was calculated.\n\"\"\"\n\nprint(report)\nA strong insight states:\n\nthe evidence,\nwhat the evidence reasonably suggests, and\nwhat the analysis does not establish.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1444,7 +1422,7 @@
     "href": "06-summary-statistics-and-insights.html#validation-checks",
     "title": "Summary Statistics and Insights",
     "section": "Validation checks",
-    "text": "Validation checks\nprint(\"Total missing values:\", int(df.isna().sum().sum()))\nprint(\"Numeric columns used:\", num_cols)\nprint(\"Grouped summary shape:\", group_summary.shape)\nprint(\"Median table shape:\", median_table.shape)\n\nassert int(df.isna().sum().sum()) == 0, \"Missing values remain in the dataset.\"\nassert \"species\" in df.columns, \"Grouping variable species is missing.\"\nassert len(num_cols) &gt; 0, \"No numeric columns selected.\"\n\nInterpretation\nEven in a summary-focused chapter, validation remains important.\nIt confirms that:\n\nthe dataset is still clean\nexpected variables are present\ngrouped summaries were constructed correctly",
+    "text": "Validation checks\nassert int(df.isna().sum().sum()) == 0, \"Missing values remain.\"\nassert \"species\" in df.columns, \"The grouping variable is missing.\"\nassert set(num_cols).issubset(df.columns), \"A numeric feature is missing.\"\nassert species_counts[\"n\"].sum() == len(df), \"Group counts do not match row count.\"\nassert feature_differentiation[\"eta_squared\"].between(0, 1).all()\nassert pearson_corr.equals(pearson_corr.transpose())\nassert spearman_corr.equals(spearman_corr.transpose())\n\nprint(\"All summary validation checks passed.\")",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1455,7 +1433,7 @@
     "href": "06-summary-statistics-and-insights.html#save-summary-outputs",
     "title": "Summary Statistics and Insights",
     "section": "Save summary outputs",
-    "text": "Save summary outputs\nSave the tables and report so they can be reused later.\nfrom pathlib import Path\n\nPath(\"results/summary\").mkdir(parents=True, exist_ok=True)\n\nnumeric_summary.to_csv(\"results/summary/numeric-summary.tsv\", sep=\"\\t\")\nspecies_counts.to_csv(\"results/summary/species-counts.tsv\", sep=\"\\t\", index=False)\ngroup_summary.to_csv(\"results/summary/grouped-summary.tsv\", sep=\"\\t\", index=False)\nmedian_table.to_csv(\"results/summary/median-summary.tsv\", sep=\"\\t\", index=False)\nfeature_separation.to_csv(\"results/summary/feature-separation.tsv\", sep=\"\\t\", index=False)\ncorr.to_csv(\"results/summary/correlation-matrix.tsv\", sep=\"\\t\")\nPath(\"results/summary/analysis-insights.md\").write_text(report, encoding=\"utf-8\")",
+    "text": "Save summary outputs\nfrom pathlib import Path\n\noutput_dir = Path(\"results/summary\")\noutput_dir.mkdir(parents=True, exist_ok=True)\n\nnumeric_summary.to_csv(\n    output_dir / \"numeric-summary.tsv\", sep=\"\\t\", index=False\n)\nspecies_counts.to_csv(\n    output_dir / \"species-counts.tsv\", sep=\"\\t\", index=False\n)\ngrouped_summary.to_csv(\n    output_dir / \"grouped-summary.tsv\", sep=\"\\t\", index=False\n)\nfeature_differentiation.to_csv(\n    output_dir / \"feature-differentiation.tsv\", sep=\"\\t\", index=False\n)\npearson_corr.to_csv(\n    output_dir / \"pearson-correlation.tsv\", sep=\"\\t\"\n)\nspearman_corr.to_csv(\n    output_dir / \"spearman-correlation.tsv\", sep=\"\\t\"\n)\n(output_dir / \"analysis-insights.md\").write_text(\n    report, encoding=\"utf-8\"\n)",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1466,62 +1444,29 @@
     "href": "06-summary-statistics-and-insights.html#run-the-reusable-summary-script",
     "title": "Summary Statistics and Insights",
     "section": "Run the reusable summary script",
-    "text": "Run the reusable summary script\nThe manual steps above explain the logic. The reusable script creates the summary evidence package from the command line.\nRun this from the project root:\npython scripts/python/summarize_table.py data/iris_wrangled.csv results/summary\nExpected outputs:\nresults/summary/\n├── numeric-summary.tsv\n├── species-counts.tsv\n├── grouped-summary.tsv\n├── median-summary.tsv\n├── feature-separation.tsv\n├── correlation-matrix.tsv\n└── analysis-insights.md",
+    "text": "Run the reusable summary script\nRun this from the project root:\npython scripts/python/summarize_table.py \\\n  data/iris_wrangled.csv \\\n  results/summary\nThe script validates the input and creates the same evidence package developed manually in this lesson.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#what-the-summary-script-does",
-    "href": "06-summary-statistics-and-insights.html#what-the-summary-script-does",
+    "objectID": "06-summary-statistics-and-insights.html#key-takeaways",
+    "href": "06-summary-statistics-and-insights.html#key-takeaways",
     "title": "Summary Statistics and Insights",
-    "section": "What the summary script does",
-    "text": "What the summary script does\nThe script:\n\nreads the wrangled input table\nvalidates required columns\ncreates numeric descriptive summaries\ncreates categorical counts\ncreates grouped mean and standard deviation summaries\ncreates median summaries\nestimates descriptive feature separation\ncomputes a correlation matrix\nwrites a short markdown insights report",
+    "section": "Key takeaways",
+    "text": "Key takeaways\n\nUse both conventional and robust summaries: mean with standard deviation, and median with IQR.\nAlways report group size alongside group statistics.\nPrefer scale-independent measures when ranking features with different units.\nCompare Pearson and Spearman correlations and inspect the corresponding plots.\nTreat derived variables carefully because they can create expected mathematical relationships.\nDescriptive statistics support interpretation, but they do not establish causation or predictive performance.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
     ]
   },
   {
-    "objectID": "06-summary-statistics-and-insights.html#exercise",
-    "href": "06-summary-statistics-and-insights.html#exercise",
+    "objectID": "06-summary-statistics-and-insights.html#next-step",
+    "href": "06-summary-statistics-and-insights.html#next-step",
     "title": "Summary Statistics and Insights",
-    "section": "Exercise",
-    "text": "Exercise\nTry the following:\n\nCompute the mean and standard deviation of sepal_width by species.\nCreate a table with the median of each numeric feature by species.\nOpen results/summary/analysis-insights.md.\nWrite one short paragraph interpreting your results without causal language.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nsepal_width_stats = (\n    df.groupby(\"species\", observed=False)\n      .agg(\n          sepal_width_mean=(\"sepal_width\", \"mean\"),\n          sepal_width_sd=(\"sepal_width\", \"std\"),\n      )\n      .reset_index()\n)\n\nprint(\"Sepal width mean and standard deviation by species:\")\nprint(sepal_width_stats)\n\nmedian_table_ex = (\n    df.groupby(\"species\", observed=False)[num_cols]\n      .median()\n      .reset_index()\n)\n\nprint(\"\\nMedian table by species:\")\nprint(median_table_ex)\n\nprint(\"\\nInterpretation:\")\nprint(\"The grouped summaries suggest that species differ descriptively across several measurements, with petal-related variables showing clearer separation than sepal-related variables.\")",
-    "crumbs": [
-      "Data Transformation and Analysis",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
-    ]
-  },
-  {
-    "objectID": "06-summary-statistics-and-insights.html#cdi-insight",
-    "href": "06-summary-statistics-and-insights.html#cdi-insight",
-    "title": "Summary Statistics and Insights",
-    "section": "CDI Insight",
-    "text": "CDI Insight\nSummary statistics are not the end of analysis.\nThey are a way to organize evidence so that interpretation becomes clearer and more defensible.\nA responsible analyst does not report numbers alone.\nThey explain what those numbers mean — and what they do not.\nIn CDI systems, summary tables and insights reports become reusable evidence, not just temporary output.",
-    "crumbs": [
-      "Data Transformation and Analysis",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
-    ]
-  },
-  {
-    "objectID": "06-summary-statistics-and-insights.html#summary",
-    "href": "06-summary-statistics-and-insights.html#summary",
-    "title": "Summary Statistics and Insights",
-    "section": "Summary",
-    "text": "Summary\nIn this lesson, you:\n\ncomputed descriptive statistics for numeric and categorical variables\ncompared group means, standard deviations, and medians\nused simple visuals to support statistical summaries\nexamined linear relationships using a correlation matrix\ncreated reusable summary tables\nwrote an insights report grounded in descriptive evidence\ncompleted the core Data Science Foundations tidy-table workflow",
-    "crumbs": [
-      "Data Transformation and Analysis",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
-    ]
-  },
-  {
-    "objectID": "06-summary-statistics-and-insights.html#looking-ahead",
-    "href": "06-summary-statistics-and-insights.html#looking-ahead",
-    "title": "Summary Statistics and Insights",
-    "section": "Looking Ahead",
-    "text": "Looking Ahead\nThe Foundations System has now produced a complete tidy-table analysis package: inspected data, cleaned data, wrangled outputs, figures, summary tables, and a written insights report. In the next chapter, we connect this foundation to modeling and the Applied Data Science System.",
+    "section": "Next step",
+    "text": "Next step\nIn Chapter 07, these descriptive insights become the foundation for moving from analysis to machine learning.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary Statistics and Insights</span>"
@@ -1530,309 +1475,155 @@
   {
     "objectID": "07-from-analysis-to-ml.html",
     "href": "07-from-analysis-to-ml.html",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "",
-    "text": "From understanding to modeling\nUp to this point, we have focused on understanding data.\nWe inspected a table, cleaned it, transformed it, visualized it, summarized it, and wrote careful insights.\nThis is where many learning paths stop.\nBut in CDI, this point is also a handoff.\nThe Data Science Foundations System prepares analysis-ready tables and evidence outputs. The Applied Data Science System builds on those outputs when prediction, modeling, evaluation, or decision support is needed.\nData analysis helps us answer questions such as:\nModeling extends the workflow further.\nIt helps us ask questions such as:\nModeling is not separate from analysis.\nIt depends on analysis.\nClean, well-structured, well-understood data is what makes modeling possible.",
+    "text": "From understanding to modeling\nUp to this point, we have focused on understanding data.\nWe inspected a table, cleaned it, transformed it, visualized it, summarized it, and wrote careful insights.\nThis is where many learning paths stop.\nIn CDI, this point is also a handoff.\nThe Data Science Foundations guide prepares analysis-ready data and supporting evidence. The advanced data science guide, maintained in a separate repository, builds on those outputs when machine learning, evaluation, interpretation, or decision support is needed.\nThis chapter introduces that transition. It does not attempt to teach the advanced workflow.\nData analysis helps us answer questions such as:\nModeling extends the workflow further.\nIt helps us ask questions such as:\nModeling depends on analysis.\nClean, well-structured, well-understood data is what makes modeling possible.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#from-understanding-to-modeling",
     "href": "07-from-analysis-to-ml.html#from-understanding-to-modeling",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "",
     "text": "What does the dataset contain?\nWhat patterns are visible?\nWhich variables differ across groups?\nWhich summaries support careful interpretation?\nWhat limitations should be stated?\n\n\n\n\nCan we predict an outcome from available features?\nHow well does the model perform on unseen data?\nWhich variables contribute to model behavior?\nAre the predictions reliable enough to support a decision?\nWhat could go wrong when the model is used?",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#the-cdi-handoff-point",
     "href": "07-from-analysis-to-ml.html#the-cdi-handoff-point",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "The CDI handoff point",
-    "text": "The CDI handoff point\nThe Foundations System produces a compact set of reusable outputs:\ndata/iris.csv\ndata/iris_clean.csv\ndata/iris_wrangled.csv\n\nresults/inspection/\nresults/cleaning/\nresults/wrangling/\nresults/figures/\nresults/summary/\nThese outputs document the journey from raw teaching table to analysis-ready evidence package.\nThe handoff point looks like this:\nData Science Foundations System\n        ↓\ntidy, cleaned, wrangled table\n        ↓\nfigures and summary evidence\n        ↓\nApplied Data Science System\n        ↓\nmodeling, evaluation, interpretation, decision-making\nThe important idea is that modeling should not begin from an unexplored table.\nIt should begin from a table whose structure, quality, and interpretation have already been examined.",
+    "text": "The CDI handoff point\nThe foundations workflow produces a compact set of reusable outputs:\ndata/iris.csv\ndata/iris_clean.csv\ndata/iris_wrangled.csv\n\nresults/inspection/\nresults/cleaning/\nresults/wrangling/\nresults/figures/\nresults/summary/\nThese outputs document the journey from raw teaching table to analysis-ready evidence package.\nThe handoff point looks like this:\nData Science Foundations\n        ↓\ntidy, cleaned, wrangled table\n        ↓\nfigures and summary evidence\n        ↓\nAdvanced Data Science\n        ↓\nmodeling, evaluation, interpretation, decision-making\nThe important idea is that modeling should not begin from an unexplored table.\nIt should begin from a table whose structure, quality, and interpretation have already been examined.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
-    "objectID": "07-from-analysis-to-ml.html#a-simple-workflow-extension",
-    "href": "07-from-analysis-to-ml.html#a-simple-workflow-extension",
-    "title": "From Analysis to Modeling",
-    "section": "A simple workflow extension",
-    "text": "A simple workflow extension\n\n\nCode\nflowchart LR\n    A[Tidy Table] --&gt; B[Inspection]\n    B --&gt; C[Cleaning]\n    C --&gt; D[Wrangling]\n    D --&gt; E[Visualization]\n    E --&gt; F[Summary & Insights]\n    F --&gt; G[Modeling Readiness]\n    G --&gt; H[Applied Data Science System]\n\n\n\n\n\nflowchart LR\n    A[Tidy Table] --&gt; B[Inspection]\n    B --&gt; C[Cleaning]\n    C --&gt; D[Wrangling]\n    D --&gt; E[Visualization]\n    E --&gt; F[Summary & Insights]\n    F --&gt; G[Modeling Readiness]\n    G --&gt; H[Applied Data Science System]\n\n\n\n\n\n\nThis workflow shows why Foundations is reusable across CDI pathways.\nAny pathway that produces a tidy table can enter this workflow.\nExamples:\nProteomics result table\nMicrobiome diversity table\nClinical cohort table\nAI evaluation table\nEach can move through the same foundational process before advanced modeling begins.",
+    "objectID": "07-from-analysis-to-ml.html#the-workflow-continues",
+    "href": "07-from-analysis-to-ml.html#the-workflow-continues",
+    "title": "From Analysis to Machine Learning",
+    "section": "The workflow continues",
+    "text": "The workflow continues\n\n\nCode\nflowchart TD\n    A[Raw or Source Data] --&gt; B[Inspect and Clean]\n    B --&gt; C[Wrangle and Validate]\n    C --&gt; D[Visualize and Summarize]\n    D --&gt; E[Interpret Findings]\n    E --&gt; F[Assess Modeling Readiness]\n    F --&gt; G[Advanced Data Science]\n\n\n\n\n\nflowchart TD\n    A[Raw or Source Data] --&gt; B[Inspect and Clean]\n    B --&gt; C[Wrangle and Validate]\n    C --&gt; D[Visualize and Summarize]\n    D --&gt; E[Interpret Findings]\n    E --&gt; F[Assess Modeling Readiness]\n    F --&gt; G[Advanced Data Science]\n\n\n\n\n\n\nThis workflow shows why the foundations are reusable across CDI pathways.\nAny pathway that produces a tidy table can enter this workflow.\nExamples:\nProteomics result table\nMicrobiome diversity table\nClinical cohort table\nAI evaluation table\nEach can move through the same foundational process before advanced work begins.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#what-modeling-adds",
     "href": "07-from-analysis-to-ml.html#what-modeling-adds",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "What modeling adds",
-    "text": "What modeling adds\nModeling introduces new responsibilities.\nA model is not just a calculation. It is a system component that may influence interpretation, prioritization, or decisions.\nModeling adds questions about:\n\ntarget variables\ninput features\ntrain/test splits\nperformance metrics\noverfitting\ngeneralization\ninterpretation\nfairness and bias\nuncertainty\nmonitoring and drift\n\nThese topics belong mainly in the Applied Data Science System.\nThe Foundations System introduces the transition but does not try to cover all modeling details.",
+    "text": "What modeling adds\nModeling introduces new responsibilities.\nA model is not just a calculation. It is a system component that may influence interpretation, prioritization, or decisions.\nModeling adds questions about:\n\ntarget variables\ninput features\ntrain/test splits\nperformance metrics\noverfitting\ngeneralization\ninterpretation\nfairness and bias\nuncertainty\nmonitoring and drift\n\nThese topics belong in the separate advanced data science guide.\nThis foundations chapter introduces the handoff without teaching the full modeling workflow.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#modeling-readiness-checklist",
     "href": "07-from-analysis-to-ml.html#modeling-readiness-checklist",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "Modeling readiness checklist",
-    "text": "Modeling readiness checklist\nBefore moving into modeling, ask whether the data is ready.\nModeling readiness checklist\n\n[ ] Is the input table tidy?\n[ ] Are required columns present?\n[ ] Are missing values understood or handled?\n[ ] Are duplicates checked?\n[ ] Are feature types clear?\n[ ] Is the target variable clearly defined?\n[ ] Are grouped patterns already explored?\n[ ] Are summary outputs available?\n[ ] Are figures available for interpretation?\n[ ] Are limitations documented?\nIf several items are missing, return to inspection, cleaning, wrangling, or summarization before modeling.",
+    "text": "Modeling readiness checklist\nBefore moving into modeling, ask whether the data is ready.\nModeling readiness checklist\n\n[ ] Is the input table tidy?\n[ ] Are required columns present?\n[ ] Are missing values understood or handled?\n[ ] Are duplicates checked?\n[ ] Are feature types clear?\n[ ] Is the target variable clearly defined?\n[ ] Have relevant patterns and group differences been explored?\n[ ] Are summaries and figures available to support interpretation?\n[ ] Are limitations documented?\n[ ] Is there enough data for a defensible train/test strategy?\n[ ] Could any feature reveal the target or information from the future?\nIf several items are missing, return to inspection, cleaning, wrangling, or summarization before modeling.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#a-small-modeling-preview",
     "href": "07-from-analysis-to-ml.html#a-small-modeling-preview",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "A small modeling preview",
-    "text": "A small modeling preview\nThe following example shows what the next stage may look like. It is intentionally brief.\nThe goal is not to teach full machine learning here. The goal is to show how the wrangled table could become model-ready input.\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import classification_report\n\ndf = pd.read_csv(\"data/iris_wrangled.csv\")\n\nfeatures = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"petal_area\"\n]\n\nX = df[features]\ny = df[\"species\"]\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X,\n    y,\n    test_size=0.25,\n    random_state=42,\n    stratify=y\n)\n\nmodel = RandomForestClassifier(random_state=42)\nmodel.fit(X_train, y_train)\n\npredictions = model.predict(X_test)\n\nprint(classification_report(y_test, predictions))\nThis preview introduces several new concepts:\n\nfeatures\ntarget variable\ntraining data\ntest data\nmodel fitting\nprediction\nperformance reporting\n\nEach of these deserves careful treatment in the Applied Data Science System.",
+    "text": "A small modeling preview\nThe following display-only example previews what the next stage may look like. It is intentionally brief and is not executed as part of this guide.\nThe goal is not to teach machine learning here. It is simply to show how the wrangled Iris table could become model input.\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import classification_report\n\ndf = pd.read_csv(\"data/iris_wrangled.csv\")\n\nfeatures = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"petal_area\"\n]\n\nX = df[features]\ny = df[\"species\"]\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X,\n    y,\n    test_size=0.25,\n    random_state=42,\n    stratify=y\n)\n\nmodel = RandomForestClassifier(\n    n_estimators=200,\n    random_state=42\n)\nmodel.fit(X_train, y_train)\n\npredictions = model.predict(X_test)\n\nprint(classification_report(y_test, predictions))\nThis preview introduces several new concepts:\n\nfeatures\ntarget variable\ntraining data\ntest data\nmodel fitting\nprediction\nperformance reporting\n\nEach of these requires careful treatment in the advanced data science guide.\n\n\n\n\n\n\nKeep the result in perspective\n\n\n\nOne train/test split is only a preview. It is not enough to establish that a model is reliable. Model choice, cross-validation, baselines, leakage checks, uncertainty, interpretation, and responsible use belong to the advanced workflow.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#from-models-to-systems",
     "href": "07-from-analysis-to-ml.html#from-models-to-systems",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "From models to systems",
-    "text": "From models to systems\nA model becomes more useful when it is part of a larger system.\n\n\nCode\nflowchart LR\n    A[Analysis-Ready Table] --&gt; B[Model]\n    B --&gt; C[Evaluation]\n    C --&gt; D[Interpretation]\n    D --&gt; E[Decision Support]\n\n\n\n\n\nflowchart LR\n    A[Analysis-Ready Table] --&gt; B[Model]\n    B --&gt; C[Evaluation]\n    C --&gt; D[Interpretation]\n    D --&gt; E[Decision Support]\n\n\n\n\n\n\nIn more advanced settings, the workflow may extend further:\n\n\nCode\nflowchart LR\n    A[Build] --&gt; B[Test]\n    B --&gt; C[Deploy]\n    C --&gt; D[Monitor]\n    D --&gt; E[Improve]\n    E --&gt; A\n\n\n\n\n\nflowchart LR\n    A[Build] --&gt; B[Test]\n    B --&gt; C[Deploy]\n    C --&gt; D[Monitor]\n    D --&gt; E[Improve]\n    E --&gt; A\n\n\n\n\n\n\nThis is why the next CDI layer is not just about algorithms.\nIt is about applied analytical systems.",
+    "text": "From models to systems\nA model becomes more useful when it is part of a larger system.\n\n\nCode\nflowchart TD\n    A[Analysis-Ready Table] --&gt; B[Model]\n    B --&gt; C[Evaluation]\n    C --&gt; D[Interpretation]\n    D --&gt; E[Decision Support]\n\n\n\n\n\nflowchart TD\n    A[Analysis-Ready Table] --&gt; B[Model]\n    B --&gt; C[Evaluation]\n    C --&gt; D[Interpretation]\n    D --&gt; E[Decision Support]\n\n\n\n\n\n\nIn more advanced settings, the workflow may extend further:\n\n\nCode\nflowchart TD\n    A[Build] --&gt; B[Test]\n    B --&gt; C[Deploy]\n    C --&gt; D[Monitor]\n    D --&gt; E[Improve]\n    E --&gt; A\n\n\n\n\n\nflowchart TD\n    A[Build] --&gt; B[Test]\n    B --&gt; C[Deploy]\n    C --&gt; D[Monitor]\n    D --&gt; E[Improve]\n    E --&gt; A\n\n\n\n\n\n\nThis is why the next CDI layer is not just about algorithms.\nIt is about applied analytical systems.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
-    "objectID": "07-from-analysis-to-ml.html#what-belongs-in-the-applied-data-science-system",
-    "href": "07-from-analysis-to-ml.html#what-belongs-in-the-applied-data-science-system",
-    "title": "From Analysis to Modeling",
-    "section": "What belongs in the Applied Data Science System",
-    "text": "What belongs in the Applied Data Science System\nThe Applied Data Science System can build on Foundations with topics such as:\n\nfeature engineering\nmodel building\nmodel evaluation\ncross-validation\nmodel improvement\nfeature importance\ninterpretation\nclaims and limitations\ndecision-making\nresponsible use\n\nThis creates a clean CDI separation:\nData Science Foundations System\n    = inspect, clean, wrangle, visualize, summarize, interpret tidy tables\n\nApplied Data Science System\n    = model, evaluate, explain, improve, and support decisions\nBoth are part of the broader Data Science Pathway.",
+    "objectID": "07-from-analysis-to-ml.html#what-belongs-in-advanced-data-science",
+    "href": "07-from-analysis-to-ml.html#what-belongs-in-advanced-data-science",
+    "title": "From Analysis to Machine Learning",
+    "section": "What belongs in advanced data science",
+    "text": "What belongs in advanced data science\nThe separate advanced guide can build on these foundations with topics such as:\n\nfeature engineering\nmodel building\nmodel evaluation\ncross-validation\nmodel improvement\nfeature importance\ninterpretation\nclaims and limitations\ndecision-making\nresponsible use\n\nThis creates a clear separation of scope:\nData Science Foundations\n    = inspect, clean, wrangle, visualize, summarize, interpret tidy tables\n\nAdvanced Data Science\n    = model, evaluate, explain, improve, and support decisions\nBoth belong to the broader Data Science pathway, but they are maintained as separate guides and repositories.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#cdi-pathway-connection",
     "href": "07-from-analysis-to-ml.html#cdi-pathway-connection",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "CDI pathway connection",
-    "text": "CDI pathway connection\nThe Foundations System is reusable because many CDI pathways eventually produce tidy tables.\nOmics Pathway\n    ↓\ndifferential results, abundance tables, diversity metrics\n\nClinical & Medical Data Pathway\n    ↓\ncohort tables, lab tables, outcome tables\n\nAI, Thinking & Decision Pathway\n    ↓\nevaluation tables, prediction logs, decision records\nOnce these tables are tidy and analysis-ready, they can use the same foundations:\ninspect\nclean\nwrangle\nvisualize\nsummarize\ninterpret\nWhen modeling is needed, the workflow continues into Applied Data Science.",
+    "text": "CDI pathway connection\nThe Foundations System is reusable because many CDI pathways eventually produce tidy tables.\nOmics Pathway\n    ↓\ndifferential results, abundance tables, diversity metrics\n\nClinical & Medical Data Pathway\n    ↓\ncohort tables, lab tables, outcome tables\n\nHuman-Centered AI\n    ↓\nevaluation tables, prediction logs, decision records\nOnce these tables are tidy and analysis-ready, they can use the same foundations:\ninspect\nclean\nwrangle\nvisualize\nsummarize\ninterpret\nWhen modeling is needed, the workflow continues in the advanced data science guide.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#exercise",
     "href": "07-from-analysis-to-ml.html#exercise",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "Exercise",
-    "text": "Exercise\nReview the outputs produced so far:\ndata/iris_wrangled.csv\nresults/figures/\nresults/summary/analysis-insights.md\nThen answer:\n\nWhat is the likely target variable if this dataset were used for classification?\nWhich features might be useful as model inputs?\nWhich summary or visualization supports that choice?\nWhat caution should be stated before making claims from a model?\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nA reasonable classification target is:\nspecies\nPotential input features include:\nsepal_length\nsepal_width\npetal_length\npetal_width\npetal_area\nThe strongest exploratory support comes from petal-related plots and grouped summaries, which show clearer descriptive separation across species.\nA careful caution is:\nThe Iris dataset is small, clean, and educational. Model performance on this dataset should not be treated as evidence that the same workflow will generalize to larger, noisier, real-world datasets without validation.",
+    "text": "Exercise\nReview the outputs produced so far:\ndata/iris_wrangled.csv\nresults/figures/\nresults/summary/analysis-insights.md\nThen answer:\n\nWhat is the likely target variable if this dataset were used for classification?\nWhich features might be useful as model inputs?\nWhich summary or visualization supports your choice?\nWhat potential leakage, redundancy, or limitation should be checked?\nWhy would one train/test split be insufficient for a strong performance claim?\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nA reasonable classification target is:\nspecies\nPotential input features include:\nsepal_length\nsepal_width\npetal_length\npetal_width\npetal_area\nThe strongest exploratory support comes from petal-related plots and grouped summaries, which show clearer descriptive separation among species. Because petal_area is calculated from petal_length and petal_width, it is also important to assess redundancy and decide whether the derived feature adds useful information.\nA careful caution is:\nThe Iris dataset is small, clean, and educational. Performance from one split should not be treated as evidence that the model will generalize to larger, noisier, real-world datasets. Repeated evaluation, suitable baselines, and careful validation are still required.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#cdi-insight",
     "href": "07-from-analysis-to-ml.html#cdi-insight",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "CDI Insight",
-    "text": "CDI Insight\nData analysis is not the final step.\nIt is the foundation for building reliable analytical systems.\nA model built without inspection, cleaning, visualization, and summary interpretation is fragile.\nA model built after careful data science foundations is easier to understand, evaluate, and trust.",
+    "text": "CDI Insight\nData analysis is not the final step.\nIt is the foundation for building reliable analytical systems.\nA model built without inspection, cleaning, visualization, and summary interpretation is fragile.\nA model built after careful data science foundations is easier to understand and evaluate. Trust still depends on appropriate validation, transparent limitations, and responsible use.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
     "objectID": "07-from-analysis-to-ml.html#summary",
     "href": "07-from-analysis-to-ml.html#summary",
-    "title": "From Analysis to Modeling",
+    "title": "From Analysis to Machine Learning",
     "section": "Summary",
-    "text": "Summary\nIn this lesson, you:\n\nreviewed the transition from analysis to modeling\nidentified the CDI handoff point between Foundations and Applied Data Science\nsaw how a wrangled table can become model-ready input\nreviewed the responsibilities added by modeling\nconnected the Foundations System to other CDI pathways\nprepared for the Applied Data Science System",
+    "text": "Summary\nIn this lesson, you:\n\nreviewed the transition from analysis to modeling\nidentified the handoff point between foundations and advanced data science\nsaw how a wrangled table can become model-ready input\nreviewed the responsibilities added by modeling\nconnected the Foundations System to other CDI pathways\nidentified the advanced topics that belong in the separate guide",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
-    "objectID": "07-from-analysis-to-ml.html#looking-ahead",
-    "href": "07-from-analysis-to-ml.html#looking-ahead",
-    "title": "From Analysis to Modeling",
-    "section": "Looking Ahead",
-    "text": "Looking Ahead\nThe Data Science Foundations System now has a complete reusable workflow for tidy-table analysis. The next step is to close the foundations track and then continue into the Applied Data Science System when modeling, evaluation, and decision-making are needed.",
+    "objectID": "07-from-analysis-to-ml.html#foundations-complete",
+    "href": "07-from-analysis-to-ml.html#foundations-complete",
+    "title": "From Analysis to Machine Learning",
+    "section": "Foundations Complete",
+    "text": "Foundations Complete\nYou have now completed the Data Science Foundations workflow:\nload → inspect → clean → wrangle → visualize → summarize → interpret\nYou can return to the appendix whenever you need supporting commands, terminology, or reference material. The appendix is a reference resource rather than another lesson.\nWhen you are ready to continue beyond foundations, move to the separate advanced data science guide. That guide begins where this one ends and develops machine learning, model evaluation, interpretation, and decision support in greater depth.\nThe most important outcome of this guide is not a single dataset or technique. It is a reusable way of working with data carefully, clearly, and reproducibly.",
     "crumbs": [
       "From Analysis to Modeling",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Modeling</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html",
-    "href": "99-complete-free-track.html",
-    "title": "Completing the Foundations System",
-    "section": "",
-    "text": "What you have built\nYou have completed the Data Science Foundations System of the CDI Data Science Pathway.\nAt this stage, you have developed the core habits that support reliable table-based analysis:\nThese are not isolated skills.\nThey form a connected analytical workflow that can be reused across CDI pathways.\nAcross the Foundations System, you moved through a complete tidy-table workflow:\nThe goal was not only to learn individual commands.\nThe goal was to build a reproducible pattern for moving from a tidy table to defensible analytical evidence.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#what-you-have-built",
-    "href": "99-complete-free-track.html#what-you-have-built",
-    "title": "Completing the Foundations System",
-    "section": "",
-    "text": "environment setup\n        ↓\ntable inspection\n        ↓\ndata cleaning\n        ↓\ndata wrangling\n        ↓\nvisualization\n        ↓\nsummary statistics\n        ↓\ninterpretation\n        ↓\nmodeling readiness",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#system-outputs",
-    "href": "99-complete-free-track.html#system-outputs",
-    "title": "Completing the Foundations System",
-    "section": "System outputs",
-    "text": "System outputs\nBy this point, the project has produced a small but complete analysis package.\ndata/\n├── iris.csv\n├── iris_clean.csv\n└── iris_wrangled.csv\n\nresults/\n├── inspection/\n├── cleaning/\n├── wrangling/\n├── figures/\n└── summary/\nThese outputs show the full progression:\ninput table\n        ↓\ncleaned table\n        ↓\nwrangled table\n        ↓\nfigures\n        ↓\nsummary tables\n        ↓\ninsights report\nThis is the same pattern that can be reused when other CDI systems produce tidy, analysis-ready tables.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#scripts-created-in-the-foundations-system",
-    "href": "99-complete-free-track.html#scripts-created-in-the-foundations-system",
-    "title": "Completing the Foundations System",
-    "section": "Scripts created in the Foundations System",
-    "text": "Scripts created in the Foundations System\nThe system also includes reusable Python scripts:\nscripts/python/\n├── inspect_table.py\n├── clean_example_data.py\n├── wrangle_example_data.py\n├── plot_example_data.py\n└── summarize_table.py\nEach script has a clear role:\ninspect_table.py\n    → inspect structure, columns, types, and missing values\n\nclean_example_data.py\n    → clean and validate a table\n\nwrangle_example_data.py\n    → create derived features and analysis-ready outputs\n\nplot_example_data.py\n    → save reusable exploratory figures\n\nsummarize_table.py\n    → create summary tables and an insights report\nThis makes the guide more than a set of lessons.\nIt becomes a small reproducible analysis system.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#what-this-foundation-means",
-    "href": "99-complete-free-track.html#what-this-foundation-means",
-    "title": "Completing the Foundations System",
-    "section": "What this foundation means",
-    "text": "What this foundation means\nThe Foundations System teaches a reusable analytical pattern:\ninspect\nclean\nwrangle\nvisualize\nsummarize\ninterpret\nThis pattern is useful beyond the Iris example.\nIt can support:\nOmics result tables\nClinical cohort tables\nMedical lab tables\nAI evaluation tables\nDecision records\nSurvey data\nBusiness datasets\nThe domain changes, but the foundational analysis logic remains similar.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#cdi-parent-layer-role",
-    "href": "99-complete-free-track.html#cdi-parent-layer-role",
-    "title": "Completing the Foundations System",
-    "section": "CDI parent-layer role",
-    "text": "CDI parent-layer role\nThe Data Science Foundations System serves as the shared parent layer for CDI pathways once pathway-specific systems produce tidy, analysis-ready tables.\nOmics Pathway\n    ↓\ntidy result tables\n    ↓\nData Science Foundations System\n\nClinical & Medical Data Pathway\n    ↓\nclean cohort tables\n    ↓\nData Science Foundations System\n\nAI, Thinking & Decision Pathway\n    ↓\nevaluation and decision tables\n    ↓\nData Science Foundations System\nThis is why the Foundations System should remain focused.\nIt does not replace domain-specific systems.\nIt gives them a common analytical language after the data has been structured.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#what-comes-next",
-    "href": "99-complete-free-track.html#what-comes-next",
-    "title": "Completing the Foundations System",
-    "section": "What comes next",
-    "text": "What comes next\nThe next stage moves beyond description and interpretation.\nYou begin to ask:\n\nCan we predict an outcome?\nHow well does a model perform?\nWhich features influence predictions?\nWhat limitations should be stated?\nCan results support a decision?\nWhat happens when a model is used on new data?\n\nThis is the transition from foundational analysis to applied analytical systems.\nIn CDI terms:\nData Science Foundations System\n        ↓\nApplied Data Science System",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#from-analysis-to-applied-systems",
-    "href": "99-complete-free-track.html#from-analysis-to-applied-systems",
-    "title": "Completing the Foundations System",
-    "section": "From analysis to applied systems",
-    "text": "From analysis to applied systems\nIn the Foundations System, you focused on:\ntidy data\ninspection\ncleaning\nwrangling\nvisualization\nsummary\ninterpretation\nIn the Applied Data Science System, the focus expands to:\nfeature engineering\nmodel building\nmodel evaluation\ncross-validation\nmodel interpretation\nclaims and limitations\ndecision-making\nresponsible use\nThe transition is not a jump.\nIt is a continuation.\nGood modeling depends on strong foundations.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#key-mindset-shift",
-    "href": "99-complete-free-track.html#key-mindset-shift",
-    "title": "Completing the Foundations System",
-    "section": "Key mindset shift",
-    "text": "Key mindset shift\nIn the Foundations System, you asked:\n\nWhat does the data contain?\nIs the table clean and usable?\nHow do groups differ?\nWhat patterns are visible?\nWhat summaries support interpretation?\n\nIn the next stage, you will ask:\n\nWhat outcome are we trying to predict or explain?\nWhich features should be used?\nHow should performance be evaluated?\nDoes the model generalize?\nWhat conclusions are justified?\nWhat risks or limitations remain?\n\nThis shift is essential.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#the-cdi-reasoning-loop",
-    "href": "99-complete-free-track.html#the-cdi-reasoning-loop",
-    "title": "Completing the Foundations System",
-    "section": "The CDI reasoning loop",
-    "text": "The CDI reasoning loop\nAs you move forward, your work follows an iterative process:\ndefine the question\n        ↓\nprepare and validate data\n        ↓\nexplore patterns\n        ↓\nsummarize evidence\n        ↓\napply models or formal methods\n        ↓\ninterpret results\n        ↓\nrevisit earlier steps as needed\nAnalysis is not strictly linear.\nIt improves through iteration.\nA later modeling result may reveal that you need to revisit cleaning, features, grouping variables, or assumptions.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#where-this-leads",
-    "href": "99-complete-free-track.html#where-this-leads",
-    "title": "Completing the Foundations System",
-    "section": "Where this leads",
-    "text": "Where this leads\nFrom here, you can continue into:\nApplied Data Science System\n    → modeling, evaluation, interpretation, decision-making\n\nClinical & Medical Data Systems\n    → cohort analysis, outcomes, reporting\n\nOmics Systems\n    → pathway-specific result tables and interpretation\n\nAI, Thinking & Decision Systems\n    → evaluation, reasoning, decision support\nEach stage builds on the foundations already developed.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#beyond-this-system",
-    "href": "99-complete-free-track.html#beyond-this-system",
-    "title": "Completing the Foundations System",
-    "section": "Beyond this system",
-    "text": "Beyond this system\n\nScope of this system\nThe Data Science Foundations System focuses on practical tidy-table analysis and reproducible workflows.\nIt does not attempt to cover every area of production data science, machine learning engineering, or enterprise infrastructure.\nAdvanced topics such as deployment, monitoring, container orchestration, cloud infrastructure, and production MLOps belong in later systems or specialized tracks.\nThe goal here is to build a strong foundation before adding complexity.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#transition-summary",
-    "href": "99-complete-free-track.html#transition-summary",
-    "title": "Completing the Foundations System",
-    "section": "Transition summary",
-    "text": "Transition summary\nYou are now prepared to:\n\nmove from descriptive analysis to structured modeling\nconnect computation to reasoning\nreuse tidy-table workflows across CDI pathways\nbegin working with systems that extend beyond a single dataset\n\nThe Foundations System gives you the analytical base.\nThe Applied Data Science System builds on it.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
-    ]
-  },
-  {
-    "objectID": "99-complete-free-track.html#final-thought",
-    "href": "99-complete-free-track.html#final-thought",
-    "title": "Completing the Foundations System",
-    "section": "Final thought",
-    "text": "Final thought\nData analysis is not the final step.\nIt is the foundation for building systems that can be inspected, trusted, reused, and improved.\n\n\nThe goal is not just to run analysis.\nThe goal is to produce reasoning you can defend\nand systems you can trust.",
-    "crumbs": [
-      "From Analysis to Modeling",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Completing the Foundations System</span>"
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>From Analysis to Machine Learning</span>"
     ]
   },
   {
@@ -1840,54 +1631,54 @@
     "href": "999-appendix.html",
     "title": "Appendix",
     "section": "",
-    "text": "Project Structure Overview\nThis appendix collects technical reference material that supports the Foundations Track.\nIt documents the project structure, environment setup, rendering workflow, and reusable patterns used throughout the guide.\nA standard CDI Quarto-first project looks like this:",
+    "text": "Project Structure\nThis appendix brings together the commands, project structure, and reusable Python patterns introduced throughout the guide. Use it as a quick reference when starting a new analysis.\nA small reproducible data science project may use the following structure:\nKeeping inputs, code, and outputs separate makes an analysis easier to understand, reproduce, and update.",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
-    "objectID": "999-appendix.html#project-structure-overview",
-    "href": "999-appendix.html#project-structure-overview",
+    "objectID": "999-appendix.html#project-structure",
+    "href": "999-appendix.html#project-structure",
     "title": "Appendix",
     "section": "",
-    "text": "data-science/\n├── index.qmd\n├── 00-preface.qmd\n├── 01-setting-up-environment.qmd\n├── ...\n├── data/\n├── figures/\n├── scripts/\n│   └── bash/\n├── docs/\n├── _quarto.yml\n└── requirements.txt\n\nKey Directories\n\ndata/\nstores raw and cleaned datasets\nfigures/\nstores plots that are explicitly saved during rendering\nscripts/bash/\ncontains helper scripts such as setup-env.sh and build.sh\ndocs/\ncontains the rendered Quarto site (GitHub Pages output)",
+    "text": "data-science/\n├── data/\n│   ├── raw/\n│   └── processed/\n├── results/\n│   ├── figures/\n│   └── tables/\n├── scripts/\n│   ├── bash/\n│   └── python/\n├── .gitignore\n├── _quarto.yml\n├── index.qmd\n└── requirements.txt\n\ndata/raw/ stores unchanged source data.\ndata/processed/ stores cleaned or transformed data.\nresults/figures/ stores saved visualizations.\nresults/tables/ stores summary tables and other tabular outputs.\nscripts/python/ stores reusable analysis scripts.\nscripts/bash/ stores setup and build helpers.\nrequirements.txt records the Python packages required by the project.",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
-    "objectID": "999-appendix.html#environment-setup-reference",
-    "href": "999-appendix.html#environment-setup-reference",
+    "objectID": "999-appendix.html#environment-commands",
+    "href": "999-appendix.html#environment-commands",
     "title": "Appendix",
-    "section": "Environment Setup Reference",
-    "text": "Environment Setup Reference\nThis project uses a local virtual environment (.venv) for reproducibility.\n\nCreate environment manually\npython3 -m venv .venv\nsource .venv/bin/activate\npip install -r requirements.txt\n\n\nRender the book\nquarto render\nOr use the helper script:\nbash scripts/bash/build.sh",
+    "section": "Environment Commands",
+    "text": "Environment Commands\n\nCreate and activate a virtual environment\npython3 -m venv .venv\nsource .venv/bin/activate\nOn Windows PowerShell, activate the environment with:\n.venv\\Scripts\\Activate.ps1\n\n\nInstall project packages\npython -m pip install -r requirements.txt\n\n\nRun a Python script\npython scripts/python/script_name.py\n\n\nRender the Quarto guide or report\nquarto render",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
-    ]
-  },
-  {
-    "objectID": "999-appendix.html#quarto-workflow-summary",
-    "href": "999-appendix.html#quarto-workflow-summary",
-    "title": "Appendix",
-    "section": "Quarto Workflow Summary",
-    "text": "Quarto Workflow Summary\nThe workflow for this guide is:\nPython code\n    ↓\nQuarto chapter (.qmd)\n    ↓\nquarto render\n    ↓\ndocs/ (static site)\nAll figures and outputs are generated during rendering.",
-    "crumbs": [
-      "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
     "objectID": "999-appendix.html#reusable-pandas-patterns",
     "href": "999-appendix.html#reusable-pandas-patterns",
     "title": "Appendix",
-    "section": "Reusable Pandas Patterns",
-    "text": "Reusable Pandas Patterns\n\nSelect columns\ndf[[\"col1\", \"col2\"]]\n\n\nFilter rows\ndf[df[\"col\"] &gt; value]\n\n\nGroup and aggregate\ndf.groupby(\"group_col\").agg(\n    metric=(\"value_col\", \"mean\")\n)\n\n\nHandle missing values\ndf[\"col\"] = df[\"col\"].fillna(df[\"col\"].median())\n\n\nConvert dtype\ndf[\"category_col\"] = df[\"category_col\"].astype(\"category\")",
+    "section": "Reusable pandas Patterns",
+    "text": "Reusable pandas Patterns\nThe examples below assume that pandas has been imported and a DataFrame named df already exists.\nimport pandas as pd\n\nInspect a dataset\ndf.head()\ndf.shape\ndf.info()\ndf.describe(include=\"all\")\n\n\nSelect columns\ndf[[\"col1\", \"col2\"]]\n\n\nFilter rows\ndf.loc[df[\"col\"] &gt; value]\n\n\nRename columns\ndf = df.rename(columns={\"old_name\": \"new_name\"})\n\n\nConvert a data type\ndf[\"numeric_col\"] = pd.to_numeric(df[\"numeric_col\"], errors=\"coerce\")\ndf[\"category_col\"] = df[\"category_col\"].astype(\"category\")\n\n\nIdentify missing values\ndf.isna().sum()\n\n\nFill missing numeric values\ndf[\"numeric_col\"] = df[\"numeric_col\"].fillna(\n    df[\"numeric_col\"].median()\n)\n\n\nIdentify duplicate rows\ndf.duplicated().sum()\n\n\nGroup and summarize\nsummary = (\n    df.groupby(\"group_col\", observed=True)\n    .agg(\n        count=(\"value_col\", \"size\"),\n        mean=(\"value_col\", \"mean\"),\n        median=(\"value_col\", \"median\"),\n    )\n    .reset_index()\n)\n\n\nSave a processed dataset\ndf.to_csv(\"data/processed/cleaned_data.csv\", index=False)",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "999-appendix.html#data-validation-checks",
+    "href": "999-appendix.html#data-validation-checks",
+    "title": "Appendix",
+    "section": "Data Validation Checks",
+    "text": "Data Validation Checks\nBefore interpreting results, confirm that:\n\nrows and columns have the expected meaning;\ncolumn names are clear and consistent;\nnumeric, categorical, and text columns use appropriate data types;\nmissing values have been identified and handled deliberately;\nduplicate rows have been investigated;\ncategorical values use consistent spelling and labels;\nnumeric values fall within plausible ranges;\ncleaned data and analytical outputs are saved separately from raw data.\n\nThese checks do not guarantee that a dataset is correct, but they make common data-quality problems visible before they affect the analysis.",
+    "crumbs": [
+      "Reference",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
@@ -1895,21 +1686,21 @@
     "href": "999-appendix.html#reproducibility-checklist",
     "title": "Appendix",
     "section": "Reproducibility Checklist",
-    "text": "Reproducibility Checklist\nBefore finalizing any chapter:\n\nconfirm no missing values remain (unless justified)\n\nconfirm no unintended duplicates\n\nconfirm correct data types\n\nconfirm figures render correctly\n\nrebuild the book (quarto render)\n\nopen docs/index.html to verify output",
+    "text": "Reproducibility Checklist\nBefore sharing an analysis:\n\npreserve the original data unchanged;\nrecord package dependencies in requirements.txt;\nuse relative paths within the project;\nkeep reusable code in scripts;\nsave cleaned data, tables, and figures to clearly named folders;\nrerun the workflow from a clean environment when practical;\nreview tables and figures for correctness;\ndocument important cleaning and analytical decisions.",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
-    "objectID": "999-appendix.html#data-sources",
-    "href": "999-appendix.html#data-sources",
+    "objectID": "999-appendix.html#data-source",
+    "href": "999-appendix.html#data-source",
     "title": "Appendix",
-    "section": "Data Sources",
-    "text": "Data Sources\n\nIris dataset (Fisher 1936)",
+    "section": "Data Source",
+    "text": "Data Source\n\nIris dataset (Fisher 1936)",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
@@ -1917,21 +1708,10 @@
     "href": "999-appendix.html#software-and-tools",
     "title": "Appendix",
     "section": "Software and Tools",
-    "text": "Software and Tools\nThis guide uses a small set of widely adopted tools for data analysis and visualization:\n\nPython (Python Software Foundation 2024) — general-purpose programming language for data analysis\n\npandas (McKinney et al. 2010) — data manipulation and tabular data handling\n\nNumPy (Harris et al. 2020) — numerical computing and array operations\n\nmatplotlib (Hunter 2007) — foundational plotting library\n\nseaborn (Waskom 2021) — statistical data visualization built on matplotlib\n\nThese tools form a standard ecosystem for reproducible data science workflows.",
+    "text": "Software and Tools\n\nPython (Python Software Foundation 2024) — general-purpose programming language used for the analysis workflow.\npandas (McKinney et al. 2010) — tabular data loading, cleaning, transformation, and summarization.\nNumPy (Harris et al. 2020) — numerical operations and array-based computing.\nmatplotlib (Hunter 2007) — foundational plotting library.\nseaborn (Waskom 2021) — statistical visualization built on matplotlib.\nQuarto (Posit Software, PBC, n.d.) — reproducible publishing system used to build the guide.\n\nTogether, these tools provide a practical foundation for reproducible data analysis in Python.\n\n\n\n\nFisher, Ronald A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” Annals of Eugenics.\n\n\nHarris, Charles R. et al. 2020. “Array Programming with NumPy.” Nature. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nHunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” Computing in Science & Engineering. https://doi.org/10.1109/MCSE.2007.55.\n\n\nMcKinney, Wes et al. 2010. “Pandas-Dev/Pandas: Pandas.” Zenodo. https://doi.org/10.5281/zenodo.3509134.\n\n\nPosit Software, PBC. n.d. “Quarto.” https://quarto.org/.\n\n\nPython Software Foundation. 2024. “Python Language Reference.” https://www.python.org/.\n\n\nWaskom, Michael L. 2021. “Seaborn: Statistical Data Visualization.” Journal of Open Source Software. https://doi.org/10.21105/joss.03021.",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
-    ]
-  },
-  {
-    "objectID": "999-appendix.html#closing-note",
-    "href": "999-appendix.html#closing-note",
-    "title": "Appendix",
-    "section": "Closing Note",
-    "text": "Closing Note\nThe goal of this Foundations Track is not just to teach syntax.\nIt is to teach structure, discipline, and reproducibility.\nThe same workflow you used here can be applied to:\n\nnew datasets\n\nnew domains\n\nlarger analytical projects\n\nfuture CDI guides\n\n\n\n\n\nFisher, Ronald A. 1936. “The Use of Multiple Measurements in Taxonomic Problems.” Annals of Eugenics.\n\n\nHarris, Charles R. et al. 2020. “Array Programming with NumPy.” Nature. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nHunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” Computing in Science & Engineering. https://doi.org/10.1109/MCSE.2007.55.\n\n\nMcKinney, Wes et al. 2010. “Pandas-Dev/Pandas: Pandas.” Zenodo. https://doi.org/10.5281/zenodo.3509134.\n\n\nPython Software Foundation. 2024. “Python Language Reference.” https://www.python.org/.\n\n\nWaskom, Michael L. 2021. “Seaborn: Statistical Data Visualization.” Journal of Open Source Software. https://doi.org/10.21105/joss.03021.",
-    "crumbs": [
-      "Reference",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Appendix</span>"
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Appendix</span>"
     ]
   },
   {
@@ -1939,10 +1719,10 @@
     "href": "999-references.html",
     "title": "References",
     "section": "",
-    "text": "Fisher, Ronald A. 1936. “The Use of Multiple Measurements in\nTaxonomic Problems.” Annals of Eugenics.\n\n\nHarris, Charles R. et al. 2020. “Array Programming with\nNumPy.” Nature. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nHunter, J. D. 2007. “Matplotlib: A 2D Graphics\nEnvironment.” Computing in Science & Engineering. https://doi.org/10.1109/MCSE.2007.55.\n\n\nMcKinney, Wes et al. 2010. “Pandas-Dev/Pandas: Pandas.”\nZenodo. https://doi.org/10.5281/zenodo.3509134.\n\n\nPython Software Foundation. 2024. “Python Language\nReference.” https://www.python.org/.\n\n\nWaskom, Michael L. 2021. “Seaborn: Statistical Data\nVisualization.” Journal of Open Source Software. https://doi.org/10.21105/joss.03021.",
+    "text": "Fisher, Ronald A. 1936. “The Use of Multiple Measurements in\nTaxonomic Problems.” Annals of Eugenics.\n\n\nHarris, Charles R. et al. 2020. “Array Programming with\nNumPy.” Nature. https://doi.org/10.1038/s41586-020-2649-2.\n\n\nHunter, J. D. 2007. “Matplotlib: A 2D Graphics\nEnvironment.” Computing in Science & Engineering. https://doi.org/10.1109/MCSE.2007.55.\n\n\nMcKinney, Wes et al. 2010. “Pandas-Dev/Pandas: Pandas.”\nZenodo. https://doi.org/10.5281/zenodo.3509134.\n\n\nPosit Software, PBC. n.d. “Quarto.” https://quarto.org/.\n\n\nPython Software Foundation. 2024. “Python Language\nReference.” https://www.python.org/.\n\n\nWaskom, Michael L. 2021. “Seaborn: Statistical Data\nVisualization.” Journal of Open Source Software. https://doi.org/10.21105/joss.03021.",
     "crumbs": [
       "Reference",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>References</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>References</span>"
     ]
   }
 ]

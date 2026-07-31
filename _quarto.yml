@@ -33,7 +33,6 @@ book:
     - part: "From Analysis to Modeling"
       chapters:
         - 07-from-analysis-to-ml.qmd
-        - 99-complete-free-track.qmd
 
     - part: "Reference"
       chapters:

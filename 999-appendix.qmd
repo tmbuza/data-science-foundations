@@ -4,95 +4,97 @@
 - **ID:** DS-APP
 - **Type:** Reference
 - **Audience:** Public
-- **Theme:** Environment, structure, and reproducibility reference
+- **Theme:** Data science foundations quick reference
 :::
 
-This appendix collects technical reference material that supports the Foundations Track.
-
-It documents the project structure, environment setup, rendering workflow, and reusable patterns used throughout the guide.
+This appendix brings together the commands, project structure, and reusable Python patterns introduced throughout the guide. Use it as a quick reference when starting a new analysis.
 
 ---
 
-## Project Structure Overview
+## Project Structure
 
-A standard CDI Quarto-first project looks like this:
+A small reproducible data science project may use the following structure:
 
-```
+```text
 data-science/
-├── index.qmd
-├── 00-preface.qmd
-├── 01-setting-up-environment.qmd
-├── ...
 ├── data/
-├── figures/
+│   ├── raw/
+│   └── processed/
+├── results/
+│   ├── figures/
+│   └── tables/
 ├── scripts/
-│   └── bash/
-├── docs/
+│   ├── bash/
+│   └── python/
+├── .gitignore
 ├── _quarto.yml
+├── index.qmd
 └── requirements.txt
 ```
 
-### Key Directories
+- `data/raw/` stores unchanged source data.
+- `data/processed/` stores cleaned or transformed data.
+- `results/figures/` stores saved visualizations.
+- `results/tables/` stores summary tables and other tabular outputs.
+- `scripts/python/` stores reusable analysis scripts.
+- `scripts/bash/` stores setup and build helpers.
+- `requirements.txt` records the Python packages required by the project.
 
-- `data/`  
-  stores raw and cleaned datasets  
-
-- `figures/`  
-  stores plots that are explicitly saved during rendering 
-
-- `scripts/bash/`  
-  contains helper scripts such as `setup-env.sh` and `build.sh`  
-
-- `docs/`  
-  contains the rendered Quarto site (GitHub Pages output)  
+Keeping inputs, code, and outputs separate makes an analysis easier to understand, reproduce, and update.
 
 ---
 
-## Environment Setup Reference
+## Environment Commands
 
-This project uses a local virtual environment (`.venv`) for reproducibility.
-
-### Create environment manually
+### Create and activate a virtual environment
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
 ```
 
-### Render the book
+On Windows PowerShell, activate the environment with:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### Install project packages
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### Run a Python script
+
+```bash
+python scripts/python/script_name.py
+```
+
+### Render the Quarto guide or report
 
 ```bash
 quarto render
 ```
 
-Or use the helper script:
-
-```bash
-bash scripts/bash/build.sh
-```
-
 ---
 
-## Quarto Workflow Summary
+## Reusable pandas Patterns
 
-The workflow for this guide is:
+The examples below assume that pandas has been imported and a DataFrame named `df` already exists.
 
-```
-Python code
-    ↓
-Quarto chapter (.qmd)
-    ↓
-quarto render
-    ↓
-docs/ (static site)
+```python
+import pandas as pd
 ```
 
-All figures and outputs are generated during rendering.
+### Inspect a dataset
 
----
-
-## Reusable Pandas Patterns
+```python
+df.head()
+df.shape
+df.info()
+df.describe(include="all")
+```
 
 ### Select columns
 
@@ -103,45 +105,97 @@ df[["col1", "col2"]]
 ### Filter rows
 
 ```python
-df[df["col"] > value]
+df.loc[df["col"] > value]
 ```
 
-### Group and aggregate
+### Rename columns
 
 ```python
-df.groupby("group_col").agg(
-    metric=("value_col", "mean")
+df = df.rename(columns={"old_name": "new_name"})
+```
+
+### Convert a data type
+
+```python
+df["numeric_col"] = pd.to_numeric(df["numeric_col"], errors="coerce")
+df["category_col"] = df["category_col"].astype("category")
+```
+
+### Identify missing values
+
+```python
+df.isna().sum()
+```
+
+### Fill missing numeric values
+
+```python
+df["numeric_col"] = df["numeric_col"].fillna(
+    df["numeric_col"].median()
 )
 ```
 
-### Handle missing values
+### Identify duplicate rows
 
 ```python
-df["col"] = df["col"].fillna(df["col"].median())
+df.duplicated().sum()
 ```
 
-### Convert dtype
+### Group and summarize
 
 ```python
-df["category_col"] = df["category_col"].astype("category")
+summary = (
+    df.groupby("group_col", observed=True)
+    .agg(
+        count=("value_col", "size"),
+        mean=("value_col", "mean"),
+        median=("value_col", "median"),
+    )
+    .reset_index()
+)
 ```
+
+### Save a processed dataset
+
+```python
+df.to_csv("data/processed/cleaned_data.csv", index=False)
+```
+
+---
+
+## Data Validation Checks
+
+Before interpreting results, confirm that:
+
+- rows and columns have the expected meaning;
+- column names are clear and consistent;
+- numeric, categorical, and text columns use appropriate data types;
+- missing values have been identified and handled deliberately;
+- duplicate rows have been investigated;
+- categorical values use consistent spelling and labels;
+- numeric values fall within plausible ranges;
+- cleaned data and analytical outputs are saved separately from raw data.
+
+These checks do not guarantee that a dataset is correct, but they make common data-quality problems visible before they affect the analysis.
 
 ---
 
 ## Reproducibility Checklist
 
-Before finalizing any chapter:
+Before sharing an analysis:
 
-- confirm no missing values remain (unless justified)  
-- confirm no unintended duplicates  
-- confirm correct data types  
-- confirm figures render correctly  
-- rebuild the book (`quarto render`)  
-- open `docs/index.html` to verify output  
+- preserve the original data unchanged;
+- record package dependencies in `requirements.txt`;
+- use relative paths within the project;
+- keep reusable code in scripts;
+- save cleaned data, tables, and figures to clearly named folders;
+- rerun the workflow from a clean environment when practical;
+- review tables and figures for correctness;
+- document important cleaning and analytical decisions.
 
 ---
 
-## Data Sources
+## Data Source
 
 - **Iris dataset** [@iris]
 
@@ -149,27 +203,11 @@ Before finalizing any chapter:
 
 ## Software and Tools
 
-This guide uses a small set of widely adopted tools for data analysis and visualization:
+- **Python** [@python] — general-purpose programming language used for the analysis workflow.
+- **pandas** [@pandas] — tabular data loading, cleaning, transformation, and summarization.
+- **NumPy** [@numpy] — numerical operations and array-based computing.
+- **matplotlib** [@matplotlib] — foundational plotting library.
+- **seaborn** [@seaborn] — statistical visualization built on matplotlib.
+- **Quarto** [@quarto] — reproducible publishing system used to build the guide.
 
-- **Python** [@python] — general-purpose programming language for data analysis  
-- **pandas** [@pandas] — data manipulation and tabular data handling  
-- **NumPy** [@numpy] — numerical computing and array operations  
-- **matplotlib** [@matplotlib] — foundational plotting library  
-- **seaborn** [@seaborn] — statistical data visualization built on matplotlib  
-
-These tools form a standard ecosystem for reproducible data science workflows.
-
----
-
-## Closing Note
-
-The goal of this Foundations Track is not just to teach syntax.
-
-It is to teach structure, discipline, and reproducibility.
-
-The same workflow you used here can be applied to:
-
-- new datasets  
-- new domains  
-- larger analytical projects  
-- future CDI guides  
+Together, these tools provide a practical foundation for reproducible data analysis in Python.
