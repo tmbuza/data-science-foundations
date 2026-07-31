@@ -421,7 +421,7 @@
     "href": "02-load-and-explore-dataset.html#chapter-workflow",
     "title": "Load and Explore a Dataset",
     "section": "Chapter workflow",
-    "text": "Chapter workflow\nThis chapter introduces the first reusable Python script in the system:\n02-load-and-explore-dataset.qmd\n        ↓\nscripts/python/inspect_table.py\n        ↓\ndata/iris.csv\nresults/inspection/table-inspection-summary.txt\nresults/inspection/table-column-summary.tsv\nresults/inspection/table-missing-values.tsv\nThe chapter explains the workflow. The script makes it reusable.",
+    "text": "Chapter workflow\nThis chapter introduces the first reusable Python script in the system:\n02-load-and-explore-dataset.qmd\n        ↓ creates\ndata/iris.csv\n        ↓ inspected by\nscripts/python/inspect_table.py\n        ↓ produces\nresults/inspection/table-inspection-summary.txt\nresults/inspection/table-column-summary.tsv\nresults/inspection/table-missing-values.tsv\nThe chapter explains the workflow. The script makes it reusable.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -432,7 +432,7 @@
     "href": "02-load-and-explore-dataset.html#create-and-save-the-example-dataset",
     "title": "Load and Explore a Dataset",
     "section": "Create and save the example dataset",
-    "text": "Create and save the example dataset\nWe will use the Iris dataset from scikit-learn, convert it to a pandas DataFrame, standardize the column names, and save it as a CSV file.\nRun this from the project root using Python:\nfrom pathlib import Path\n\nimport pandas as pd\nfrom sklearn.datasets import load_iris\n\niris = load_iris()\n\ndf = pd.DataFrame(iris.data, columns=iris.feature_names)\ndf[\"species\"] = pd.Categorical.from_codes(iris.target, iris.target_names)\n\ndf.columns = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"species\"\n]\n\nPath(\"data\").mkdir(exist_ok=True)\ndf.to_csv(\"data/iris.csv\", index=False)\n\nprint(\"Saved dataset to: data/iris.csv\")\nprint(df.head())\n\nWhat happened here?\n\niris.data contains the numeric measurements.\niris.target contains the species labels encoded as integers.\npd.Categorical.from_codes() converts the encoded values into readable species names.\nthe columns are renamed to snake_case so later code stays clean and consistent.\nthe dataset is saved to data/iris.csv so downstream lessons can reuse the same input.",
+    "text": "Create and save the example dataset\nWe will use the Iris dataset from scikit-learn, convert it to a pandas DataFrame, standardize the column names, and save it as a CSV file.\nRun this from the project root using Python:\nfrom pathlib import Path\n\nimport pandas as pd\nfrom sklearn.datasets import load_iris\n\niris = load_iris()\n\ndf = pd.DataFrame(iris.data, columns=iris.feature_names)\ndf[\"species\"] = pd.Categorical.from_codes(iris.target, iris.target_names)\n\ndf.columns = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"species\"\n]\n\nPath(\"data\").mkdir(exist_ok=True)\ndf.to_csv(\"data/iris.csv\", index=False)\n\nprint(\"Saved dataset to: data/iris.csv\")\nprint(df.head())\n\nWhat happened here?\n\niris.data contains the numeric measurements.\niris.target contains the species labels encoded as integers.\npd.Categorical.from_codes() converts the encoded values into readable species names.\nthe columns are renamed to snake_case so later code stays clean and consistent.\nthe dataset is saved to data/iris.csv so downstream lessons can reuse the same input.\n\nThe original Iris feature names report measurements in centimetres. We use shorter column names here, but all four measurements remain in centimetres.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -443,7 +443,7 @@
     "href": "02-load-and-explore-dataset.html#inspect-the-dataset-manually",
     "title": "Load and Explore a Dataset",
     "section": "Inspect the dataset manually",
-    "text": "Inspect the dataset manually\nBefore plotting or summarizing, inspect the shape and variable types.\nimport pandas as pd\n\ndf = pd.read_csv(\"data/iris.csv\")\n\nprint(\"Columns:\")\nprint(df.columns.tolist())\n\nprint(\"\\nShape (rows, columns):\")\nprint(df.shape)\n\nprint(\"\\nData types:\")\nprint(df.dtypes)\n\nInterpretation\nAt this stage, you should notice:\n\nthe dataset has 150 rows\nthere are 4 numeric measurement columns\nspecies is a categorical grouping variable\n\nThat already tells us this is a small, tidy dataset that is well suited for learning exploratory analysis.",
+    "text": "Inspect the dataset manually\nBefore plotting or summarizing, inspect the shape and variable types.\nimport pandas as pd\n\ndf = pd.read_csv(\"data/iris.csv\")\n\nprint(\"Columns:\")\nprint(df.columns.tolist())\n\nprint(\"\\nShape (rows, columns):\")\nprint(df.shape)\n\nprint(\"\\nData types:\")\nprint(df.dtypes)\n\nInterpretation\nAt this stage, you should notice:\n\nthe dataset has 150 rows\nthere are 4 numeric measurement columns\nspecies is a categorical grouping variable, although pandas initially represents it using the object data type after reading the CSV file\n\nThat already tells us this is a small, tidy dataset that is well suited for learning exploratory analysis.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -454,7 +454,7 @@
     "href": "02-load-and-explore-dataset.html#preview-the-data-more-carefully",
     "title": "Load and Explore a Dataset",
     "section": "Preview the data more carefully",
-    "text": "Preview the data more carefully\ndf.sample(8, random_state=42)\nLooking at a few random rows is often more informative than only checking the first five rows.\nIt helps confirm that values look realistic across the dataset instead of only at the top.",
+    "text": "Preview the data more carefully\ndf.sample(8, random_state=42)\nLooking at random rows complements head() by checking observations from different parts of the table rather than only those at the beginning.\nIt helps confirm that values look realistic across the dataset instead of only at the top.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -509,7 +509,7 @@
     "href": "02-load-and-explore-dataset.html#exploratory-visualizations",
     "title": "Load and Explore a Dataset",
     "section": "Exploratory visualizations",
-    "text": "Exploratory visualizations\nWe will use seaborn and matplotlib for exploratory plotting.\nThese plots are not final presentation graphics. Their purpose is to help us inspect the data and notice patterns worth explaining.\n\nDistribution of numeric features\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nsns.set_theme(style=\"whitegrid\", context=\"notebook\")\n\ndf_long = df.melt(\n    value_vars=[\"sepal_length\", \"sepal_width\", \"petal_length\", \"petal_width\"],\n    var_name=\"feature\",\n    value_name=\"value\"\n)\n\ng = sns.displot(\n    data=df_long,\n    x=\"value\",\n    col=\"feature\",\n    col_wrap=2,\n    bins=12,\n    height=3.6,\n    aspect=1.15,\n    facet_kws={\"sharex\": False, \"sharey\": False}\n)\n\ng.set_titles(\"{col_name}\")\ng.set_axis_labels(\"Value\", \"Count\")\ng.fig.suptitle(\"Iris — Distribution of Numeric Features\", y=1.03)\n\nplt.show()\n\n\nInterpretation\nThese histograms help us see:\n\nthe overall spread of each feature\nwhether values are concentrated or dispersed\nwhether some variables may contain overlapping or separated groups\n\nA single histogram does not separate species, but it gives a first impression of the measurement ranges.\n\n\n\nBoxplot by species\nA boxplot gives a compact summary of group differences using the median, quartiles, and overall spread.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    width=0.5,\n    fliersize=0,\n    ax=ax\n)\n\nax.set_title(\"Petal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\n\nInterpretation\nThis plot makes it easy to compare:\n\nthe typical petal length in each species\nthe spread within each group\nwhether groups overlap\n\nHowever, a boxplot hides the individual observations. That means we cannot directly see how densely values are clustered or how points are distributed within each group.\n\n\n\nBoxplot with observed points\nTo make the distribution more visible, we can overlay the individual observations.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    width=0.5,\n    fliersize=0,\n    ax=ax\n)\n\nsns.stripplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    color=\"black\",\n    alpha=0.6,\n    size=4,\n    jitter=0.22,\n    ax=ax\n)\n\nax.set_title(\"Petal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\n\nInterpretation\nAdding the observed points makes the plot more informative.\nNow we can see:\n\nhow values are distributed within each species\nwhether observations are tightly clustered or more dispersed\nwhere overlap is limited or more substantial\n\nPetal length differs strongly by species. This makes it a strong candidate for distinguishing between groups in later analysis.\n\n\n\nScatter plot: sepal length vs petal length\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_length\",\n    y=\"petal_length\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Length vs Petal Length\")\nax.set_xlabel(\"Sepal Length\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\n\nInterpretation\nScatter plots help us inspect relationships between two variables.\nHere, the species begin to separate into visible clusters, especially when petal length is involved.\nThis is a strong exploratory signal that some measurements carry more discriminatory information than others.\n\n\n\nPairwise relationships\ng = sns.pairplot(\n    df,\n    hue=\"species\",\n    corner=True,\n    diag_kind=\"hist\",\n    plot_kws={\"alpha\": 0.7, \"s\": 45}\n)\n\ng.fig.suptitle(\"Iris — Pairwise Relationships by Species\", y=1.02)\n\nplt.show()\n\n\nInterpretation\nThe pairplot provides a broader view of the dataset:\n\nwhich variable pairs show clear separation\nwhere clusters overlap\nwhich variables appear more useful for distinguishing species\n\nThis type of overview is valuable before moving to formal modeling.",
+    "text": "Exploratory visualizations\nWe will use seaborn and matplotlib for exploratory plotting.\nThese plots are not final presentation graphics. Their purpose is to help us inspect the data and notice patterns worth explaining.\n\nDistribution of numeric features\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nsns.set_theme(style=\"whitegrid\", context=\"notebook\")\n\ndf_long = df.melt(\n    value_vars=[\"sepal_length\", \"sepal_width\", \"petal_length\", \"petal_width\"],\n    var_name=\"feature\",\n    value_name=\"value\"\n)\n\ng = sns.displot(\n    data=df_long,\n    x=\"value\",\n    col=\"feature\",\n    col_wrap=2,\n    bins=12,\n    height=3.6,\n    aspect=1.15,\n    facet_kws={\"sharex\": False, \"sharey\": False}\n)\n\ng.set_titles(\"{col_name}\")\ng.set_axis_labels(\"Value\", \"Count\")\ng.fig.suptitle(\"Iris — Distribution of Numeric Features\", y=1.03)\n\nplt.show()\n\n\nInterpretation\nThese histograms help us see:\n\nthe overall spread of each feature\nwhether values are concentrated or dispersed\nwhether some variables may contain overlapping or separated groups\n\nA single histogram does not separate species, but it gives a first impression of the measurement ranges.\n\n\n\nBoxplot by species\nA boxplot gives a compact summary of group differences using the median, quartiles, whiskers, and any observations beyond the whiskers.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    width=0.5,\n    ax=ax\n)\n\nax.set_title(\"Petal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Length (cm)\")\n\nplt.show()\n\n\nInterpretation\nThis plot makes it easy to compare:\n\nthe typical petal length in each species\nthe spread within each group\nwhether groups overlap\n\nHowever, a boxplot hides the individual observations. That means we cannot directly see how densely values are clustered or how points are distributed within each group.\n\n\n\nBoxplot with observed points\nTo make the distribution more visible, we can overlay the individual observations.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    width=0.5,\n    fliersize=0,\n    ax=ax\n)\n\nsns.stripplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_length\",\n    color=\"black\",\n    alpha=0.6,\n    size=4,\n    jitter=0.22,\n    ax=ax\n)\n\nax.set_title(\"Petal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Length (cm)\")\n\nplt.show()\n\n\nInterpretation\nAdding the observed points makes the plot more informative.\nNow we can see:\n\nhow values are distributed within each species\nwhether observations are tightly clustered or more dispersed\nwhere overlap is limited or more substantial\n\nPetal length differs strongly by species. This makes it a strong candidate for distinguishing between groups in later analysis.\n\n\n\nScatter plot: sepal length vs petal length\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_length\",\n    y=\"petal_length\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Length vs Petal Length\")\nax.set_xlabel(\"Sepal Length (cm)\")\nax.set_ylabel(\"Petal Length (cm)\")\n\nplt.show()\n\n\nInterpretation\nScatter plots help us inspect relationships between two variables.\nHere, the species begin to separate into visible clusters, especially when petal length is involved.\nThis is a strong exploratory signal that some measurements carry more discriminatory information than others.\n\n\n\nPairwise relationships\ng = sns.pairplot(\n    df,\n    hue=\"species\",\n    corner=True,\n    diag_kind=\"hist\",\n    plot_kws={\"alpha\": 0.7, \"s\": 45}\n)\n\ng.fig.suptitle(\"Iris — Pairwise Relationships by Species\", y=1.02)\n\nplt.show()\n\n\nInterpretation\nThe pairplot provides a broader view of the dataset:\n\nwhich variable pairs show clear separation\nwhere clusters overlap\nwhich variables appear more useful for distinguishing species\n\nThis type of overview is valuable before moving to formal modeling.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -520,7 +520,7 @@
     "href": "02-load-and-explore-dataset.html#create-a-simple-derived-feature",
     "title": "Load and Explore a Dataset",
     "section": "Create a simple derived feature",
-    "text": "Create a simple derived feature\nFeature creation is often part of exploration.\nHere, we define a new variable, petal_area, as a simple combination of petal length and petal width.\ndf[\"petal_area\"] = df[\"petal_length\"] * df[\"petal_width\"]\n\ndf.head()\nThis does not mean the new feature is automatically better.\nIt illustrates how exploratory analysis can lead to new candidate variables.",
+    "text": "Create a simple derived feature\nFeature creation is often part of exploration.\nHere, we define petal_area by multiplying petal length by petal width. It is a simple derived measurement for demonstration and should not be interpreted as the true physical area of a petal.\ndf[\"petal_area\"] = df[\"petal_length\"] * df[\"petal_width\"]\n\ndf.head()\nThis does not mean the new feature is automatically better.\nIt illustrates how exploratory analysis can lead to new candidate variables.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -531,7 +531,7 @@
     "href": "02-load-and-explore-dataset.html#exercise",
     "title": "Load and Explore a Dataset",
     "section": "Exercise",
-    "text": "Exercise\nTry the following:\n\nPrint the last five rows of the dataset.\nCompute the mean of petal_area for each species.\nCreate a scatter plot of sepal_width versus petal_width.\nWrite one sentence describing which feature seems most useful for separating species.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nprint(\"Last 5 rows:\")\nprint(df.tail())\n\nprint(\"\\nMean petal_area by species:\")\nprint(df.groupby(\"species\", observed=False)[\"petal_area\"].mean())\n\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_width\",\n    y=\"petal_width\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Width vs Petal Width\")\nax.set_xlabel(\"Sepal Width\")\nax.set_ylabel(\"Petal Width\")\n\nplt.show()\nInterpretation:\nPetal-based features provide clearer separation between species than sepal-based features.",
+    "text": "Exercise\nTry the following:\n\nPrint the last five rows of the dataset.\nCompute the mean of petal_area for each species.\nCreate a scatter plot of sepal_width versus petal_width.\nWrite one sentence describing which measurements seem most useful for separating species.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nprint(\"Last 5 rows:\")\nprint(df.tail())\n\nprint(\"\\nMean petal_area by species:\")\nprint(df.groupby(\"species\", observed=False)[\"petal_area\"].mean())\n\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_width\",\n    y=\"petal_width\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Width vs Petal Width\")\nax.set_xlabel(\"Sepal Width (cm)\")\nax.set_ylabel(\"Petal Width (cm)\")\n\nplt.show()\nInterpretation:\nPetal-based features provide clearer separation between species than sepal-based features.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Load and Explore a Dataset</span>"
@@ -575,7 +575,7 @@
     "href": "03-data-cleaning-and-preparation.html",
     "title": "Data Cleaning and Preparation",
     "section": "",
-    "text": "Lesson overview\nData cleaning is not just a technical step.\nIt is a decision-making process.\nBefore a dataset is used for summaries, visualizations, modeling, or reporting, it should be checked for common quality issues and prepared in a reproducible way.\nIn CDI systems, cleaning should be:\nThis lesson continues from Chapter 02, where we created and inspected:\nIn this chapter, we clean that dataset and save a downstream-ready version:\nBy the end of this lesson, you will be able to:",
+    "text": "Lesson overview\nData cleaning is not just a technical step.\nIt is a decision-making process.\nBefore a dataset is used for summaries, visualizations, modeling, or reporting, it should be checked for common quality issues and prepared in a reproducible way.\nIn CDI systems, cleaning should be:\nThis lesson continues from Chapter 02, where we created and inspected:\nIn this chapter, we evaluate that dataset, apply only justified cleaning steps, and save a downstream-ready version:\nThe Iris dataset is already relatively clean. Its four measurement columns contain values in centimetres, its species labels are consistent, and it may contain no missing values. That is useful for learning: a cleaning workflow can confirm that no correction is needed. Cleaning does not require changing data when the evidence does not justify a change.\nBy the end of this lesson, you will be able to:",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -586,7 +586,7 @@
     "href": "03-data-cleaning-and-preparation.html#lesson-overview",
     "title": "Data Cleaning and Preparation",
     "section": "",
-    "text": "inspect a dataset for common quality issues\ndetect and handle duplicate rows\nstandardize column names\nhandle missing values using clear rules\ncorrect inconsistent data types\nvalidate and save a cleaned dataset\nrun a reusable cleaning script from the command line",
+    "text": "inspect a dataset for common quality issues\ndistinguish identical rows from confirmed duplicate records\nstandardize column names\nidentify and convert numeric-like text carefully\nhandle missing values using clear rules\nvalidate and save a cleaned dataset\nrun a reusable cleaning script from the command line",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -597,7 +597,7 @@
     "href": "03-data-cleaning-and-preparation.html#chapter-workflow",
     "title": "Data Cleaning and Preparation",
     "section": "Chapter workflow",
-    "text": "Chapter workflow\nThis chapter introduces the second reusable Python script in the system:\n03-data-cleaning-and-preparation.qmd\n        ↓\nscripts/python/clean_example_data.py\n        ↓\ndata/iris_clean.csv\nresults/cleaning/cleaning-report.txt\nThe cleaned dataset becomes the input for downstream wrangling, visualization, and summary statistics.",
+    "text": "Chapter workflow\nThis chapter introduces the second reusable Python script in the system:\ndata/iris.csv\n      ↓\nscripts/python/clean_example_data.py\n      ↓\ndata/iris_clean.csv\nresults/cleaning/cleaning-report.txt\nThe cleaned dataset becomes the input for downstream wrangling, visualization, and summary statistics.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -608,7 +608,7 @@
     "href": "03-data-cleaning-and-preparation.html#cleaning-philosophy",
     "title": "Data Cleaning and Preparation",
     "section": "Cleaning philosophy",
-    "text": "Cleaning philosophy\nA responsible cleaning workflow follows a simple rule:\ninspect first\nclean second\nvalidate third\nsave last\nNever modify data without first understanding what is being changed.\nAlways validate the results of cleaning steps with explicit checks.\n\nCleaning should not hide uncertainty.\nIt should make data preparation decisions visible and reproducible.",
+    "text": "Cleaning philosophy\nA responsible cleaning workflow follows a simple rule:\ninspect first\ndecide second\nclean third\nvalidate fourth\nsave last\nFor each potential issue:\n\nmeasure the issue\ninspect the affected observations\nchoose and document a rule\napply the rule only when justified\nvalidate the result\n\nNever modify data without first understanding what is being changed.\n\nCleaning should not hide uncertainty.\nIt should make data-preparation decisions visible and reproducible.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -630,40 +630,40 @@
     "href": "03-data-cleaning-and-preparation.html#initial-inspection",
     "title": "Data Cleaning and Preparation",
     "section": "Initial inspection",
-    "text": "Initial inspection\nCheck the table structure before making changes.\nprint(\"Shape:\", df.shape)\nprint(\"\\nColumn names:\", df.columns.tolist())\nprint(\"\\nData types:\")\nprint(df.dtypes)\nThen check summary statistics and missing values.\nprint(\"Summary statistics:\")\nprint(df.describe(include=\"all\"))\n\nprint(\"\\nMissing values per column:\")\nprint(df.isna().sum())",
+    "text": "Initial inspection\nCheck the table structure before making changes.\nprint(\"Shape:\", df.shape)\nprint(\"\\nColumn names:\", df.columns.tolist())\nprint(\"\\nData types:\")\nprint(df.dtypes)\nThen inspect summary statistics and missing values.\nprint(\"Summary statistics:\")\nprint(df.describe(include=\"all\"))\n\nprint(\"\\nMissing values per column:\")\nprint(df.isna().sum())\nThe purpose of this inspection is to establish a baseline. Later, you can compare the cleaned table with this starting point and explain what changed—or why nothing needed to change.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
     ]
   },
   {
-    "objectID": "03-data-cleaning-and-preparation.html#detect-column-types",
-    "href": "03-data-cleaning-and-preparation.html#detect-column-types",
+    "objectID": "03-data-cleaning-and-preparation.html#standardize-column-names",
+    "href": "03-data-cleaning-and-preparation.html#standardize-column-names",
     "title": "Data Cleaning and Preparation",
-    "section": "Detect column types",
-    "text": "Detect column types\nSeparating numeric and categorical columns helps us apply appropriate cleaning rules.\nnum_cols = df.select_dtypes(include=\"number\").columns.tolist()\ncat_cols = df.select_dtypes(exclude=\"number\").columns.tolist()\n\nprint(\"Numeric columns:\", num_cols)\nprint(\"Categorical columns:\", cat_cols)\nFor this dataset, the measurement columns are numeric and species is categorical.",
+    "section": "Standardize column names",
+    "text": "Standardize column names\nConsistent column names make downstream code easier to read and less error-prone.\nFor this lesson, use a simple starter rule:\ndf.columns = [\n    str(c)\n    .strip()\n    .lower()\n    .replace(\" \", \"_\")\n    .replace(\"(\", \"\")\n    .replace(\")\", \"\")\n    for c in df.columns\n]\n\nprint(\"Updated columns:\", df.columns.tolist())\nThis rule is adequate for the known Iris columns, but it is not a complete solution for every possible name. Real datasets may also contain punctuation, repeated underscores, non-English characters, or names that become identical after standardization. A reusable production workflow should check for those cases explicitly.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
     ]
   },
   {
-    "objectID": "03-data-cleaning-and-preparation.html#detect-and-remove-duplicates",
-    "href": "03-data-cleaning-and-preparation.html#detect-and-remove-duplicates",
+    "objectID": "03-data-cleaning-and-preparation.html#inspect-identical-rows",
+    "href": "03-data-cleaning-and-preparation.html#inspect-identical-rows",
     "title": "Data Cleaning and Preparation",
-    "section": "Detect and remove duplicates",
-    "text": "Detect and remove duplicates\nDuplicate rows can distort counts, summaries, visualizations, and model training.\ndup_count = int(df.duplicated().sum())\nprint(\"Duplicate rows found:\", dup_count)\n\nif dup_count &gt; 0:\n    print(\"\\nInspect duplicates carefully before removal.\")\n    print(df[df.duplicated()].head())\nIf duplicates exist, remove them only after inspection.\nif dup_count &gt; 0:\n    df = df.drop_duplicates().reset_index(drop=True)\n\nprint(\"Shape after duplicate handling:\", df.shape)\nFor a real project, duplicate handling should always be explained in the analysis notes.",
+    "section": "Inspect identical rows",
+    "text": "Inspect identical rows\ndf.duplicated() identifies rows whose values are identical across all columns.\nidentical_count = int(df.duplicated(keep=False).sum())\nprint(\"Rows involved in identical-row groups:\", identical_count)\n\nif identical_count &gt; 0:\n    print(\"\\nInspect identical rows carefully:\")\n    print(\n        df[df.duplicated(keep=False)]\n        .sort_values(df.columns.tolist())\n        .head(10)\n    )\nIdentical values do not automatically prove that records are accidental duplicates. Two flowers can legitimately have the same four measurements and species label.\nTo confirm a duplicate record, you usually need additional evidence, such as:\n\na unique observation identifier\na repeated source row caused by data entry or file merging\na timestamp or collection record\nknowledge of how the data was produced\n\nBecause this dataset does not contain a unique flower identifier, this lesson reports identical rows but retains them.\nconfirmed_duplicates_removed = 0\nprint(\"Confirmed duplicate records removed:\", confirmed_duplicates_removed)\nIf a real project establishes that specific records are accidental duplicates, document the evidence and removal rule before changing the table.\n\nIdentical rows are a signal to investigate—not automatic permission to delete observations.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
     ]
   },
   {
-    "objectID": "03-data-cleaning-and-preparation.html#column-name-hygiene",
-    "href": "03-data-cleaning-and-preparation.html#column-name-hygiene",
+    "objectID": "03-data-cleaning-and-preparation.html#detect-and-convert-numeric-like-columns",
+    "href": "03-data-cleaning-and-preparation.html#detect-and-convert-numeric-like-columns",
     "title": "Data Cleaning and Preparation",
-    "section": "Column name hygiene",
-    "text": "Column name hygiene\nClean column names make downstream code easier to read and less error-prone.\ndf.columns = [\n    str(c)\n    .strip()\n    .lower()\n    .replace(\" \", \"_\")\n    .replace(\"(\", \"\")\n    .replace(\")\", \"\")\n    for c in df.columns\n]\n\nprint(\"Updated columns:\", df.columns.tolist())\nThis keeps column names consistent with the tidy-table style used across CDI systems.",
+    "section": "Detect and convert numeric-like columns",
+    "text": "Detect and convert numeric-like columns\nPandas infers data types when it reads a file, but a numeric column can sometimes be stored as text because of values such as \"unknown\" or \"not recorded\".\nFirst, inspect the currently detected column types.\nnumeric_cols = df.select_dtypes(include=\"number\").columns.tolist()\ntext_cols = df.select_dtypes(exclude=\"number\").columns.tolist()\n\nprint(\"Currently numeric columns:\", numeric_cols)\nprint(\"Currently non-numeric columns:\", text_cols)\nFor the known Iris schema, the four measurement columns should be numeric:\nexpected_numeric_cols = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n]\n\nfor c in expected_numeric_cols:\n    if c in df.columns:\n        before_missing = int(df[c].isna().sum())\n        converted = pd.to_numeric(df[c], errors=\"coerce\")\n        after_missing = int(converted.isna().sum())\n\n        if after_missing &gt; before_missing:\n            print(\n                f\"{c}: conversion created \"\n                f\"{after_missing - before_missing} missing value(s)\"\n            )\n\n        df[c] = converted\nThe argument errors=\"coerce\" converts values that cannot be interpreted as numbers to NaN. This makes invalid values visible as missing data, but it can also create new missing values. That is why conversion occurs before missing-value handling and why the number of newly missing values is reported.\nAfter conversion, recalculate the column groups:\nnumeric_cols = df.select_dtypes(include=\"number\").columns.tolist()\ncategorical_cols = df.select_dtypes(exclude=\"number\").columns.tolist()\n\nprint(\"Numeric columns after conversion:\", numeric_cols)\nprint(\"Categorical columns after conversion:\", categorical_cols)\nUsing expected columns is safer here than attempting to convert every text column automatically. For example, the species column contains meaningful labels and should remain non-numeric.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -674,18 +674,18 @@
     "href": "03-data-cleaning-and-preparation.html#handle-missing-values",
     "title": "Data Cleaning and Preparation",
     "section": "Handle missing values",
-    "text": "Handle missing values\nFirst, measure missingness.\nprint(df.isna().sum())\nThen apply a clear rule.\nFor this lesson, we use a simple starter pattern:\n\nnumeric columns: fill missing values with the median\ncategorical columns: fill missing values with the most frequent value\n\nnum_cols = df.select_dtypes(include=\"number\").columns.tolist()\ncat_cols = df.select_dtypes(exclude=\"number\").columns.tolist()\n\ndf[num_cols] = df[num_cols].fillna(df[num_cols].median())\n\nfor c in cat_cols:\n    if df[c].isna().any():\n        df[c] = df[c].fillna(df[c].mode().iloc[0])\n\nThis imputation rule is useful for teaching, but it is not universal.\nIn real projects, missing value handling should reflect the data source, study design, and analysis goal.",
+    "text": "Handle missing values\nFirst, measure missingness after type conversion.\nmissing_before = df.isna().sum()\nprint(missing_before)\nFor this lesson, the expected downstream table must be complete. We therefore use a simple starter rule:\n\nnumeric columns: fill missing values with the median\ncategorical columns: fill missing values with the most frequent value\n\nApply each rule only to columns that contain missing values:\nfor c in numeric_cols:\n    if df[c].isna().any():\n        median_value = df[c].median()\n\n        if pd.isna(median_value):\n            raise ValueError(\n                f\"Cannot impute {c}: the entire column is missing.\"\n            )\n\n        df[c] = df[c].fillna(median_value)\n\nfor c in categorical_cols:\n    if df[c].isna().any():\n        modes = df[c].mode(dropna=True)\n\n        if modes.empty:\n            raise ValueError(\n                f\"Cannot impute {c}: the entire column is missing.\"\n            )\n\n        df[c] = df[c].fillna(modes.iloc[0])\nIf the Iris table has no missing values, these loops make no changes. That is a valid result: the workflow has checked the condition and documented that imputation was unnecessary.\n\nMedian and mode imputation are useful for teaching, but they are not universal rules.\nIn real projects, missing-value handling should reflect the data source, study design, reason for missingness, and analysis goal.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
     ]
   },
   {
-    "objectID": "03-data-cleaning-and-preparation.html#fix-data-types",
-    "href": "03-data-cleaning-and-preparation.html#fix-data-types",
+    "objectID": "03-data-cleaning-and-preparation.html#assign-appropriate-in-memory-types",
+    "href": "03-data-cleaning-and-preparation.html#assign-appropriate-in-memory-types",
     "title": "Data Cleaning and Preparation",
-    "section": "Fix data types",
-    "text": "Fix data types\nAfter cleaning, confirm that columns have appropriate types.\nfor c in num_cols:\n    df[c] = pd.to_numeric(df[c], errors=\"coerce\")\n\nif \"species\" in df.columns:\n    df[\"species\"] = df[\"species\"].astype(\"category\")\n\nprint(df.dtypes)\nThis step protects later analysis from hidden type problems, such as numeric values stored as text.",
+    "section": "Assign appropriate in-memory types",
+    "text": "Assign appropriate in-memory types\nAfter conversion and missing-value handling, confirm that the columns have appropriate pandas data types.\nif \"species\" in df.columns:\n    df[\"species\"] = df[\"species\"].astype(\"category\")\n\nprint(df.dtypes)\nThis converts species to a pandas categorical column while the table is in memory.\nCSV files store values but do not preserve pandas-specific data types. If you save the table as CSV and load it again, species will usually be read as object or string, not category. Convert it again after loading when a downstream analysis requires the categorical type.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -696,7 +696,7 @@
     "href": "03-data-cleaning-and-preparation.html#validation-checks",
     "title": "Data Cleaning and Preparation",
     "section": "Validation checks",
-    "text": "Validation checks\nValidation confirms that cleaning produced the expected result.\nprint(\"Final shape:\", df.shape)\nprint(\"Total missing values:\", int(df.isna().sum().sum()))\nprint(\"Duplicate rows:\", int(df.duplicated().sum()))\n\nassert int(df.isna().sum().sum()) == 0, \"Missing values remain.\"\nassert int(df.duplicated().sum()) == 0, \"Duplicates remain.\"\nAssertions are useful because they stop the workflow when expected conditions are not met.",
+    "text": "Validation checks\nValidation confirms that the workflow produced the expected downstream table.\nfinal_missing = int(df.isna().sum().sum())\nidentical_rows_retained = int(df.duplicated(keep=False).sum())\n\nprint(\"Final shape:\", df.shape)\nprint(\"Total missing values:\", final_missing)\nprint(\"Rows in identical-row groups:\", identical_rows_retained)\nprint(\n    \"Confirmed duplicate records removed:\",\n    confirmed_duplicates_removed,\n)\n\nassert final_missing == 0, (\n    \"Missing values remain, but this lesson requires a complete output table.\"\n)\nassert set(expected_numeric_cols).issubset(df.columns), (\n    \"One or more expected measurement columns are missing.\"\n)\nassert all(\n    pd.api.types.is_numeric_dtype(df[c])\n    for c in expected_numeric_cols\n), \"One or more measurement columns are not numeric.\"\nNotice that the workflow does not assert that identical rows must be absent. They are retained because the available columns do not establish that they are erroneous duplicate records.\nAssertions are useful because they stop the workflow when required conditions are not met. They should express conditions justified by the current dataset and downstream purpose—not assumptions that every dataset must satisfy.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -707,7 +707,7 @@
     "href": "03-data-cleaning-and-preparation.html#save-the-cleaned-dataset",
     "title": "Data Cleaning and Preparation",
     "section": "Save the cleaned dataset",
-    "text": "Save the cleaned dataset\nSave the cleaned table as a new file.\nfrom pathlib import Path\n\nPath(\"data\").mkdir(exist_ok=True)\ndf.to_csv(\"data/iris_clean.csv\", index=False)\n\nprint(\"Saved cleaned dataset to: data/iris_clean.csv\")\nThe original input remains available as:\ndata/iris.csv\nThe cleaned downstream version is:\ndata/iris_clean.csv",
+    "text": "Save the cleaned dataset\nSave the prepared table as a new file.\nfrom pathlib import Path\n\nPath(\"data\").mkdir(exist_ok=True)\ndf.to_csv(\"data/iris_clean.csv\", index=False)\n\nprint(\"Saved cleaned dataset to: data/iris_clean.csv\")\nThe original input remains available as:\ndata/iris.csv\nThe downstream-ready version is:\ndata/iris_clean.csv\nSaving a new file preserves the original evidence and makes the preparation workflow easier to audit.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -718,7 +718,7 @@
     "href": "03-data-cleaning-and-preparation.html#run-the-reusable-cleaning-script",
     "title": "Data Cleaning and Preparation",
     "section": "Run the reusable cleaning script",
-    "text": "Run the reusable cleaning script\nThe manual steps above explain the logic. The reusable script applies the same cleaning pattern from the command line.\nRun this from the project root:\npython scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning\nExpected output:\ndata/iris_clean.csv\nresults/cleaning/cleaning-report.txt\nThis makes the cleaning step repeatable and easy to test as the system grows.",
+    "text": "Run the reusable cleaning script\nThe manual steps above explain the logic. The reusable script applies the same preparation pattern from the command line.\nRun this command from the project root:\npython scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning\nExpected outputs:\ndata/iris_clean.csv\nresults/cleaning/cleaning-report.txt\nThis makes the cleaning step repeatable and easy to test as the system grows.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -729,7 +729,7 @@
     "href": "03-data-cleaning-and-preparation.html#what-the-cleaning-script-does",
     "title": "Data Cleaning and Preparation",
     "section": "What the cleaning script does",
-    "text": "What the cleaning script does\nThe script:\n\nreads the input table\nstandardizes column names\ndetects duplicate rows\nremoves duplicate rows\nfills missing numeric values with medians\nfills missing categorical values with modes\nconverts numeric-like columns where appropriate\nconverts species to a categorical-style column\nvalidates that no missing values or duplicates remain\nwrites a cleaned table\nwrites a plain-text cleaning report",
+    "text": "What the cleaning script does\nThe script:\n\nreads the input table\nrecords the input row and column counts\nstandardizes the known column names\nreports identical rows for investigation\nretains identical rows unless they are confirmed duplicate records\nconverts the expected measurement columns to numeric values\nrecords values that become missing during numeric conversion\nfills missing numeric values with medians when possible\nfills missing categorical values with modes when possible\nconverts species to a pandas categorical column in memory\nvalidates the expected schema, numeric types, and missing-value result\nwrites a downstream-ready table\nwrites a plain-text report describing what it found and changed\n\nThe report should include before-and-after row counts, missing-value counts, identical-row counts, and the rules applied. It documents the cleaning decision—not merely that the script ran.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -740,7 +740,7 @@
     "href": "03-data-cleaning-and-preparation.html#exercise",
     "title": "Data Cleaning and Preparation",
     "section": "Exercise",
-    "text": "Exercise\nTry the following:\n\nOpen results/cleaning/cleaning-report.txt.\nConfirm the input and output row counts.\nConfirm the number of missing values after cleaning.\nRerun the Chapter 02 inspection script on the cleaned table.\n\nUse:\npython scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned\nThen compare:\nresults/inspection/\nresults/inspection-cleaned/\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nA cleaned table can be inspected using the same reusable inspection script:\npython scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned\nExpected outputs:\nresults/inspection-cleaned/\n├── table-inspection-summary.txt\n├── table-column-summary.tsv\n└── table-missing-values.tsv\nThe key idea is that cleaning does not end with saving a file.\nIt should be followed by inspection and validation.",
+    "text": "Exercise\nComplete the following:\n\nOpen results/cleaning/cleaning-report.txt.\nCompare the input and output row counts.\nConfirm the number of missing values before and after preparation.\nCheck whether the script found identical rows and explain why it retained them.\nIdentify any columns or values that actually changed.\nExplain why a valid cleaning workflow might produce an output table whose values are identical to the input.\nRerun the Chapter 02 inspection script on the prepared table.\n\nUse:\npython scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned\nThen compare:\nresults/inspection/\nresults/inspection-cleaned/\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nA prepared table can be inspected using the same reusable inspection script:\npython scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned\nExpected outputs:\nresults/inspection-cleaned/\n├── table-inspection-summary.txt\n├── table-column-summary.tsv\n└── table-missing-values.tsv\nIf the input was already clean, the input and output values may be identical. That does not mean the workflow was unnecessary. The workflow still:\n\nestablished a quality baseline\nchecked the expected schema and data types\nmeasured missingness\ninvestigated identical rows\napplied explicit decision rules\nvalidated the downstream output\nrecorded the result\n\nThe key idea is that cleaning does not end with saving a file.\nIt should be followed by inspection, validation, and documentation.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -751,7 +751,7 @@
     "href": "03-data-cleaning-and-preparation.html#cdi-insight",
     "title": "Data Cleaning and Preparation",
     "section": "CDI Insight",
-    "text": "CDI Insight\nCleaning is not about making data look perfect.\nIt is about making preparation decisions explicit, reproducible, and testable.\nA cleaned dataset should be easier to analyze, but it should also preserve the logic of how it was produced.\nThat is why CDI systems keep both:\ninput table\ncleaning script\ncleaned output table\ncleaning report\nTogether, these make the workflow easier to trust.",
+    "text": "CDI Insight\nCleaning is not about making data look perfect.\nIt is about making preparation decisions explicit, reproducible, and testable.\nA downstream-ready dataset should be easier to analyze, but it should also preserve the logic of how it was produced.\nThat is why CDI systems keep all four:\ninput table\ncleaning script\ncleaned output table\ncleaning report\nTogether, these artifacts make the workflow easier to understand, reproduce, and trust.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -762,7 +762,7 @@
     "href": "03-data-cleaning-and-preparation.html#summary",
     "title": "Data Cleaning and Preparation",
     "section": "Summary",
-    "text": "Summary\nIn this lesson, you:\n\ninspected dataset quality\nchecked missing values and duplicates\nstandardized column names\napplied simple missing value handling rules\nfixed data types\nvalidated the cleaned table\nsaved data/iris_clean.csv\ncreated a cleaning report with clean_example_data.py",
+    "text": "Summary\nIn this lesson, you:\n\ninspected dataset quality before making changes\ndistinguished identical rows from confirmed duplicate records\nstandardized column names\nconverted expected numeric columns before handling missing values\napplied simple, explicit missing-value rules\nassigned appropriate in-memory data types\nvalidated the downstream-ready table\nsaved data/iris_clean.csv\ncreated a cleaning report with clean_example_data.py",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -773,7 +773,7 @@
     "href": "03-data-cleaning-and-preparation.html#looking-ahead",
     "title": "Data Cleaning and Preparation",
     "section": "Looking Ahead",
-    "text": "Looking Ahead\nIn the next chapter, we transform and organize the cleaned dataset for analysis. The cleaned table produced here becomes the input for wrangling.",
+    "text": "Looking Ahead\nIn the next chapter, we transform and organize the prepared dataset for analysis. The table produced here becomes the input for data wrangling.",
     "crumbs": [
       "Data Inspection and Preparation",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning and Preparation</span>"
@@ -817,7 +817,7 @@
     "href": "04-data-wrangling-basics.html#load-the-cleaned-dataset",
     "title": "Data Wrangling Basics",
     "section": "Load the cleaned dataset",
-    "text": "Load the cleaned dataset\nWe use the cleaned dataset created in Chapter 03.\nimport pandas as pd\n\ndf = pd.read_csv(\"data/iris_clean.csv\")\ndf.head()",
+    "text": "Load the cleaned dataset\nWe use the cleaned dataset created in Chapter 03.\nimport numpy as np\nimport pandas as pd\n\ndf = pd.read_csv(\"data/iris_clean.csv\")\nrows_before = len(df)\ndf.insert(0, \"observation_id\", range(1, len(df) + 1))\ndf.head()\nobservation_id preserves the identity of each original flower as the table is sorted and reshaped later in the workflow.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -850,7 +850,7 @@
     "href": "04-data-wrangling-basics.html#create-derived-features",
     "title": "Data Wrangling Basics",
     "section": "Create derived features",
-    "text": "Create derived features\nFeature creation extends the dataset with new variables.\nHere, we define a new feature, petal_area.\ndf[\"petal_area\"] = df[\"petal_length\"] * df[\"petal_width\"]\ndf.head()\nA derived feature should be easy to explain and reproducible from existing columns.",
+    "text": "Create derived features\nFeature creation extends the dataset with new variables.\nHere, we define a new feature, petal_area.\ndf[\"petal_area\"] = df[\"petal_length\"] * df[\"petal_width\"]\ndf.head()\nFor this lesson, petal_area is a simple rectangular approximation calculated as petal length × petal width. It is not the true biological area of a petal. Because both measurements are in centimetres, the approximate area is in square centimetres (cm²).\nA derived feature should be easy to explain and reproducible from existing columns.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -861,7 +861,7 @@
     "href": "04-data-wrangling-basics.html#sort-data",
     "title": "Data Wrangling Basics",
     "section": "Sort data",
-    "text": "Sort data\nSorting helps examine extreme or ordered values.\ndf_sorted = df.sort_values(by=\"petal_area\", ascending=False)\ndf_sorted.head()\nThis makes it easier to inspect the largest values, smallest values, or top-ranked observations.",
+    "text": "Sort data\nSorting helps examine extreme or ordered values.\ndf = (\n    df.sort_values(\n        by=[\"petal_area\", \"species\"],\n        ascending=[False, True]\n    )\n    .reset_index(drop=True)\n)\n\ndf.head()\nThis makes it easier to inspect the largest values, smallest values, or top-ranked observations. Resetting the index produces a clean row index after sorting, while observation_id continues to identify the original flowers.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -872,7 +872,7 @@
     "href": "04-data-wrangling-basics.html#group-and-aggregate-values",
     "title": "Data Wrangling Basics",
     "section": "Group and aggregate values",
-    "text": "Group and aggregate values\nGrouping summarizes values across categories.\nHere, we compute summary measurements by species.\ngrouped = (\n    df.groupby(\"species\", observed=False)\n      .agg(\n          n=(\"species\", \"size\"),\n          mean_petal_area=(\"petal_area\", \"mean\"),\n          median_petal_area=(\"petal_area\", \"median\"),\n          mean_sepal_length=(\"sepal_length\", \"mean\"),\n          mean_petal_length=(\"petal_length\", \"mean\")\n      )\n      .reset_index()\n)\n\ngrouped\nThis type of grouped table is one of the most common outputs in tidy-table analysis.",
+    "text": "Group and aggregate values\nGrouping summarizes values across categories.\nHere, we compute summary measurements by species.\ngrouped = (\n    df.groupby(\"species\", observed=False)\n      .agg(\n          n=(\"species\", \"size\"),\n          mean_petal_area=(\"petal_area\", \"mean\"),\n          median_petal_area=(\"petal_area\", \"median\"),\n          mean_sepal_length=(\"sepal_length\", \"mean\"),\n          mean_sepal_width=(\"sepal_width\", \"mean\"),\n          mean_petal_length=(\"petal_length\", \"mean\"),\n          mean_petal_width=(\"petal_width\", \"mean\")\n      )\n      .reset_index()\n      .sort_values(\"mean_petal_area\", ascending=False)\n)\n\ngrouped\nThis type of grouped table is one of the most common outputs in tidy-table analysis.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -883,7 +883,7 @@
     "href": "04-data-wrangling-basics.html#apply-conditional-logic",
     "title": "Data Wrangling Basics",
     "section": "Apply conditional logic",
-    "text": "Apply conditional logic\nConditional logic creates categories based on defined rules.\nHere, we assign a size category based on whether petal_area is above or below the median.\nmedian_petal_area = df[\"petal_area\"].median()\n\ndf[\"size_category\"] = df[\"petal_area\"].apply(\n    lambda x: \"large\" if x &gt; median_petal_area else \"small\"\n)\n\ndf.head()\nThe rule should be stated clearly so another analyst can reproduce or challenge it.",
+    "text": "Apply conditional logic\nConditional logic creates categories based on defined rules.\nHere, we assign a size category based on whether petal_area is above the dataset median.\nmedian_petal_area = df[\"petal_area\"].median()\n\ndf[\"size_category\"] = np.where(\n    df[\"petal_area\"] &gt; median_petal_area,\n    \"large\",\n    \"small\"\n)\n\ndf.head()\nValues greater than the median are labelled \"large\"; values equal to or below the median are labelled \"small\". This is a relative teaching category for this dataset, not a biological classification.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -894,7 +894,7 @@
     "href": "04-data-wrangling-basics.html#reshape-into-long-format",
     "title": "Data Wrangling Basics",
     "section": "Reshape into long format",
-    "text": "Reshape into long format\nLong format is especially useful for visualization and grouped summaries.\ndf_long = df.melt(\n    id_vars=[\"species\", \"size_category\"],\n    value_vars=[\"sepal_length\", \"sepal_width\", \"petal_length\", \"petal_width\"],\n    var_name=\"measurement\",\n    value_name=\"value\"\n)\n\ndf_long.head()\nLong format is useful because many plotting and analysis workflows expect:\none row per observation-measurement pair",
+    "text": "Reshape into long format\nLong format is especially useful for visualization and grouped summaries.\ndf_long = df.melt(\n    id_vars=[\"observation_id\", \"species\", \"size_category\"],\n    value_vars=[\"sepal_length\", \"sepal_width\", \"petal_length\", \"petal_width\"],\n    var_name=\"measurement\",\n    value_name=\"value\"\n)\n\ndf_long.head()\nLong format is useful because many plotting and analysis workflows expect:\none row per observation-measurement pair",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -905,7 +905,7 @@
     "href": "04-data-wrangling-basics.html#validation-checks",
     "title": "Data Wrangling Basics",
     "section": "Validation checks",
-    "text": "Validation checks\nAfter transformation, confirm that the dataset remains consistent and complete.\nprint(\"Shape:\", df.shape)\nprint(\"Missing values:\", int(df.isna().sum().sum()))\nprint(\"Columns:\", df.columns.tolist())\n\nassert int(df.isna().sum().sum()) == 0, \"Missing values detected after wrangling.\"\nassert \"petal_area\" in df.columns, \"petal_area was not created.\"\nassert \"size_category\" in df.columns, \"size_category was not created.\"\nValidation checks help prevent downstream chapters from using incomplete or incorrectly transformed data.",
+    "text": "Validation checks\nAfter transformation, confirm that the dataset remains consistent and complete.\nprint(\"Shape:\", df.shape)\nprint(\"Missing values:\", int(df.isna().sum().sum()))\nprint(\"Columns:\", df.columns.tolist())\n\nassert int(df.isna().sum().sum()) == 0, \"Missing values detected after wrangling.\"\nassert \"petal_area\" in df.columns, \"petal_area was not created.\"\nassert \"size_category\" in df.columns, \"size_category was not created.\"\nassert len(df) == rows_before, \"Row count changed during wrangling.\"\nassert df[\"observation_id\"].is_unique, \"observation_id must be unique.\"\nassert set(df[\"size_category\"]) &lt;= {\"small\", \"large\"}, \"Unexpected size category detected.\"\nassert len(df_long) == len(df) * 4, \"Long table must contain four rows per observation.\"\nassert df_long[\"observation_id\"].value_counts().eq(4).all(), (\n    \"Each observation must appear four times in the long table.\"\n)\nassert len(grouped) == df[\"species\"].nunique(), (\n    \"Species summary must contain one row per species.\"\n)\nassert int(grouped.isna().sum().sum()) == 0, \"Missing values detected in species summary.\"\nassert int(df_long.isna().sum().sum()) == 0, \"Missing values detected in long table.\"\nValidation checks help prevent downstream chapters from using incomplete or incorrectly transformed data.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -938,7 +938,7 @@
     "href": "04-data-wrangling-basics.html#what-the-wrangling-script-does",
     "title": "Data Wrangling Basics",
     "section": "What the wrangling script does",
-    "text": "What the wrangling script does\nThe script:\n\nreads the cleaned input table\ncreates petal_area\ncreates size_category\nsorts the table by petal_area\ncreates a species-level summary table\nreshapes measurements into long format\nvalidates the transformed table\nsaves downstream outputs\nwrites a wrangling report",
+    "text": "What the wrangling script does\nThe script:\n\nreads the cleaned input table\ncreates observation_id to preserve original row identity\ncreates petal_area\ncreates size_category\nsorts the table by petal_area\ncreates a species-level summary table\nreshapes measurements into long format\nvalidates the transformed table\nsaves downstream outputs\nwrites a wrangling report",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -949,7 +949,7 @@
     "href": "04-data-wrangling-basics.html#exercise",
     "title": "Data Wrangling Basics",
     "section": "Exercise",
-    "text": "Exercise\nTry the following:\n\nOpen results/wrangling/species-summary.tsv.\nIdentify the species with the largest mean petal_area.\nOpen results/wrangling/iris-long.tsv.\nConfirm that the long-format table has one row per species-measurement value.\nRerun the Chapter 02 inspection script on the wrangled table.\n\nUse:\npython scripts/python/inspect_table.py data/iris_wrangled.csv results/inspection-wrangled\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nInspect the wrangled table with:\npython scripts/python/inspect_table.py data/iris_wrangled.csv results/inspection-wrangled\nExpected outputs:\nresults/inspection-wrangled/\n├── table-inspection-summary.txt\n├── table-column-summary.tsv\n└── table-missing-values.tsv\nThe species summary table should show that petal-based measurements differ strongly by species.",
+    "text": "Exercise\nTry the following:\n\nOpen results/wrangling/species-summary.tsv.\nIdentify the species with the largest mean petal_area.\nOpen results/wrangling/iris-long.tsv.\nConfirm that each original observation contributes four rows—one for each measurement.\nRerun the Chapter 02 inspection script on the wrangled table.\n\nUse:\npython scripts/python/inspect_table.py data/iris_wrangled.csv results/inspection-wrangled\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nInspect the wrangled table with:\npython scripts/python/inspect_table.py data/iris_wrangled.csv results/inspection-wrangled\nExpected outputs:\nresults/inspection-wrangled/\n├── table-inspection-summary.txt\n├── table-column-summary.tsv\n└── table-missing-values.tsv\nThe species summary table should show that petal-based measurements differ strongly by species.\nFor the standard Iris dataset:\n\nvirginica has the largest mean approximate petal_area\n150 original observations produce 600 long-format rows\nevery observation_id appears exactly four times in the long-format table",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -971,7 +971,7 @@
     "href": "04-data-wrangling-basics.html#summary",
     "title": "Data Wrangling Basics",
     "section": "Summary",
-    "text": "Summary\nIn this lesson, you:\n\nselected and filtered data\ncreated petal_area\nsorted rows by a derived feature\ngrouped and summarized values by species\ncreated size_category\nreshaped the table into long format\nsaved wrangled outputs\ncreated a wrangling report with wrangle_example_data.py",
+    "text": "Summary\nIn this lesson, you:\n\nselected and filtered data\ncreated an identifier for each original observation\ncreated petal_area\nsorted rows by a derived feature\ngrouped and summarized values by species\ncreated size_category\nreshaped the table into long format\nsaved wrangled outputs\ncreated a wrangling report with wrangle_example_data.py",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data Wrangling Basics</span>"
@@ -1004,7 +1004,7 @@
     "href": "05-visualization-basics.html#lesson-overview",
     "title": "Visualization Foundations",
     "section": "",
-    "text": "create histograms, boxplots, scatter plots, and pairplots\ncompare numeric distributions across groups\nuse color to represent categories clearly\ninterpret patterns, spread, overlap, and separation\nsave figures as reusable analysis outputs\nrun a reusable plotting script from the command line",
+    "text": "create histograms, density plots, ECDF plots, boxplots, violin plots, scatter plots, heatmaps, and pairplots\ncompare numeric distributions across groups\ncompare alternative figures for the same analytical question\nuse color to represent categories clearly\ninterpret patterns, spread, overlap, and separation\nsave figures as reusable analysis outputs\nrun a reusable plotting script from the command line",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1016,6 +1016,17 @@
     "title": "Visualization Foundations",
     "section": "Chapter workflow",
     "text": "Chapter workflow\nThis chapter introduces the fourth reusable Python script in the system:\n05-visualization-basics.qmd\n        ↓\nscripts/python/plot_example_data.py\n        ↓\ndata/iris_wrangled.csv\nresults/figures/\nresults/figures/figure-index.tsv\nThe figures produced here support interpretation and reporting in later chapters.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#build-a-visual-story",
+    "href": "05-visualization-basics.html#build-a-visual-story",
+    "title": "Visualization Foundations",
+    "section": "Build a visual story",
+    "text": "Build a visual story\nA useful collection of figures should feel like a guided story rather than a random gallery.\nIn this chapter, the story moves through five questions:\n\nWhat does one variable look like?\nHow do its distributions differ across species?\nHow do groups compare in center, spread, and individual observations?\nHow are two measurements related?\nWhat broader multivariable structure is visible?\n\nDifferent plots can answer the same question from different angles. Showing more than one view is especially valuable when each view reveals something the others hide.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1048,7 +1059,18 @@
     "href": "05-visualization-basics.html#histogram",
     "title": "Visualization Foundations",
     "section": "Histogram",
-    "text": "Histogram\nHistograms help us understand the distribution of a single numeric variable.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.histplot(\n    data=df,\n    x=\"sepal_length\",\n    bins=12,\n    kde=True,\n    ax=ax\n)\n\nax.set_title(\"Distribution of Sepal Length\")\nax.set_xlabel(\"Sepal Length\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\nInterpretation\nWhen reading a histogram, look for:\n\nthe center of the distribution\nthe spread of values\nskewness\npossible multiple peaks\n\nIf a variable shows multiple peaks, this may suggest the presence of meaningful subgroups.",
+    "text": "Histogram\nHistograms help us understand the distribution of a single numeric variable.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.histplot(\n    data=df,\n    x=\"sepal_length\",\n    bins=12,\n    kde=True,\n    ax=ax\n)\n\nax.set_title(\"Distribution of Sepal Length\")\nax.set_xlabel(\"Sepal Length\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\n\n\nHistogram showing the distribution of sepal length in the Iris dataset.\n\n\n\nInterpretation\nWhen reading a histogram, look for:\n\nthe center of the distribution\nthe spread of values\nskewness\npossible multiple peaks\n\nIf a variable shows multiple peaks, this may suggest the presence of meaningful subgroups.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#three-views-of-one-distribution",
+    "href": "05-visualization-basics.html#three-views-of-one-distribution",
+    "title": "Visualization Foundations",
+    "section": "Three views of one distribution",
+    "text": "Three views of one distribution\nA histogram is familiar, but it is not the only way to examine a numeric distribution. The following three-panel figure shows the same sepal_length values as a histogram, a density curve, and an empirical cumulative distribution function (ECDF).\nfig, axes = plt.subplots(1, 3, figsize=(15, 4.5))\n\nsns.histplot(data=df, x=\"sepal_length\", bins=12, ax=axes[0])\naxes[0].set_title(\"Histogram\")\naxes[0].set_ylabel(\"Count\")\n\nsns.kdeplot(data=df, x=\"sepal_length\", fill=True, ax=axes[1])\naxes[1].set_title(\"Density\")\naxes[1].set_ylabel(\"Density\")\n\nsns.ecdfplot(data=df, x=\"sepal_length\", ax=axes[2])\naxes[2].set_title(\"ECDF\")\naxes[2].set_ylabel(\"Proportion at or below\")\n\nfig.suptitle(\"Three Views of Sepal Length\", y=1.03)\nplt.tight_layout()\nplt.show()\n\n\n\nThree complementary views of sepal length: histogram, density curve, and ECDF.\n\n\n\nInterpretation\n\nThe histogram makes frequencies and possible peaks easy to see, but its appearance depends on the selected bins.\nThe density plot emphasizes the overall shape, but smoothing can hide small details.\nThe ECDF shows the proportion of observations at or below any value without requiring bins or smoothing.\n\nThese are alternatives, not competitors. The best choice depends on the question and the audience.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1059,7 +1081,7 @@
     "href": "05-visualization-basics.html#boxplot",
     "title": "Visualization Foundations",
     "section": "Boxplot",
-    "text": "Boxplot\nBoxplots summarize a distribution using the median, quartiles, and possible outliers.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"sepal_length\",\n    ax=ax\n)\n\nax.set_title(\"Sepal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Sepal Length\")\n\nplt.show()\n\nInterpretation\nA boxplot helps compare groups by showing:\n\ndifferences in typical values through the median\nvariation within each group\npossible outliers\noverlap across groups\n\nIf two groups overlap strongly, that variable alone may not separate them well.",
+    "text": "Boxplot\nBoxplots summarize a distribution using the median, quartiles, and possible outliers.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"sepal_length\",\n    ax=ax\n)\n\nax.set_title(\"Sepal Length by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Sepal Length\")\n\nplt.show()\n\n\n\nBoxplot comparing sepal length across the three Iris species.\n\n\n\nInterpretation\nA boxplot helps compare groups by showing:\n\ndifferences in typical values through the median\nvariation within each group\npossible outliers\noverlap across groups\n\nIf two groups overlap strongly, that variable alone may not separate them well.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1070,7 +1092,7 @@
     "href": "05-visualization-basics.html#scatter-plot",
     "title": "Visualization Foundations",
     "section": "Scatter plot",
-    "text": "Scatter plot\nScatter plots show the relationship between two numeric variables.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_length\",\n    y=\"petal_length\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Length vs Petal Length\")\nax.set_xlabel(\"Sepal Length\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\nInterpretation\nScatter plots help you evaluate:\n\nwhether two variables move together\nwhether groups form distinct clusters\nwhether the pattern appears linear or non-linear\nwhether any observations appear unusual\n\nIn many datasets, scatter plots are among the fastest ways to detect group structure.",
+    "text": "Scatter plot\nScatter plots show the relationship between two numeric variables.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_length\",\n    y=\"petal_length\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Length vs Petal Length\")\nax.set_xlabel(\"Sepal Length\")\nax.set_ylabel(\"Petal Length\")\n\nplt.show()\n\n\n\nScatter plot showing the relationship between sepal length and petal length, colored by species.\n\n\n\nInterpretation\nScatter plots help you evaluate:\n\nwhether two variables move together\nwhether groups form distinct clusters\nwhether the pattern appears linear or non-linear\nwhether any observations appear unusual\n\nIn many datasets, scatter plots are among the fastest ways to detect group structure.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1081,7 +1103,18 @@
     "href": "05-visualization-basics.html#grouped-histogram",
     "title": "Visualization Foundations",
     "section": "Grouped histogram",
-    "text": "Grouped histogram\nA grouped histogram helps compare distributions across categories.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.histplot(\n    data=df,\n    x=\"petal_length\",\n    hue=\"species\",\n    bins=15,\n    kde=True,\n    ax=ax\n)\n\nax.set_title(\"Petal Length Distribution by Species\")\nax.set_xlabel(\"Petal Length\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\nInterpretation\nThis plot helps compare whether groups differ in:\n\nlocation\nspread\noverlap\nshape of the distribution\n\nIf one group’s values occupy a clearly different range, that variable may be useful for distinguishing between groups.",
+    "text": "Grouped histogram\nA grouped histogram helps compare distributions across categories.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.histplot(\n    data=df,\n    x=\"petal_length\",\n    hue=\"species\",\n    bins=15,\n    kde=True,\n    ax=ax\n)\n\nax.set_title(\"Petal Length Distribution by Species\")\nax.set_xlabel(\"Petal Length\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\n\n\nOverlaid petal-length distributions for the three Iris species.\n\n\n\nInterpretation\nThis plot helps compare whether groups differ in:\n\nlocation\nspread\noverlap\nshape of the distribution\n\nIf one group’s values occupy a clearly different range, that variable may be useful for distinguishing between groups.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#small-multiple-histograms",
+    "href": "05-visualization-basics.html#small-multiple-histograms",
+    "title": "Visualization Foundations",
+    "section": "Small-multiple histograms",
+    "text": "Small-multiple histograms\nOverlaid distributions can become crowded. Small multiples give every species its own panel while preserving a common scale.\ng = sns.displot(\n    data=df,\n    x=\"petal_length\",\n    col=\"species\",\n    col_wrap=3,\n    bins=10,\n    kde=True,\n    height=3.5,\n    aspect=1\n)\n\ng.set_axis_labels(\"Petal Length\", \"Count\")\ng.set_titles(\"{col_name}\")\ng.fig.suptitle(\"Petal Length Distribution within Each Species\", y=1.05)\n\nplt.show()\n\n\n\nSmall-multiple histograms showing the petal-length distribution within each species.\n\n\n\nInterpretation\nThe grouped histogram is best for seeing overlap directly. The small-multiple version is often easier for comparing the shape and spread within each group. Using both views shows that setosa is clearly separated, while versicolor and virginica retain some overlap.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1092,7 +1125,40 @@
     "href": "05-visualization-basics.html#derived-feature-plot",
     "title": "Visualization Foundations",
     "section": "Derived feature plot",
-    "text": "Derived feature plot\nBecause Chapter 04 created petal_area, we can now visualize it directly.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    ax=ax\n)\n\nsns.stripplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    color=\"black\",\n    alpha=0.55,\n    size=4,\n    jitter=0.22,\n    ax=ax\n)\n\nax.set_title(\"Petal Area by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Area\")\n\nplt.show()\n\nInterpretation\nThis plot connects wrangling to visualization.\nA derived feature is only useful if it helps answer a question or clarify a pattern. Here, petal_area gives a compact petal-size measure that separates species more clearly than many sepal-based comparisons.",
+    "text": "Derived feature plot\nBecause Chapter 04 created petal_area, we can now visualize it directly.\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.boxplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    ax=ax\n)\n\nsns.stripplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    color=\"black\",\n    alpha=0.55,\n    size=4,\n    jitter=0.22,\n    ax=ax\n)\n\nax.set_title(\"Petal Area by Species\")\nax.set_xlabel(\"Species\")\nax.set_ylabel(\"Petal Area\")\n\nplt.show()\n\n\n\nPetal area by species, shown with boxplots and individual observations.\n\n\n\nInterpretation\nThis plot connects wrangling to visualization.\nA derived feature is only useful if it helps answer a question or clarify a pattern. Here, petal_area gives a compact petal-size measure that separates species more clearly than many sepal-based comparisons.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#boxplot-and-violin-plot-comparison",
+    "href": "05-visualization-basics.html#boxplot-and-violin-plot-comparison",
+    "title": "Visualization Foundations",
+    "section": "Boxplot and violin plot comparison",
+    "text": "Boxplot and violin plot comparison\nBoxplots and violin plots summarize the same grouped distributions in different ways.\nfig, axes = plt.subplots(1, 2, figsize=(13, 5.5), sharey=True)\n\nsns.boxplot(data=df, x=\"species\", y=\"petal_area\", ax=axes[0])\naxes[0].set_title(\"Boxplot\")\naxes[0].set_xlabel(\"Species\")\naxes[0].set_ylabel(\"Petal Area\")\n\nsns.violinplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    inner=\"quartile\",\n    cut=0,\n    ax=axes[1]\n)\nsns.stripplot(\n    data=df,\n    x=\"species\",\n    y=\"petal_area\",\n    color=\"black\",\n    alpha=0.4,\n    size=3,\n    jitter=0.16,\n    ax=axes[1]\n)\naxes[1].set_title(\"Violin Plot with Observations\")\naxes[1].set_xlabel(\"Species\")\naxes[1].set_ylabel(\"\")\n\nfig.suptitle(\"Two Views of Petal Area by Species\", y=1.02)\nplt.tight_layout()\nplt.show()\n\n\n\nSide-by-side boxplot and violin-plot views of petal area by species.\n\n\n\nInterpretation\nThe boxplot gives a compact summary of the median and quartiles. The violin plot reveals the estimated distribution shape, while the overlaid points keep the individual observations visible. For small datasets, displaying the observations helps prevent a smooth distribution from appearing more precise than the data support.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#scatter-plot-with-trend-lines",
+    "href": "05-visualization-basics.html#scatter-plot-with-trend-lines",
+    "title": "Visualization Foundations",
+    "section": "Scatter plot with trend lines",
+    "text": "Scatter plot with trend lines\nThe earlier scatter plot emphasizes clusters. Adding a separate trend line for each species helps compare within-group relationships.\ng = sns.lmplot(\n    data=df,\n    x=\"sepal_length\",\n    y=\"petal_length\",\n    hue=\"species\",\n    height=5.5,\n    aspect=1.35,\n    scatter_kws={\"s\": 55, \"alpha\": 0.75},\n    ci=None\n)\n\ng.set_axis_labels(\"Sepal Length\", \"Petal Length\")\ng.fig.suptitle(\"Within-Species Trends: Sepal Length vs Petal Length\", y=1.03)\n\nplt.show()\n\n\n\nScatter plot with separate within-species trend lines for sepal length and petal length.\n\n\n\nInterpretation\nThe overall upward pattern partly reflects differences between species. Within-species trend lines help separate that group structure from the relationship observed inside each species. A visible overall association does not always mean the same relationship is equally strong within every group.",
+    "crumbs": [
+      "Data Transformation and Analysis",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
+    ]
+  },
+  {
+    "objectID": "05-visualization-basics.html#correlation-heatmap",
+    "href": "05-visualization-basics.html#correlation-heatmap",
+    "title": "Visualization Foundations",
+    "section": "Correlation heatmap",
+    "text": "Correlation heatmap\nA correlation heatmap provides a compact overview of linear relationships among all numeric features.\nnumeric_columns = [\n    \"sepal_length\",\n    \"sepal_width\",\n    \"petal_length\",\n    \"petal_width\",\n    \"petal_area\"\n]\n\ncorrelations = df[numeric_columns].corr()\n\nfig, ax = plt.subplots(figsize=(8, 6.5))\n\nsns.heatmap(\n    correlations,\n    annot=True,\n    fmt=\".2f\",\n    cmap=\"vlag\",\n    center=0,\n    vmin=-1,\n    vmax=1,\n    square=True,\n    ax=ax\n)\n\nax.set_title(\"Correlation among Iris Numeric Features\")\nplt.tight_layout()\nplt.show()\n\n\n\nAnnotated correlation heatmap for the numeric Iris features.\n\n\n\nInterpretation\nPetal length, petal width, and petal area are strongly related. This agrees with the scatter plots and helps identify features that may carry similar information. Correlation summarizes linear association; it does not explain causation or replace inspection of the underlying points.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1103,7 +1169,7 @@
     "href": "05-visualization-basics.html#pairplot-overview",
     "title": "Visualization Foundations",
     "section": "Pairplot overview",
-    "text": "Pairplot overview\nPairplots provide a compact view of multiple variable relationships at once.\ng = sns.pairplot(\n    df[[\n        \"sepal_length\",\n        \"sepal_width\",\n        \"petal_length\",\n        \"petal_width\",\n        \"petal_area\",\n        \"species\"\n    ]],\n    hue=\"species\",\n    corner=True,\n    plot_kws={\"alpha\": 0.7}\n)\n\ng.fig.suptitle(\"Iris — Pairwise Relationships by Species\", y=1.02)\n\nplt.show()\n\nInterpretation\nPairplots help answer broader questions such as:\n\nwhich variables best separate species?\nwhich features appear strongly related?\nwhich measurements appear redundant?\nwhere groups overlap and where they separate clearly?\n\nThis is often one of the most useful first multivariate views of a dataset.",
+    "text": "Pairplot overview\nPairplots provide a compact view of multiple variable relationships at once.\ng = sns.pairplot(\n    df[[\n        \"sepal_length\",\n        \"sepal_width\",\n        \"petal_length\",\n        \"petal_width\",\n        \"petal_area\",\n        \"species\"\n    ]],\n    hue=\"species\",\n    corner=True,\n    plot_kws={\"alpha\": 0.7}\n)\n\ng.fig.suptitle(\"Iris — Pairwise Relationships by Species\", y=1.02)\n\nplt.show()\n\n\n\nPairplot showing pairwise relationships among Iris measurements, colored by species.\n\n\n\nInterpretation\nPairplots help answer broader questions such as:\n\nwhich variables best separate species?\nwhich features appear strongly related?\nwhich measurements appear redundant?\nwhere groups overlap and where they separate clearly?\n\nThis is often one of the most useful first multivariate views of a dataset.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1147,7 +1213,7 @@
     "href": "05-visualization-basics.html#run-the-reusable-plotting-script",
     "title": "Visualization Foundations",
     "section": "Run the reusable plotting script",
-    "text": "Run the reusable plotting script\nThe manual plotting examples above explain the logic. The reusable script creates and saves a standard figure set.\nRun this from the project root:\npython scripts/python/plot_example_data.py data/iris_wrangled.csv results/figures\nExpected outputs:\nresults/figures/\n├── histogram-sepal-length.png\n├── boxplot-sepal-length-by-species.png\n├── scatter-sepal-length-vs-petal-length.png\n├── histogram-petal-length-by-species.png\n├── boxplot-petal-area-by-species.png\n├── pairplot-iris-by-species.png\n└── figure-index.tsv",
+    "text": "Run the reusable plotting script\nThe manual plotting examples above explain the logic. The reusable script creates and saves a standard figure set.\nRun this from the project root:\npython scripts/python/plot_example_data.py data/iris_wrangled.csv results/figures\nExpected outputs:\nresults/figures/\n├── histogram-sepal-length.png\n├── distribution-views-sepal-length.png\n├── boxplot-sepal-length-by-species.png\n├── scatter-sepal-length-vs-petal-length.png\n├── histogram-petal-length-by-species.png\n├── small-multiples-petal-length-by-species.png\n├── boxplot-petal-area-by-species.png\n├── comparison-petal-area-by-species.png\n├── scatter-trends-by-species.png\n├── correlation-heatmap.png\n├── pairplot-iris-by-species.png\n└── figure-index.tsv",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1158,7 +1224,7 @@
     "href": "05-visualization-basics.html#what-the-plotting-script-does",
     "title": "Visualization Foundations",
     "section": "What the plotting script does",
-    "text": "What the plotting script does\nThe script:\n\nreads the wrangled input table\nvalidates required columns\ncreates a standard set of exploratory figures\nsaves figures as .png files\nwrites a figure index table with filenames and descriptions\n\nThe figure index helps later reporting chapters refer to plots consistently.",
+    "text": "What the plotting script does\nThe script:\n\nreads the wrangled input table\nvalidates required columns\ncreates a varied set of exploratory and comparison figures\nsaves figures as .png files\nwrites a figure index table with filenames and descriptions\n\nThe figure index helps later reporting chapters refer to plots consistently.",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1169,7 +1235,7 @@
     "href": "05-visualization-basics.html#exercise",
     "title": "Visualization Foundations",
     "section": "Exercise",
-    "text": "Exercise\nTry the following:\n\nOpen results/figures/figure-index.tsv.\nOpen results/figures/boxplot-petal-area-by-species.png.\nCreate a scatter plot of sepal_width versus petal_width.\nPlot a histogram of petal_width.\nWrite one sentence describing which feature seems most useful for separating species.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_width\",\n    y=\"petal_width\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Width vs Petal Width\")\nax.set_xlabel(\"Sepal Width\")\nax.set_ylabel(\"Petal Width\")\n\nplt.show()\n\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.histplot(\n    data=df,\n    x=\"petal_width\",\n    bins=12,\n    kde=True,\n    ax=ax\n)\n\nax.set_title(\"Distribution of Petal Width\")\nax.set_xlabel(\"Petal Width\")\nax.set_ylabel(\"Count\")\n\nplt.show()\n\nprint(\"Petal-related features appear more useful than sepal-related features for separating species because their group differences are more distinct.\")",
+    "text": "Exercise\nTry the following:\n\nOpen results/figures/figure-index.tsv.\nOpen results/figures/boxplot-petal-area-by-species.png.\nCompare the boxplot and violin plot of petal_area.\nCreate a scatter plot of sepal_width versus petal_width.\nPlot both a histogram and an ECDF of petal_width.\nWrite one sentence describing which figure most clearly shows species separation and explain why.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nfig, ax = plt.subplots(figsize=(8, 5.5))\n\nsns.scatterplot(\n    data=df,\n    x=\"sepal_width\",\n    y=\"petal_width\",\n    hue=\"species\",\n    s=70,\n    alpha=0.8,\n    ax=ax\n)\n\nax.set_title(\"Sepal Width vs Petal Width\")\nax.set_xlabel(\"Sepal Width\")\nax.set_ylabel(\"Petal Width\")\n\nplt.show()\n\nfig, axes = plt.subplots(1, 2, figsize=(12, 5))\n\nsns.histplot(data=df, x=\"petal_width\", bins=12, ax=axes[0])\naxes[0].set_title(\"Histogram of Petal Width\")\naxes[0].set_xlabel(\"Petal Width\")\naxes[0].set_ylabel(\"Count\")\n\nsns.ecdfplot(data=df, x=\"petal_width\", ax=axes[1])\naxes[1].set_title(\"ECDF of Petal Width\")\naxes[1].set_xlabel(\"Petal Width\")\naxes[1].set_ylabel(\"Proportion at or below\")\n\nplt.tight_layout()\nplt.show()\n\nprint(\n    \"The pairplot most clearly shows overall species separation because \"\n    \"it compares several feature combinations in one coordinated view.\"\n)",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"
@@ -1191,7 +1257,7 @@
     "href": "05-visualization-basics.html#summary",
     "title": "Visualization Foundations",
     "section": "Summary",
-    "text": "Summary\nIn this lesson, you:\n\nused foundational plot types to explore the Iris dataset\ncompared distributions within and across species\nexamined relationships between numeric variables\nvisualized the derived petal_area feature\nused visual patterns to support interpretation\nsaved reusable figures with plot_example_data.py\ncreated results/figures/figure-index.tsv",
+    "text": "Summary\nIn this lesson, you:\n\nused a varied set of foundational plot types to explore the Iris dataset\ncompared multiple visual choices for the same question\ncompared distributions within and across species\nexamined relationships between numeric variables\nvisualized the derived petal_area feature\nused a heatmap and pairplot to inspect multivariable structure\nused visual patterns to support interpretation\nsaved reusable figures with plot_example_data.py\ncreated results/figures/figure-index.tsv",
     "crumbs": [
       "Data Transformation and Analysis",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Visualization Foundations</span>"

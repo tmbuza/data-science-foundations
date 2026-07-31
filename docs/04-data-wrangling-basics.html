@@ -371,10 +371,14 @@ results/wrangling/wrangling-report.txt</code></pre>
 <section id="load-the-cleaned-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="load-the-cleaned-dataset">Load the cleaned dataset</h2>
 <p>We use the cleaned dataset created in Chapter 03.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/iris_clean.csv"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/iris_clean.csv"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>rows_before <span class="op">=</span> <span class="bu">len</span>(df)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df.insert(<span class="dv">0</span>, <span class="st">"observation_id"</span>, <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(df) <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>observation_id</code> preserves the identity of each original flower as the table is sorted and reshaped later in the workflow.</p>
 <hr>
 </section>
 <section id="select-columns" class="level2">
@@ -399,15 +403,23 @@ results/wrangling/wrangling-report.txt</code></pre>
 <p>Here, we define a new feature, <code>petal_area</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"petal_area"</span>] <span class="op">=</span> df[<span class="st">"petal_length"</span>] <span class="op">*</span> df[<span class="st">"petal_width"</span>]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this lesson, <code>petal_area</code> is a simple rectangular approximation calculated as petal length × petal width. It is not the true biological area of a petal. Because both measurements are in centimetres, the approximate area is in square centimetres (cm²).</p>
 <p>A derived feature should be easy to explain and reproducible from existing columns.</p>
 <hr>
 </section>
 <section id="sort-data" class="level2">
 <h2 class="anchored" data-anchor-id="sort-data">Sort data</h2>
 <p>Sorting helps examine extreme or ordered values.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_sorted <span class="op">=</span> df.sort_values(by<span class="op">=</span><span class="st">"petal_area"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df_sorted.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This makes it easier to inspect the largest values, smallest values, or top-ranked observations.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    df.sort_values(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        by<span class="op">=</span>[<span class="st">"petal_area"</span>, <span class="st">"species"</span>],</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        ascending<span class="op">=</span>[<span class="va">False</span>, <span class="va">True</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This makes it easier to inspect the largest values, smallest values, or top-ranked observations. Resetting the index produces a clean row index after sorting, while <code>observation_id</code> continues to identify the original flowers.</p>
 <hr>
 </section>
 <section id="group-and-aggregate-values" class="level2">
@@ -421,34 +433,39 @@ results/wrangling/wrangling-report.txt</code></pre>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>          mean_petal_area<span class="op">=</span>(<span class="st">"petal_area"</span>, <span class="st">"mean"</span>),</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>          median_petal_area<span class="op">=</span>(<span class="st">"petal_area"</span>, <span class="st">"median"</span>),</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>          mean_sepal_length<span class="op">=</span>(<span class="st">"sepal_length"</span>, <span class="st">"mean"</span>),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>          mean_petal_length<span class="op">=</span>(<span class="st">"petal_length"</span>, <span class="st">"mean"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      .reset_index()</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>grouped</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>          mean_sepal_width<span class="op">=</span>(<span class="st">"sepal_width"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>          mean_petal_length<span class="op">=</span>(<span class="st">"petal_length"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>          mean_petal_width<span class="op">=</span>(<span class="st">"petal_width"</span>, <span class="st">"mean"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      .reset_index()</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>      .sort_values(<span class="st">"mean_petal_area"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>grouped</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This type of grouped table is one of the most common outputs in tidy-table analysis.</p>
 <hr>
 </section>
 <section id="apply-conditional-logic" class="level2">
 <h2 class="anchored" data-anchor-id="apply-conditional-logic">Apply conditional logic</h2>
 <p>Conditional logic creates categories based on defined rules.</p>
-<p>Here, we assign a size category based on whether <code>petal_area</code> is above or below the median.</p>
+<p>Here, we assign a size category based on whether <code>petal_area</code> is above the dataset median.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>median_petal_area <span class="op">=</span> df[<span class="st">"petal_area"</span>].median()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"size_category"</span>] <span class="op">=</span> df[<span class="st">"petal_area"</span>].<span class="bu">apply</span>(</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: <span class="st">"large"</span> <span class="cf">if</span> x <span class="op">&gt;</span> median_petal_area <span class="cf">else</span> <span class="st">"small"</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The rule should be stated clearly so another analyst can reproduce or challenge it.</p>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"size_category"</span>] <span class="op">=</span> np.where(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"petal_area"</span>] <span class="op">&gt;</span> median_petal_area,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"large"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"small"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Values greater than the median are labelled <code>"large"</code>; values equal to or below the median are labelled <code>"small"</code>. This is a relative teaching category for this dataset, not a biological classification.</p>
 <hr>
 </section>
 <section id="reshape-into-long-format" class="level2">
 <h2 class="anchored" data-anchor-id="reshape-into-long-format">Reshape into long format</h2>
 <p>Long format is especially useful for visualization and grouped summaries.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df.melt(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"species"</span>, <span class="st">"size_category"</span>],</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">"observation_id"</span>, <span class="st">"species"</span>, <span class="st">"size_category"</span>],</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">"sepal_length"</span>, <span class="st">"sepal_width"</span>, <span class="st">"petal_length"</span>, <span class="st">"petal_width"</span>],</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">"measurement"</span>,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">"value"</span></span>
@@ -468,7 +485,19 @@ results/wrangling/wrangling-report.txt</code></pre>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values detected after wrangling."</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">"petal_area"</span> <span class="kw">in</span> df.columns, <span class="st">"petal_area was not created."</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">"size_category"</span> <span class="kw">in</span> df.columns, <span class="st">"size_category was not created."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="st">"size_category"</span> <span class="kw">in</span> df.columns, <span class="st">"size_category was not created."</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(df) <span class="op">==</span> rows_before, <span class="st">"Row count changed during wrangling."</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df[<span class="st">"observation_id"</span>].is_unique, <span class="st">"observation_id must be unique."</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">set</span>(df[<span class="st">"size_category"</span>]) <span class="op">&lt;=</span> {<span class="st">"small"</span>, <span class="st">"large"</span>}, <span class="st">"Unexpected size category detected."</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(df_long) <span class="op">==</span> <span class="bu">len</span>(df) <span class="op">*</span> <span class="dv">4</span>, <span class="st">"Long table must contain four rows per observation."</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> df_long[<span class="st">"observation_id"</span>].value_counts().eq(<span class="dv">4</span>).<span class="bu">all</span>(), (</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Each observation must appear four times in the long table."</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(grouped) <span class="op">==</span> df[<span class="st">"species"</span>].nunique(), (</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Species summary must contain one row per species."</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(grouped.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values detected in species summary."</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df_long.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values detected in long table."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Validation checks help prevent downstream chapters from using incomplete or incorrectly transformed data.</p>
 <hr>
 </section>
@@ -507,6 +536,7 @@ results/wrangling/wrangling-report.txt</code></pre>
 <p>The script:</p>
 <ul>
 <li>reads the cleaned input table</li>
+<li>creates <code>observation_id</code> to preserve original row identity</li>
 <li>creates <code>petal_area</code></li>
 <li>creates <code>size_category</code></li>
 <li>sorts the table by <code>petal_area</code></li>
@@ -525,7 +555,7 @@ results/wrangling/wrangling-report.txt</code></pre>
 <li>Open <code>results/wrangling/species-summary.tsv</code>.</li>
 <li>Identify the species with the largest mean <code>petal_area</code>.</li>
 <li>Open <code>results/wrangling/iris-long.tsv</code>.</li>
-<li>Confirm that the long-format table has one row per species-measurement value.</li>
+<li>Confirm that each original observation contributes four rows—one for each measurement.</li>
 <li>Rerun the Chapter 02 inspection script on the wrangled table.</li>
 </ol>
 <p>Use:</p>
@@ -551,6 +581,12 @@ Solution
 ├── table-column-summary.tsv
 └── table-missing-values.tsv</code></pre>
 <p>The species summary table should show that petal-based measurements differ strongly by species.</p>
+<p>For the standard Iris dataset:</p>
+<ul>
+<li><code>virginica</code> has the largest mean approximate <code>petal_area</code></li>
+<li>150 original observations produce 600 long-format rows</li>
+<li>every <code>observation_id</code> appears exactly four times in the long-format table</li>
+</ul>
 </div>
 </div>
 </div>
@@ -576,6 +612,7 @@ Solution
 <p>In this lesson, you:</p>
 <ul>
 <li>selected and filtered data</li>
+<li>created an identifier for each original observation</li>
 <li>created <code>petal_area</code></li>
 <li>sorted rows by a derived feature</li>
 <li>grouped and summarized values by species</li>

@@ -1,7 +1,12 @@
 filename	title	description
 histogram-sepal-length.png	Distribution of Sepal Length	Histogram showing the distribution of sepal length.
+distribution-views-sepal-length.png	Three Views of Sepal Length	Histogram, density, and ECDF views of the same variable.
 boxplot-sepal-length-by-species.png	Sepal Length by Species	Boxplot comparing sepal length across species.
 scatter-sepal-length-vs-petal-length.png	Sepal Length vs Petal Length	Scatter plot showing the relationship between sepal length and petal length by species.
 histogram-petal-length-by-species.png	Petal Length Distribution by Species	Grouped histogram comparing petal length distributions across species.
+small-multiples-petal-length-by-species.png	Petal Length within Each Species	Small-multiple histograms of within-species distributions.
 boxplot-petal-area-by-species.png	Petal Area by Species	Boxplot with observed points comparing derived petal area across species.
+comparison-petal-area-by-species.png	Two Views of Petal Area by Species	Side-by-side boxplot and violin plot with observations.
+scatter-trends-by-species.png	Within-Species Scatter-Plot Trends	Scatter plot with a separate fitted trend for each species.
+correlation-heatmap.png	Correlation among Iris Numeric Features	Annotated heatmap of correlations among numeric features.
 pairplot-iris-by-species.png	Iris Pairwise Relationships by Species	Pairplot showing multivariate relationships among Iris measurements by species.

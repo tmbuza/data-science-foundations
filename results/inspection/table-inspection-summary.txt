@@ -18,7 +18,7 @@ Numeric columns:
 - petal_length
 - petal_width
 
-Non-numeric / categorical columns:
+Non-numeric columns (possible categorical or text variables):
 - species
 
 Total missing values: 0

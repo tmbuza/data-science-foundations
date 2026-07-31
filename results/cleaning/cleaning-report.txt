@@ -6,13 +6,20 @@ Output file: data/iris_clean.csv
 
 Rows before cleaning: 150
 Columns before cleaning: 5
-Rows after cleaning: 149
+Rows after cleaning: 150
 Columns after cleaning: 5
 
-Duplicate rows detected before cleaning: 1
-Duplicate rows after cleaning: 0
-Missing values before cleaning: 0
+Missing values in original table: 0
+Values converted to missing during numeric coercion: 0
+Missing values after numeric conversion: 0
+Missing values filled: 0
 Missing values after cleaning: 0
+
+Repeated rows after the first occurrence: 1
+Rows participating in identical-row groups: 2
+Identical rows removed: 0
+Decision: Identical rows were reported and retained because identical
+values alone do not prove that records are accidental duplicates.
 
 Original columns:
 - sepal_length
@@ -21,16 +28,27 @@ Original columns:
 - petal_width
 - species
 
-Cleaned columns:
+Standardized columns:
 - sepal_length
 - sepal_width
 - petal_length
 - petal_width
 - species
 
-Cleaning rules applied:
-- Standardized column names
-- Removed duplicate rows
-- Filled missing numeric values with column medians
-- Filled missing categorical values with column modes
-- Validated missing values and duplicate rows after cleaning
+Numeric conversion results:
+- sepal_length: 0 value(s) coerced to missing
+- sepal_width: 0 value(s) coerced to missing
+- petal_length: 0 value(s) coerced to missing
+- petal_width: 0 value(s) coerced to missing
+
+Missing-value actions:
+- No missing values required imputation
+
+Validation results:
+- All required Iris columns are present
+- All four measurement columns are numeric
+- No missing values remain
+- Identical rows were measured and retained
+
+Note: The pandas category type assigned to 'species' is not stored
+in CSV or TSV output. Convert it again after reloading if needed.

@@ -275,11 +275,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#cleaning-philosophy" id="toc-cleaning-philosophy" class="nav-link" data-scroll-target="#cleaning-philosophy">Cleaning philosophy</a></li>
   <li><a href="#load-the-dataset" id="toc-load-the-dataset" class="nav-link" data-scroll-target="#load-the-dataset">Load the dataset</a></li>
   <li><a href="#initial-inspection" id="toc-initial-inspection" class="nav-link" data-scroll-target="#initial-inspection">Initial inspection</a></li>
-  <li><a href="#detect-column-types" id="toc-detect-column-types" class="nav-link" data-scroll-target="#detect-column-types">Detect column types</a></li>
-  <li><a href="#detect-and-remove-duplicates" id="toc-detect-and-remove-duplicates" class="nav-link" data-scroll-target="#detect-and-remove-duplicates">Detect and remove duplicates</a></li>
-  <li><a href="#column-name-hygiene" id="toc-column-name-hygiene" class="nav-link" data-scroll-target="#column-name-hygiene">Column name hygiene</a></li>
+  <li><a href="#standardize-column-names" id="toc-standardize-column-names" class="nav-link" data-scroll-target="#standardize-column-names">Standardize column names</a></li>
+  <li><a href="#inspect-identical-rows" id="toc-inspect-identical-rows" class="nav-link" data-scroll-target="#inspect-identical-rows">Inspect identical rows</a></li>
+  <li><a href="#detect-and-convert-numeric-like-columns" id="toc-detect-and-convert-numeric-like-columns" class="nav-link" data-scroll-target="#detect-and-convert-numeric-like-columns">Detect and convert numeric-like columns</a></li>
   <li><a href="#handle-missing-values" id="toc-handle-missing-values" class="nav-link" data-scroll-target="#handle-missing-values">Handle missing values</a></li>
-  <li><a href="#fix-data-types" id="toc-fix-data-types" class="nav-link" data-scroll-target="#fix-data-types">Fix data types</a></li>
+  <li><a href="#assign-appropriate-in-memory-types" id="toc-assign-appropriate-in-memory-types" class="nav-link" data-scroll-target="#assign-appropriate-in-memory-types">Assign appropriate in-memory types</a></li>
   <li><a href="#validation-checks" id="toc-validation-checks" class="nav-link" data-scroll-target="#validation-checks">Validation checks</a></li>
   <li><a href="#save-the-cleaned-dataset" id="toc-save-the-cleaned-dataset" class="nav-link" data-scroll-target="#save-the-cleaned-dataset">Save the cleaned dataset</a></li>
   <li><a href="#run-the-reusable-cleaning-script" id="toc-run-the-reusable-cleaning-script" class="nav-link" data-scroll-target="#run-the-reusable-cleaning-script">Run the reusable cleaning script</a></li>
@@ -340,18 +340,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>This lesson continues from Chapter 02, where we created and inspected:</p>
 <pre class="text"><code>data/iris.csv</code></pre>
-<p>In this chapter, we clean that dataset and save a downstream-ready version:</p>
+<p>In this chapter, we evaluate that dataset, apply only justified cleaning steps, and save a downstream-ready version:</p>
 <pre class="text"><code>data/iris_clean.csv</code></pre>
+<p>The Iris dataset is already relatively clean. Its four measurement columns contain values in centimetres, its species labels are consistent, and it may contain no missing values. That is useful for learning: a cleaning workflow can confirm that no correction is needed. Cleaning does not require changing data when the evidence does not justify a change.</p>
 <hr>
 <section id="lesson-overview" class="level2">
 <h2 class="anchored" data-anchor-id="lesson-overview">Lesson overview</h2>
 <p>By the end of this lesson, you will be able to:</p>
 <ul>
 <li>inspect a dataset for common quality issues</li>
-<li>detect and handle duplicate rows</li>
+<li>distinguish identical rows from confirmed duplicate records</li>
 <li>standardize column names</li>
+<li>identify and convert numeric-like text carefully</li>
 <li>handle missing values using clear rules</li>
-<li>correct inconsistent data types</li>
 <li>validate and save a cleaned dataset</li>
 <li>run a reusable cleaning script from the command line</li>
 </ul>
@@ -360,10 +361,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="chapter-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="chapter-workflow">Chapter workflow</h2>
 <p>This chapter introduces the second reusable Python script in the system:</p>
-<pre class="text"><code>03-data-cleaning-and-preparation.qmd
-        ↓
+<pre class="text"><code>data/iris.csv
+      ↓
 scripts/python/clean_example_data.py
-        ↓
+      ↓
 data/iris_clean.csv
 results/cleaning/cleaning-report.txt</code></pre>
 <p>The cleaned dataset becomes the input for downstream wrangling, visualization, and summary statistics.</p>
@@ -373,14 +374,22 @@ results/cleaning/cleaning-report.txt</code></pre>
 <h2 class="anchored" data-anchor-id="cleaning-philosophy">Cleaning philosophy</h2>
 <p>A responsible cleaning workflow follows a simple rule:</p>
 <pre class="text"><code>inspect first
-clean second
-validate third
+decide second
+clean third
+validate fourth
 save last</code></pre>
+<p>For each potential issue:</p>
+<ol type="1">
+<li>measure the issue</li>
+<li>inspect the affected observations</li>
+<li>choose and document a rule</li>
+<li>apply the rule only when justified</li>
+<li>validate the result</li>
+</ol>
 <p>Never modify data without first understanding what is being changed.</p>
-<p>Always validate the results of cleaning steps with explicit checks.</p>
 <div class="cdi-message">
 <p>Cleaning should not hide uncertainty.<br>
-It should make data preparation decisions visible and reproducible.</p>
+It should make data-preparation decisions visible and reproducible.</p>
 </div>
 <hr>
 </section>
@@ -400,129 +409,203 @@ It should make data preparation decisions visible and reproducible.</p>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Column names:"</span>, df.columns.tolist())</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Data types:"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then check summary statistics and missing values.</p>
+<p>Then inspect summary statistics and missing values.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Summary statistics:"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.describe(include<span class="op">=</span><span class="st">"all"</span>))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Missing values per column:"</span>)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The purpose of this inspection is to establish a baseline. Later, you can compare the cleaned table with this starting point and explain what changed—or why nothing needed to change.</p>
 <hr>
 </section>
-<section id="detect-column-types" class="level2">
-<h2 class="anchored" data-anchor-id="detect-column-types">Detect column types</h2>
-<p>Separating numeric and categorical columns helps us apply appropriate cleaning rules.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Numeric columns:"</span>, num_cols)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Categorical columns:"</span>, cat_cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For this dataset, the measurement columns are numeric and <code>species</code> is categorical.</p>
+<section id="standardize-column-names" class="level2">
+<h2 class="anchored" data-anchor-id="standardize-column-names">Standardize column names</h2>
+<p>Consistent column names make downstream code easier to read and less error-prone.</p>
+<p>For this lesson, use a simple starter rule:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(c)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    .strip()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .lower()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">"("</span>, <span class="st">""</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">")"</span>, <span class="st">""</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> df.columns</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated columns:"</span>, df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This rule is adequate for the known Iris columns, but it is not a complete solution for every possible name. Real datasets may also contain punctuation, repeated underscores, non-English characters, or names that become identical after standardization. A reusable production workflow should check for those cases explicitly.</p>
 <hr>
 </section>
-<section id="detect-and-remove-duplicates" class="level2">
-<h2 class="anchored" data-anchor-id="detect-and-remove-duplicates">Detect and remove duplicates</h2>
-<p>Duplicate rows can distort counts, summaries, visualizations, and model training.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dup_count <span class="op">=</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>())</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows found:"</span>, dup_count)</span>
+<section id="inspect-identical-rows" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-identical-rows">Inspect identical rows</h2>
+<p><code>df.duplicated()</code> identifies rows whose values are identical across all columns.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>identical_count <span class="op">=</span> <span class="bu">int</span>(df.duplicated(keep<span class="op">=</span><span class="va">False</span>).<span class="bu">sum</span>())</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows involved in identical-row groups:"</span>, identical_count)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Inspect duplicates carefully before removal."</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df[df.duplicated()].head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If duplicates exist, remove them only after inspection.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> dup_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop_duplicates().reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape after duplicate handling:"</span>, df.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For a real project, duplicate handling should always be explained in the analysis notes.</p>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> identical_count <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Inspect identical rows carefully:"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        df[df.duplicated(keep<span class="op">=</span><span class="va">False</span>)]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        .sort_values(df.columns.tolist())</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        .head(<span class="dv">10</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Identical values do not automatically prove that records are accidental duplicates. Two flowers can legitimately have the same four measurements and species label.</p>
+<p>To confirm a duplicate record, you usually need additional evidence, such as:</p>
+<ul>
+<li>a unique observation identifier</li>
+<li>a repeated source row caused by data entry or file merging</li>
+<li>a timestamp or collection record</li>
+<li>knowledge of how the data was produced</li>
+</ul>
+<p>Because this dataset does not contain a unique flower identifier, this lesson reports identical rows but retains them.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>confirmed_duplicates_removed <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Confirmed duplicate records removed:"</span>, confirmed_duplicates_removed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If a real project establishes that specific records are accidental duplicates, document the evidence and removal rule before changing the table.</p>
+<div class="cdi-message">
+<p>Identical rows are a signal to investigate—not automatic permission to delete observations.</p>
+</div>
 <hr>
 </section>
-<section id="column-name-hygiene" class="level2">
-<h2 class="anchored" data-anchor-id="column-name-hygiene">Column name hygiene</h2>
-<p>Clean column names make downstream code easier to read and less error-prone.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> [</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">str</span>(c)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    .strip()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    .lower()</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">"("</span>, <span class="st">""</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    .replace(<span class="st">")"</span>, <span class="st">""</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> df.columns</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Updated columns:"</span>, df.columns.tolist())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This keeps column names consistent with the tidy-table style used across CDI systems.</p>
+<section id="detect-and-convert-numeric-like-columns" class="level2">
+<h2 class="anchored" data-anchor-id="detect-and-convert-numeric-like-columns">Detect and convert numeric-like columns</h2>
+<p>Pandas infers data types when it reads a file, but a numeric column can sometimes be stored as text because of values such as <code>"unknown"</code> or <code>"not recorded"</code>.</p>
+<p>First, inspect the currently detected column types.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>text_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Currently numeric columns:"</span>, numeric_cols)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Currently non-numeric columns:"</span>, text_cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For the known Iris schema, the four measurement columns should be numeric:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>expected_numeric_cols <span class="op">=</span> [</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sepal_length"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sepal_width"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"petal_length"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"petal_width"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> expected_numeric_cols:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> c <span class="kw">in</span> df.columns:</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        before_missing <span class="op">=</span> <span class="bu">int</span>(df[c].isna().<span class="bu">sum</span>())</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        converted <span class="op">=</span> pd.to_numeric(df[c], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        after_missing <span class="op">=</span> <span class="bu">int</span>(converted.isna().<span class="bu">sum</span>())</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> after_missing <span class="op">&gt;</span> before_missing:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"</span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">: conversion created "</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"</span><span class="sc">{</span>after_missing <span class="op">-</span> before_missing<span class="sc">}</span><span class="ss"> missing value(s)"</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> converted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The argument <code>errors="coerce"</code> converts values that cannot be interpreted as numbers to <code>NaN</code>. This makes invalid values visible as missing data, but it can also create new missing values. That is why conversion occurs before missing-value handling and why the number of newly missing values is reported.</p>
+<p>After conversion, recalculate the column groups:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Numeric columns after conversion:"</span>, numeric_cols)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Categorical columns after conversion:"</span>, categorical_cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using expected columns is safer here than attempting to convert every text column automatically. For example, the <code>species</code> column contains meaningful labels and should remain non-numeric.</p>
 <hr>
 </section>
 <section id="handle-missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="handle-missing-values">Handle missing values</h2>
-<p>First, measure missingness.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then apply a clear rule.</p>
-<p>For this lesson, we use a simple starter pattern:</p>
+<p>First, measure missingness after type conversion.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>missing_before <span class="op">=</span> df.isna().<span class="bu">sum</span>()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_before)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this lesson, the expected downstream table must be complete. We therefore use a simple starter rule:</p>
 <ul>
 <li>numeric columns: fill missing values with the median</li>
 <li>categorical columns: fill missing values with the most frequent value</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cat_cols <span class="op">=</span> df.select_dtypes(exclude<span class="op">=</span><span class="st">"number"</span>).columns.tolist()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>df[num_cols] <span class="op">=</span> df[num_cols].fillna(df[num_cols].median())</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> cat_cols:</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df[c].isna().<span class="bu">any</span>():</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> df[c].fillna(df[c].mode().iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Apply each rule only to columns that contain missing values:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> numeric_cols:</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df[c].isna().<span class="bu">any</span>():</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        median_value <span class="op">=</span> df[c].median()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> pd.isna(median_value):</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"Cannot impute </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">: the entire column is missing."</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> df[c].fillna(median_value)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> categorical_cols:</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df[c].isna().<span class="bu">any</span>():</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        modes <span class="op">=</span> df[c].mode(dropna<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> modes.empty:</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"Cannot impute </span><span class="sc">{</span>c<span class="sc">}</span><span class="ss">: the entire column is missing."</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        df[c] <span class="op">=</span> df[c].fillna(modes.iloc[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the Iris table has no missing values, these loops make no changes. That is a valid result: the workflow has checked the condition and documented that imputation was unnecessary.</p>
 <div class="cdi-message">
-<p>This imputation rule is useful for teaching, but it is not universal.<br>
-In real projects, missing value handling should reflect the data source, study design, and analysis goal.</p>
+<p>Median and mode imputation are useful for teaching, but they are not universal rules.<br>
+In real projects, missing-value handling should reflect the data source, study design, reason for missingness, and analysis goal.</p>
 </div>
 <hr>
 </section>
-<section id="fix-data-types" class="level2">
-<h2 class="anchored" data-anchor-id="fix-data-types">Fix data types</h2>
-<p>After cleaning, confirm that columns have appropriate types.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> num_cols:</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    df[c] <span class="op">=</span> pd.to_numeric(df[c], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"species"</span> <span class="kw">in</span> df.columns:</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"species"</span>] <span class="op">=</span> df[<span class="st">"species"</span>].astype(<span class="st">"category"</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This step protects later analysis from hidden type problems, such as numeric values stored as text.</p>
+<section id="assign-appropriate-in-memory-types" class="level2">
+<h2 class="anchored" data-anchor-id="assign-appropriate-in-memory-types">Assign appropriate in-memory types</h2>
+<p>After conversion and missing-value handling, confirm that the columns have appropriate pandas data types.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">"species"</span> <span class="kw">in</span> df.columns:</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"species"</span>] <span class="op">=</span> df[<span class="st">"species"</span>].astype(<span class="st">"category"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This converts <code>species</code> to a pandas categorical column while the table is in memory.</p>
+<p>CSV files store values but do not preserve pandas-specific data types. If you save the table as CSV and load it again, <code>species</code> will usually be read as <code>object</code> or <code>string</code>, not <code>category</code>. Convert it again after loading when a downstream analysis requires the categorical type.</p>
 <hr>
 </section>
 <section id="validation-checks" class="level2">
 <h2 class="anchored" data-anchor-id="validation-checks">Validation checks</h2>
-<p>Validation confirms that cleaning produced the expected result.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final shape:"</span>, df.shape)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total missing values:"</span>, <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()))</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Duplicate rows:"</span>, <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()))</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Missing values remain."</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">int</span>(df.duplicated().<span class="bu">sum</span>()) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"Duplicates remain."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Assertions are useful because they stop the workflow when expected conditions are not met.</p>
+<p>Validation confirms that the workflow produced the expected downstream table.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>final_missing <span class="op">=</span> <span class="bu">int</span>(df.isna().<span class="bu">sum</span>().<span class="bu">sum</span>())</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>identical_rows_retained <span class="op">=</span> <span class="bu">int</span>(df.duplicated(keep<span class="op">=</span><span class="va">False</span>).<span class="bu">sum</span>())</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final shape:"</span>, df.shape)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Total missing values:"</span>, final_missing)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Rows in identical-row groups:"</span>, identical_rows_retained)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Confirmed duplicate records removed:"</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    confirmed_duplicates_removed,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> final_missing <span class="op">==</span> <span class="dv">0</span>, (</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Missing values remain, but this lesson requires a complete output table."</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">set</span>(expected_numeric_cols).issubset(df.columns), (</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"One or more expected measurement columns are missing."</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">all</span>(</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    pd.api.types.is_numeric_dtype(df[c])</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> expected_numeric_cols</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>), <span class="st">"One or more measurement columns are not numeric."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Notice that the workflow does not assert that identical rows must be absent. They are retained because the available columns do not establish that they are erroneous duplicate records.</p>
+<p>Assertions are useful because they stop the workflow when required conditions are not met. They should express conditions justified by the current dataset and downstream purpose—not assumptions that every dataset must satisfy.</p>
 <hr>
 </section>
 <section id="save-the-cleaned-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="save-the-cleaned-dataset">Save the cleaned dataset</h2>
-<p>Save the cleaned table as a new file.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"data"</span>).mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/iris_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved cleaned dataset to: data/iris_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Save the prepared table as a new file.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Path(<span class="st">"data"</span>).mkdir(exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>df.to_csv(<span class="st">"data/iris_clean.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Saved cleaned dataset to: data/iris_clean.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The original input remains available as:</p>
 <pre class="text"><code>data/iris.csv</code></pre>
-<p>The cleaned downstream version is:</p>
+<p>The downstream-ready version is:</p>
 <pre class="text"><code>data/iris_clean.csv</code></pre>
+<p>Saving a new file preserves the original evidence and makes the preparation workflow easier to audit.</p>
 <hr>
 </section>
 <section id="run-the-reusable-cleaning-script" class="level2">
 <h2 class="anchored" data-anchor-id="run-the-reusable-cleaning-script">Run the reusable cleaning script</h2>
-<p>The manual steps above explain the logic. The reusable script applies the same cleaning pattern from the command line.</p>
-<p>Run this from the project root:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Expected output:</p>
+<p>The manual steps above explain the logic. The reusable script applies the same preparation pattern from the command line.</p>
+<p>Run this command from the project root:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expected outputs:</p>
 <pre class="text"><code>data/iris_clean.csv
 results/cleaning/cleaning-report.txt</code></pre>
 <p>This makes the cleaning step repeatable and easy to test as the system grows.</p>
@@ -533,30 +616,36 @@ results/cleaning/cleaning-report.txt</code></pre>
 <p>The script:</p>
 <ul>
 <li>reads the input table</li>
-<li>standardizes column names</li>
-<li>detects duplicate rows</li>
-<li>removes duplicate rows</li>
-<li>fills missing numeric values with medians</li>
-<li>fills missing categorical values with modes</li>
-<li>converts numeric-like columns where appropriate</li>
-<li>converts <code>species</code> to a categorical-style column</li>
-<li>validates that no missing values or duplicates remain</li>
-<li>writes a cleaned table</li>
-<li>writes a plain-text cleaning report</li>
+<li>records the input row and column counts</li>
+<li>standardizes the known column names</li>
+<li>reports identical rows for investigation</li>
+<li>retains identical rows unless they are confirmed duplicate records</li>
+<li>converts the expected measurement columns to numeric values</li>
+<li>records values that become missing during numeric conversion</li>
+<li>fills missing numeric values with medians when possible</li>
+<li>fills missing categorical values with modes when possible</li>
+<li>converts <code>species</code> to a pandas categorical column in memory</li>
+<li>validates the expected schema, numeric types, and missing-value result</li>
+<li>writes a downstream-ready table</li>
+<li>writes a plain-text report describing what it found and changed</li>
 </ul>
+<p>The report should include before-and-after row counts, missing-value counts, identical-row counts, and the rules applied. It documents the cleaning decision—not merely that the script ran.</p>
 <hr>
 </section>
 <section id="exercise" class="level2">
 <h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
-<p>Try the following:</p>
+<p>Complete the following:</p>
 <ol type="1">
 <li>Open <code>results/cleaning/cleaning-report.txt</code>.</li>
-<li>Confirm the input and output row counts.</li>
-<li>Confirm the number of missing values after cleaning.</li>
-<li>Rerun the Chapter 02 inspection script on the cleaned table.</li>
+<li>Compare the input and output row counts.</li>
+<li>Confirm the number of missing values before and after preparation.</li>
+<li>Check whether the script found identical rows and explain why it retained them.</li>
+<li>Identify any columns or values that actually changed.</li>
+<li>Explain why a valid cleaning workflow might produce an output table whose values are identical to the input.</li>
+<li>Rerun the Chapter 02 inspection script on the prepared table.</li>
 </ol>
 <p>Use:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then compare:</p>
 <pre class="text"><code>results/inspection/
 results/inspection-cleaned/</code></pre>
@@ -573,15 +662,25 @@ Solution
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A cleaned table can be inspected using the same reusable inspection script:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A prepared table can be inspected using the same reusable inspection script:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Expected outputs:</p>
 <pre class="text"><code>results/inspection-cleaned/
 ├── table-inspection-summary.txt
 ├── table-column-summary.tsv
 └── table-missing-values.tsv</code></pre>
+<p>If the input was already clean, the input and output values may be identical. That does not mean the workflow was unnecessary. The workflow still:</p>
+<ul>
+<li>established a quality baseline</li>
+<li>checked the expected schema and data types</li>
+<li>measured missingness</li>
+<li>investigated identical rows</li>
+<li>applied explicit decision rules</li>
+<li>validated the downstream output</li>
+<li>recorded the result</li>
+</ul>
 <p>The key idea is that cleaning does not end with saving a file.<br>
-It should be followed by inspection and validation.</p>
+It should be followed by inspection, validation, and documentation.</p>
 </div>
 </div>
 </div>
@@ -591,25 +690,26 @@ It should be followed by inspection and validation.</p>
 <h2 class="anchored" data-anchor-id="cdi-insight">CDI Insight</h2>
 <p>Cleaning is not about making data look perfect.</p>
 <p>It is about making preparation decisions explicit, reproducible, and testable.</p>
-<p>A cleaned dataset should be easier to analyze, but it should also preserve the logic of how it was produced.</p>
-<p>That is why CDI systems keep both:</p>
+<p>A downstream-ready dataset should be easier to analyze, but it should also preserve the logic of how it was produced.</p>
+<p>That is why CDI systems keep all four:</p>
 <pre class="text"><code>input table
 cleaning script
 cleaned output table
 cleaning report</code></pre>
-<p>Together, these make the workflow easier to trust.</p>
+<p>Together, these artifacts make the workflow easier to understand, reproduce, and trust.</p>
 <hr>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>In this lesson, you:</p>
 <ul>
-<li>inspected dataset quality</li>
-<li>checked missing values and duplicates</li>
+<li>inspected dataset quality before making changes</li>
+<li>distinguished identical rows from confirmed duplicate records</li>
 <li>standardized column names</li>
-<li>applied simple missing value handling rules</li>
-<li>fixed data types</li>
-<li>validated the cleaned table</li>
+<li>converted expected numeric columns before handling missing values</li>
+<li>applied simple, explicit missing-value rules</li>
+<li>assigned appropriate in-memory data types</li>
+<li>validated the downstream-ready table</li>
 <li>saved <code>data/iris_clean.csv</code></li>
 <li>created a cleaning report with <code>clean_example_data.py</code></li>
 </ul>
@@ -617,7 +717,7 @@ cleaning report</code></pre>
 </section>
 <section id="looking-ahead" class="level2">
 <h2 class="anchored" data-anchor-id="looking-ahead">Looking Ahead</h2>
-<p>In the next chapter, we transform and organize the cleaned dataset for analysis. The cleaned table produced here becomes the input for wrangling.</p>
+<p>In the next chapter, we transform and organize the prepared dataset for analysis. The table produced here becomes the input for data wrangling.</p>
 
 
 </section>

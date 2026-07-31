@@ -5,8 +5,8 @@ Input file: data/iris_clean.csv
 Wrangled table: data/iris_wrangled.csv
 Output directory: results/wrangling
 
-Rows before wrangling: 149
-Rows after wrangling: 149
+Rows before wrangling: 150
+Rows after wrangling: 150
 Species groups detected: 3
 
 Outputs created:
@@ -16,9 +16,10 @@ Outputs created:
 - results/wrangling/wrangling-report.txt
 
 Wrangling steps applied:
+- Created observation_id to preserve original row identity
 - Created petal_area
-- Created size_category using median petal_area
+- Created size_category using the median approximate petal_area
 - Sorted table by petal_area
 - Created species-level summary table
 - Created long-format measurement table
-- Validated missing values and expected columns
+- Validated row counts, identifiers, categories, and missing values

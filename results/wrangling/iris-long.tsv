@@ -1,597 +1,601 @@
-species	size_category	measurement	value
-virginica	large	sepal_length	7.7
-virginica	large	sepal_length	7.2
-virginica	large	sepal_length	6.3
-virginica	large	sepal_length	7.7
-virginica	large	sepal_length	6.7
-virginica	large	sepal_length	7.7
-virginica	large	sepal_length	7.6
-virginica	large	sepal_length	6.8
-virginica	large	sepal_length	6.3
-virginica	large	sepal_length	6.7
-virginica	large	sepal_length	7.7
-virginica	large	sepal_length	6.9
-virginica	large	sepal_length	7.9
-virginica	large	sepal_length	6.5
-virginica	large	sepal_length	6.2
-virginica	large	sepal_length	7.1
-virginica	large	sepal_length	6.4
-virginica	large	sepal_length	5.8
-virginica	large	sepal_length	6.4
-virginica	large	sepal_length	6.7
-virginica	large	sepal_length	6.7
-virginica	large	sepal_length	6.4
-virginica	large	sepal_length	6.9
-virginica	large	sepal_length	7.4
-virginica	large	sepal_length	6.8
-virginica	large	sepal_length	6.9
-virginica	large	sepal_length	7.3
-virginica	large	sepal_length	7.2
-virginica	large	sepal_length	6.7
-virginica	large	sepal_length	6.5
-virginica	large	sepal_length	6.5
-virginica	large	sepal_length	6.3
-virginica	large	sepal_length	6.4
-virginica	large	sepal_length	5.7
-virginica	large	sepal_length	6.5
-virginica	large	sepal_length	6.4
-virginica	large	sepal_length	5.6
-virginica	large	sepal_length	5.8
-virginica	large	sepal_length	6.3
-virginica	large	sepal_length	7.2
-virginica	large	sepal_length	5.9
-virginica	large	sepal_length	6.3
-virginica	large	sepal_length	6.1
-versicolor	large	sepal_length	5.9
-virginica	large	sepal_length	6.2
-virginica	large	sepal_length	6.0
-versicolor	large	sepal_length	6.7
-versicolor	large	sepal_length	6.0
-virginica	large	sepal_length	6.1
-virginica	large	sepal_length	4.9
-virginica	large	sepal_length	6.3
-versicolor	large	sepal_length	6.3
-virginica	large	sepal_length	6.0
-versicolor	large	sepal_length	6.9
-versicolor	large	sepal_length	6.3
-versicolor	large	sepal_length	6.0
-versicolor	large	sepal_length	6.7
-versicolor	large	sepal_length	6.5
-versicolor	large	sepal_length	6.4
-versicolor	large	sepal_length	5.6
-versicolor	large	sepal_length	6.2
-versicolor	large	sepal_length	6.0
-versicolor	large	sepal_length	5.4
-versicolor	large	sepal_length	6.8
-versicolor	large	sepal_length	7.0
-versicolor	large	sepal_length	6.1
-versicolor	large	sepal_length	6.1
-versicolor	large	sepal_length	5.9
-versicolor	large	sepal_length	6.7
-versicolor	large	sepal_length	6.6
-versicolor	large	sepal_length	6.6
-versicolor	large	sepal_length	5.7
-versicolor	large	sepal_length	6.3
-versicolor	large	sepal_length	6.1
-versicolor	small	sepal_length	6.4
-versicolor	small	sepal_length	6.2
-versicolor	small	sepal_length	5.6
-versicolor	small	sepal_length	5.7
-versicolor	small	sepal_length	5.2
-versicolor	small	sepal_length	5.6
-versicolor	small	sepal_length	5.7
-versicolor	small	sepal_length	5.5
-versicolor	small	sepal_length	5.5
-versicolor	small	sepal_length	6.1
-versicolor	small	sepal_length	5.5
-versicolor	small	sepal_length	5.7
-versicolor	small	sepal_length	5.8
-versicolor	small	sepal_length	5.6
-versicolor	small	sepal_length	5.8
-versicolor	small	sepal_length	5.6
-versicolor	small	sepal_length	5.5
-versicolor	small	sepal_length	5.8
-versicolor	small	sepal_length	6.0
-versicolor	small	sepal_length	5.5
-versicolor	small	sepal_length	5.0
-versicolor	small	sepal_length	5.7
-versicolor	small	sepal_length	5.1
-versicolor	small	sepal_length	4.9
-versicolor	small	sepal_length	5.0
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	5.4
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	5.7
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	5.4
-setosa	small	sepal_length	5.4
-setosa	small	sepal_length	5.7
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	4.6
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	4.8
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	4.5
-setosa	small	sepal_length	4.8
-setosa	small	sepal_length	5.4
-setosa	small	sepal_length	4.8
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	4.7
-setosa	small	sepal_length	4.8
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	4.6
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	5.4
-setosa	small	sepal_length	5.2
-setosa	small	sepal_length	4.9
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	5.3
-setosa	small	sepal_length	5.1
-setosa	small	sepal_length	4.9
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	4.4
-setosa	small	sepal_length	5.2
-setosa	small	sepal_length	5.5
-setosa	small	sepal_length	4.6
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	4.7
-setosa	small	sepal_length	5.5
-setosa	small	sepal_length	4.4
-setosa	small	sepal_length	4.4
-setosa	small	sepal_length	5.8
-setosa	small	sepal_length	5.0
-setosa	small	sepal_length	4.6
-setosa	small	sepal_length	4.9
-setosa	small	sepal_length	5.2
-setosa	small	sepal_length	4.8
-setosa	small	sepal_length	4.9
-setosa	small	sepal_length	4.3
-virginica	large	sepal_width	2.6
-virginica	large	sepal_width	3.6
-virginica	large	sepal_width	3.3
-virginica	large	sepal_width	3.8
-virginica	large	sepal_width	3.3
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.2
-virginica	large	sepal_width	3.4
-virginica	large	sepal_width	3.1
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	3.2
-virginica	large	sepal_width	3.8
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.4
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	3.2
-virginica	large	sepal_width	3.3
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	3.1
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.1
-virginica	large	sepal_width	2.9
-virginica	large	sepal_width	3.2
-virginica	large	sepal_width	2.5
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.2
-virginica	large	sepal_width	2.9
-virginica	large	sepal_width	2.7
-virginica	large	sepal_width	2.5
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.1
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	2.7
-virginica	large	sepal_width	2.5
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	3.0
-virginica	large	sepal_width	2.7
-virginica	large	sepal_width	3.0
-versicolor	large	sepal_width	3.2
-virginica	large	sepal_width	2.8
-virginica	large	sepal_width	3.0
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	2.7
-virginica	large	sepal_width	2.6
-virginica	large	sepal_width	2.5
-virginica	large	sepal_width	2.8
-versicolor	large	sepal_width	3.3
-virginica	large	sepal_width	2.2
-versicolor	large	sepal_width	3.1
-versicolor	large	sepal_width	2.5
-versicolor	large	sepal_width	3.4
-versicolor	large	sepal_width	3.1
-versicolor	large	sepal_width	2.8
-versicolor	large	sepal_width	3.2
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	2.2
-versicolor	large	sepal_width	2.9
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	2.8
-versicolor	large	sepal_width	3.2
-versicolor	large	sepal_width	2.9
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	3.1
-versicolor	large	sepal_width	3.0
-versicolor	large	sepal_width	2.9
-versicolor	large	sepal_width	2.8
-versicolor	large	sepal_width	2.3
-versicolor	large	sepal_width	2.8
-versicolor	small	sepal_width	2.9
-versicolor	small	sepal_width	2.9
-versicolor	small	sepal_width	2.7
-versicolor	small	sepal_width	2.9
-versicolor	small	sepal_width	2.7
-versicolor	small	sepal_width	3.0
-versicolor	small	sepal_width	2.8
-versicolor	small	sepal_width	2.6
-versicolor	small	sepal_width	2.3
-versicolor	small	sepal_width	2.8
-versicolor	small	sepal_width	2.5
-versicolor	small	sepal_width	3.0
-versicolor	small	sepal_width	2.6
-versicolor	small	sepal_width	2.9
-versicolor	small	sepal_width	2.7
-versicolor	small	sepal_width	2.5
-versicolor	small	sepal_width	2.4
-versicolor	small	sepal_width	2.7
-versicolor	small	sepal_width	2.2
-versicolor	small	sepal_width	2.4
-versicolor	small	sepal_width	2.0
-versicolor	small	sepal_width	2.6
-versicolor	small	sepal_width	2.5
-versicolor	small	sepal_width	2.4
-versicolor	small	sepal_width	2.3
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	3.3
-setosa	small	sepal_width	3.8
-setosa	small	sepal_width	3.9
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	4.4
-setosa	small	sepal_width	3.7
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.9
-setosa	small	sepal_width	3.8
-setosa	small	sepal_width	3.8
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	3.0
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	2.3
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.0
-setosa	small	sepal_width	3.2
-setosa	small	sepal_width	3.1
-setosa	small	sepal_width	3.8
-setosa	small	sepal_width	3.1
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.7
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	3.1
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	3.7
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	3.0
-setosa	small	sepal_width	3.6
-setosa	small	sepal_width	2.9
-setosa	small	sepal_width	3.4
-setosa	small	sepal_width	4.2
-setosa	small	sepal_width	3.2
-setosa	small	sepal_width	3.3
-setosa	small	sepal_width	3.2
-setosa	small	sepal_width	3.5
-setosa	small	sepal_width	3.0
-setosa	small	sepal_width	3.2
-setosa	small	sepal_width	4.0
-setosa	small	sepal_width	3.2
-setosa	small	sepal_width	3.6
-setosa	small	sepal_width	3.1
-setosa	small	sepal_width	4.1
-setosa	small	sepal_width	3.0
-setosa	small	sepal_width	3.6
-setosa	small	sepal_width	3.0
-virginica	large	petal_length	6.9
-virginica	large	petal_length	6.1
-virginica	large	petal_length	6.0
-virginica	large	petal_length	6.7
-virginica	large	petal_length	5.7
-virginica	large	petal_length	6.1
-virginica	large	petal_length	6.6
-virginica	large	petal_length	5.9
-virginica	large	petal_length	5.6
-virginica	large	petal_length	5.6
-virginica	large	petal_length	6.7
-virginica	large	petal_length	5.7
-virginica	large	petal_length	6.4
-virginica	large	petal_length	5.8
-virginica	large	petal_length	5.4
-virginica	large	petal_length	5.9
-virginica	large	petal_length	5.6
-virginica	large	petal_length	5.1
-virginica	large	petal_length	5.3
-virginica	large	petal_length	5.7
-virginica	large	petal_length	5.2
-virginica	large	petal_length	5.6
-virginica	large	petal_length	5.1
-virginica	large	petal_length	6.1
-virginica	large	petal_length	5.5
-virginica	large	petal_length	5.4
-virginica	large	petal_length	6.3
-virginica	large	petal_length	6.0
-virginica	large	petal_length	5.8
-virginica	large	petal_length	5.2
-virginica	large	petal_length	5.1
-virginica	large	petal_length	5.6
-virginica	large	petal_length	5.3
-virginica	large	petal_length	5.0
-virginica	large	petal_length	5.5
-virginica	large	petal_length	5.5
-virginica	large	petal_length	4.9
-virginica	large	petal_length	5.1
-virginica	large	petal_length	5.0
-virginica	large	petal_length	5.8
-virginica	large	petal_length	5.1
-virginica	large	petal_length	4.9
-virginica	large	petal_length	4.9
-versicolor	large	petal_length	4.8
-virginica	large	petal_length	4.8
-virginica	large	petal_length	4.8
-versicolor	large	petal_length	5.0
-versicolor	large	petal_length	5.1
-virginica	large	petal_length	5.6
-virginica	large	petal_length	4.5
-virginica	large	petal_length	5.1
-versicolor	large	petal_length	4.7
-virginica	large	petal_length	5.0
-versicolor	large	petal_length	4.9
-versicolor	large	petal_length	4.9
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.7
-versicolor	large	petal_length	4.6
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.8
-versicolor	large	petal_length	4.7
-versicolor	large	petal_length	4.7
-versicolor	large	petal_length	4.6
-versicolor	large	petal_length	4.2
-versicolor	large	petal_length	4.4
-versicolor	large	petal_length	4.4
-versicolor	large	petal_length	4.6
-versicolor	large	petal_length	4.5
-versicolor	large	petal_length	4.4
-versicolor	large	petal_length	4.7
-versicolor	small	petal_length	4.3
-versicolor	small	petal_length	4.3
-versicolor	small	petal_length	4.2
-versicolor	small	petal_length	4.2
-versicolor	small	petal_length	3.9
-versicolor	small	petal_length	4.1
-versicolor	small	petal_length	4.1
-versicolor	small	petal_length	4.4
-versicolor	small	petal_length	4.0
-versicolor	small	petal_length	4.0
-versicolor	small	petal_length	4.0
-versicolor	small	petal_length	4.2
-versicolor	small	petal_length	4.0
-versicolor	small	petal_length	3.6
-versicolor	small	petal_length	3.9
-versicolor	small	petal_length	3.9
-versicolor	small	petal_length	3.8
-versicolor	small	petal_length	4.1
-versicolor	small	petal_length	4.0
-versicolor	small	petal_length	3.7
-versicolor	small	petal_length	3.5
-versicolor	small	petal_length	3.5
-versicolor	small	petal_length	3.0
-versicolor	small	petal_length	3.3
-versicolor	small	petal_length	3.3
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.7
-setosa	small	petal_length	1.9
-setosa	small	petal_length	1.7
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.7
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.9
-setosa	small	petal_length	1.7
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.6
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.3
-setosa	small	petal_length	1.2
-setosa	small	petal_length	1.2
-setosa	small	petal_length	1.0
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.5
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.4
-setosa	small	petal_length	1.1
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.5
-virginica	large	petal_width	2.5
-virginica	large	petal_width	2.2
-virginica	large	petal_width	2.5
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.1
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.4
-virginica	large	petal_width	2.4
-virginica	large	petal_width	2.0
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.0
-virginica	large	petal_width	2.2
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.1
-virginica	large	petal_width	2.2
-virginica	large	petal_width	2.4
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.1
-virginica	large	petal_width	2.3
-virginica	large	petal_width	2.1
-virginica	large	petal_width	2.3
-virginica	large	petal_width	1.9
-virginica	large	petal_width	2.1
-virginica	large	petal_width	2.1
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-virginica	large	petal_width	2.0
-virginica	large	petal_width	2.0
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.9
-virginica	large	petal_width	2.0
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-virginica	large	petal_width	2.0
-virginica	large	petal_width	1.9
-virginica	large	petal_width	1.9
-virginica	large	petal_width	1.6
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-versicolor	large	petal_width	1.8
-virginica	large	petal_width	1.8
-virginica	large	petal_width	1.8
-versicolor	large	petal_width	1.7
-versicolor	large	petal_width	1.6
-virginica	large	petal_width	1.4
-virginica	large	petal_width	1.7
-virginica	large	petal_width	1.5
-versicolor	large	petal_width	1.6
-virginica	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.6
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.5
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.4
-versicolor	large	petal_width	1.3
-versicolor	large	petal_width	1.3
-versicolor	large	petal_width	1.3
-versicolor	large	petal_width	1.2
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.4
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.2
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.2
-versicolor	small	petal_width	1.2
-versicolor	small	petal_width	1.3
-versicolor	small	petal_width	1.2
-versicolor	small	petal_width	1.1
-versicolor	small	petal_width	1.1
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.1
-versicolor	small	petal_width	1.0
-versicolor	small	petal_width	1.0
-setosa	small	petal_width	0.6
-setosa	small	petal_width	0.5
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.4
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.3
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.2
-setosa	small	petal_width	0.1
-setosa	small	petal_width	0.1
-setosa	small	petal_width	0.1
-setosa	small	petal_width	0.1
-setosa	small	petal_width	0.1
+observation_id	species	size_category	measurement	value
+119	virginica	large	sepal_length	7.7
+110	virginica	large	sepal_length	7.2
+101	virginica	large	sepal_length	6.3
+118	virginica	large	sepal_length	7.7
+145	virginica	large	sepal_length	6.7
+136	virginica	large	sepal_length	7.7
+106	virginica	large	sepal_length	7.6
+144	virginica	large	sepal_length	6.8
+137	virginica	large	sepal_length	6.3
+141	virginica	large	sepal_length	6.7
+123	virginica	large	sepal_length	7.7
+121	virginica	large	sepal_length	6.9
+132	virginica	large	sepal_length	7.9
+105	virginica	large	sepal_length	6.5
+149	virginica	large	sepal_length	6.2
+103	virginica	large	sepal_length	7.1
+133	virginica	large	sepal_length	6.4
+115	virginica	large	sepal_length	5.8
+116	virginica	large	sepal_length	6.4
+125	virginica	large	sepal_length	6.7
+146	virginica	large	sepal_length	6.7
+129	virginica	large	sepal_length	6.4
+142	virginica	large	sepal_length	6.9
+131	virginica	large	sepal_length	7.4
+113	virginica	large	sepal_length	6.8
+140	virginica	large	sepal_length	6.9
+108	virginica	large	sepal_length	7.3
+126	virginica	large	sepal_length	7.2
+109	virginica	large	sepal_length	6.7
+148	virginica	large	sepal_length	6.5
+111	virginica	large	sepal_length	6.5
+104	virginica	large	sepal_length	6.3
+112	virginica	large	sepal_length	6.4
+114	virginica	large	sepal_length	5.7
+117	virginica	large	sepal_length	6.5
+138	virginica	large	sepal_length	6.4
+122	virginica	large	sepal_length	5.6
+102	virginica	large	sepal_length	5.8
+143	virginica	large	sepal_length	5.8
+147	virginica	large	sepal_length	6.3
+130	virginica	large	sepal_length	7.2
+150	virginica	large	sepal_length	5.9
+124	virginica	large	sepal_length	6.3
+128	virginica	large	sepal_length	6.1
+71	versicolor	large	sepal_length	5.9
+127	virginica	large	sepal_length	6.2
+139	virginica	large	sepal_length	6.0
+78	versicolor	large	sepal_length	6.7
+84	versicolor	large	sepal_length	6.0
+135	virginica	large	sepal_length	6.1
+107	virginica	large	sepal_length	4.9
+134	virginica	large	sepal_length	6.3
+57	versicolor	large	sepal_length	6.3
+120	virginica	large	sepal_length	6.0
+53	versicolor	large	sepal_length	6.9
+73	versicolor	large	sepal_length	6.3
+86	versicolor	large	sepal_length	6.0
+87	versicolor	large	sepal_length	6.7
+55	versicolor	large	sepal_length	6.5
+52	versicolor	large	sepal_length	6.4
+67	versicolor	large	sepal_length	5.6
+69	versicolor	large	sepal_length	6.2
+79	versicolor	large	sepal_length	6.0
+85	versicolor	large	sepal_length	5.4
+77	versicolor	large	sepal_length	6.8
+51	versicolor	large	sepal_length	7.0
+64	versicolor	large	sepal_length	6.1
+92	versicolor	large	sepal_length	6.1
+62	versicolor	large	sepal_length	5.9
+66	versicolor	large	sepal_length	6.7
+76	versicolor	large	sepal_length	6.6
+59	versicolor	large	sepal_length	6.6
+56	versicolor	large	sepal_length	5.7
+88	versicolor	large	sepal_length	6.3
+74	versicolor	large	sepal_length	6.1
+75	versicolor	small	sepal_length	6.4
+98	versicolor	small	sepal_length	6.2
+95	versicolor	small	sepal_length	5.6
+97	versicolor	small	sepal_length	5.7
+60	versicolor	small	sepal_length	5.2
+89	versicolor	small	sepal_length	5.6
+100	versicolor	small	sepal_length	5.7
+91	versicolor	small	sepal_length	5.5
+54	versicolor	small	sepal_length	5.5
+72	versicolor	small	sepal_length	6.1
+90	versicolor	small	sepal_length	5.5
+96	versicolor	small	sepal_length	5.7
+93	versicolor	small	sepal_length	5.8
+65	versicolor	small	sepal_length	5.6
+83	versicolor	small	sepal_length	5.8
+70	versicolor	small	sepal_length	5.6
+81	versicolor	small	sepal_length	5.5
+68	versicolor	small	sepal_length	5.8
+63	versicolor	small	sepal_length	6.0
+82	versicolor	small	sepal_length	5.5
+61	versicolor	small	sepal_length	5.0
+80	versicolor	small	sepal_length	5.7
+99	versicolor	small	sepal_length	5.1
+58	versicolor	small	sepal_length	4.9
+94	versicolor	small	sepal_length	5.0
+44	setosa	small	sepal_length	5.0
+24	setosa	small	sepal_length	5.1
+45	setosa	small	sepal_length	5.1
+6	setosa	small	sepal_length	5.4
+27	setosa	small	sepal_length	5.0
+16	setosa	small	sepal_length	5.7
+22	setosa	small	sepal_length	5.1
+32	setosa	small	sepal_length	5.4
+17	setosa	small	sepal_length	5.4
+19	setosa	small	sepal_length	5.7
+20	setosa	small	sepal_length	5.1
+7	setosa	small	sepal_length	4.6
+18	setosa	small	sepal_length	5.1
+46	setosa	small	sepal_length	4.8
+41	setosa	small	sepal_length	5.0
+42	setosa	small	sepal_length	4.5
+25	setosa	small	sepal_length	4.8
+21	setosa	small	sepal_length	5.4
+12	setosa	small	sepal_length	4.8
+26	setosa	small	sepal_length	5.0
+30	setosa	small	sepal_length	4.7
+31	setosa	small	sepal_length	4.8
+47	setosa	small	sepal_length	5.1
+4	setosa	small	sepal_length	4.6
+8	setosa	small	sepal_length	5.0
+11	setosa	small	sepal_length	5.4
+28	setosa	small	sepal_length	5.2
+35	setosa	small	sepal_length	4.9
+40	setosa	small	sepal_length	5.1
+49	setosa	small	sepal_length	5.3
+1	setosa	small	sepal_length	5.1
+2	setosa	small	sepal_length	4.9
+5	setosa	small	sepal_length	5.0
+9	setosa	small	sepal_length	4.4
+29	setosa	small	sepal_length	5.2
+34	setosa	small	sepal_length	5.5
+48	setosa	small	sepal_length	4.6
+50	setosa	small	sepal_length	5.0
+3	setosa	small	sepal_length	4.7
+37	setosa	small	sepal_length	5.5
+39	setosa	small	sepal_length	4.4
+43	setosa	small	sepal_length	4.4
+15	setosa	small	sepal_length	5.8
+36	setosa	small	sepal_length	5.0
+23	setosa	small	sepal_length	4.6
+10	setosa	small	sepal_length	4.9
+33	setosa	small	sepal_length	5.2
+13	setosa	small	sepal_length	4.8
+38	setosa	small	sepal_length	4.9
+14	setosa	small	sepal_length	4.3
+119	virginica	large	sepal_width	2.6
+110	virginica	large	sepal_width	3.6
+101	virginica	large	sepal_width	3.3
+118	virginica	large	sepal_width	3.8
+145	virginica	large	sepal_width	3.3
+136	virginica	large	sepal_width	3.0
+106	virginica	large	sepal_width	3.0
+144	virginica	large	sepal_width	3.2
+137	virginica	large	sepal_width	3.4
+141	virginica	large	sepal_width	3.1
+123	virginica	large	sepal_width	2.8
+121	virginica	large	sepal_width	3.2
+132	virginica	large	sepal_width	3.8
+105	virginica	large	sepal_width	3.0
+149	virginica	large	sepal_width	3.4
+103	virginica	large	sepal_width	3.0
+133	virginica	large	sepal_width	2.8
+115	virginica	large	sepal_width	2.8
+116	virginica	large	sepal_width	3.2
+125	virginica	large	sepal_width	3.3
+146	virginica	large	sepal_width	3.0
+129	virginica	large	sepal_width	2.8
+142	virginica	large	sepal_width	3.1
+131	virginica	large	sepal_width	2.8
+113	virginica	large	sepal_width	3.0
+140	virginica	large	sepal_width	3.1
+108	virginica	large	sepal_width	2.9
+126	virginica	large	sepal_width	3.2
+109	virginica	large	sepal_width	2.5
+148	virginica	large	sepal_width	3.0
+111	virginica	large	sepal_width	3.2
+104	virginica	large	sepal_width	2.9
+112	virginica	large	sepal_width	2.7
+114	virginica	large	sepal_width	2.5
+117	virginica	large	sepal_width	3.0
+138	virginica	large	sepal_width	3.1
+122	virginica	large	sepal_width	2.8
+102	virginica	large	sepal_width	2.7
+143	virginica	large	sepal_width	2.7
+147	virginica	large	sepal_width	2.5
+130	virginica	large	sepal_width	3.0
+150	virginica	large	sepal_width	3.0
+124	virginica	large	sepal_width	2.7
+128	virginica	large	sepal_width	3.0
+71	versicolor	large	sepal_width	3.2
+127	virginica	large	sepal_width	2.8
+139	virginica	large	sepal_width	3.0
+78	versicolor	large	sepal_width	3.0
+84	versicolor	large	sepal_width	2.7
+135	virginica	large	sepal_width	2.6
+107	virginica	large	sepal_width	2.5
+134	virginica	large	sepal_width	2.8
+57	versicolor	large	sepal_width	3.3
+120	virginica	large	sepal_width	2.2
+53	versicolor	large	sepal_width	3.1
+73	versicolor	large	sepal_width	2.5
+86	versicolor	large	sepal_width	3.4
+87	versicolor	large	sepal_width	3.1
+55	versicolor	large	sepal_width	2.8
+52	versicolor	large	sepal_width	3.2
+67	versicolor	large	sepal_width	3.0
+69	versicolor	large	sepal_width	2.2
+79	versicolor	large	sepal_width	2.9
+85	versicolor	large	sepal_width	3.0
+77	versicolor	large	sepal_width	2.8
+51	versicolor	large	sepal_width	3.2
+64	versicolor	large	sepal_width	2.9
+92	versicolor	large	sepal_width	3.0
+62	versicolor	large	sepal_width	3.0
+66	versicolor	large	sepal_width	3.1
+76	versicolor	large	sepal_width	3.0
+59	versicolor	large	sepal_width	2.9
+56	versicolor	large	sepal_width	2.8
+88	versicolor	large	sepal_width	2.3
+74	versicolor	large	sepal_width	2.8
+75	versicolor	small	sepal_width	2.9
+98	versicolor	small	sepal_width	2.9
+95	versicolor	small	sepal_width	2.7
+97	versicolor	small	sepal_width	2.9
+60	versicolor	small	sepal_width	2.7
+89	versicolor	small	sepal_width	3.0
+100	versicolor	small	sepal_width	2.8
+91	versicolor	small	sepal_width	2.6
+54	versicolor	small	sepal_width	2.3
+72	versicolor	small	sepal_width	2.8
+90	versicolor	small	sepal_width	2.5
+96	versicolor	small	sepal_width	3.0
+93	versicolor	small	sepal_width	2.6
+65	versicolor	small	sepal_width	2.9
+83	versicolor	small	sepal_width	2.7
+70	versicolor	small	sepal_width	2.5
+81	versicolor	small	sepal_width	2.4
+68	versicolor	small	sepal_width	2.7
+63	versicolor	small	sepal_width	2.2
+82	versicolor	small	sepal_width	2.4
+61	versicolor	small	sepal_width	2.0
+80	versicolor	small	sepal_width	2.6
+99	versicolor	small	sepal_width	2.5
+58	versicolor	small	sepal_width	2.4
+94	versicolor	small	sepal_width	2.3
+44	setosa	small	sepal_width	3.5
+24	setosa	small	sepal_width	3.3
+45	setosa	small	sepal_width	3.8
+6	setosa	small	sepal_width	3.9
+27	setosa	small	sepal_width	3.4
+16	setosa	small	sepal_width	4.4
+22	setosa	small	sepal_width	3.7
+32	setosa	small	sepal_width	3.4
+17	setosa	small	sepal_width	3.9
+19	setosa	small	sepal_width	3.8
+20	setosa	small	sepal_width	3.8
+7	setosa	small	sepal_width	3.4
+18	setosa	small	sepal_width	3.5
+46	setosa	small	sepal_width	3.0
+41	setosa	small	sepal_width	3.5
+42	setosa	small	sepal_width	2.3
+25	setosa	small	sepal_width	3.4
+21	setosa	small	sepal_width	3.4
+12	setosa	small	sepal_width	3.4
+26	setosa	small	sepal_width	3.0
+30	setosa	small	sepal_width	3.2
+31	setosa	small	sepal_width	3.1
+47	setosa	small	sepal_width	3.8
+4	setosa	small	sepal_width	3.1
+8	setosa	small	sepal_width	3.4
+11	setosa	small	sepal_width	3.7
+28	setosa	small	sepal_width	3.5
+35	setosa	small	sepal_width	3.1
+40	setosa	small	sepal_width	3.4
+49	setosa	small	sepal_width	3.7
+1	setosa	small	sepal_width	3.5
+2	setosa	small	sepal_width	3.0
+5	setosa	small	sepal_width	3.6
+9	setosa	small	sepal_width	2.9
+29	setosa	small	sepal_width	3.4
+34	setosa	small	sepal_width	4.2
+48	setosa	small	sepal_width	3.2
+50	setosa	small	sepal_width	3.3
+3	setosa	small	sepal_width	3.2
+37	setosa	small	sepal_width	3.5
+39	setosa	small	sepal_width	3.0
+43	setosa	small	sepal_width	3.2
+15	setosa	small	sepal_width	4.0
+36	setosa	small	sepal_width	3.2
+23	setosa	small	sepal_width	3.6
+10	setosa	small	sepal_width	3.1
+33	setosa	small	sepal_width	4.1
+13	setosa	small	sepal_width	3.0
+38	setosa	small	sepal_width	3.6
+14	setosa	small	sepal_width	3.0
+119	virginica	large	petal_length	6.9
+110	virginica	large	petal_length	6.1
+101	virginica	large	petal_length	6.0
+118	virginica	large	petal_length	6.7
+145	virginica	large	petal_length	5.7
+136	virginica	large	petal_length	6.1
+106	virginica	large	petal_length	6.6
+144	virginica	large	petal_length	5.9
+137	virginica	large	petal_length	5.6
+141	virginica	large	petal_length	5.6
+123	virginica	large	petal_length	6.7
+121	virginica	large	petal_length	5.7
+132	virginica	large	petal_length	6.4
+105	virginica	large	petal_length	5.8
+149	virginica	large	petal_length	5.4
+103	virginica	large	petal_length	5.9
+133	virginica	large	petal_length	5.6
+115	virginica	large	petal_length	5.1
+116	virginica	large	petal_length	5.3
+125	virginica	large	petal_length	5.7
+146	virginica	large	petal_length	5.2
+129	virginica	large	petal_length	5.6
+142	virginica	large	petal_length	5.1
+131	virginica	large	petal_length	6.1
+113	virginica	large	petal_length	5.5
+140	virginica	large	petal_length	5.4
+108	virginica	large	petal_length	6.3
+126	virginica	large	petal_length	6.0
+109	virginica	large	petal_length	5.8
+148	virginica	large	petal_length	5.2
+111	virginica	large	petal_length	5.1
+104	virginica	large	petal_length	5.6
+112	virginica	large	petal_length	5.3
+114	virginica	large	petal_length	5.0
+117	virginica	large	petal_length	5.5
+138	virginica	large	petal_length	5.5
+122	virginica	large	petal_length	4.9
+102	virginica	large	petal_length	5.1
+143	virginica	large	petal_length	5.1
+147	virginica	large	petal_length	5.0
+130	virginica	large	petal_length	5.8
+150	virginica	large	petal_length	5.1
+124	virginica	large	petal_length	4.9
+128	virginica	large	petal_length	4.9
+71	versicolor	large	petal_length	4.8
+127	virginica	large	petal_length	4.8
+139	virginica	large	petal_length	4.8
+78	versicolor	large	petal_length	5.0
+84	versicolor	large	petal_length	5.1
+135	virginica	large	petal_length	5.6
+107	virginica	large	petal_length	4.5
+134	virginica	large	petal_length	5.1
+57	versicolor	large	petal_length	4.7
+120	virginica	large	petal_length	5.0
+53	versicolor	large	petal_length	4.9
+73	versicolor	large	petal_length	4.9
+86	versicolor	large	petal_length	4.5
+87	versicolor	large	petal_length	4.7
+55	versicolor	large	petal_length	4.6
+52	versicolor	large	petal_length	4.5
+67	versicolor	large	petal_length	4.5
+69	versicolor	large	petal_length	4.5
+79	versicolor	large	petal_length	4.5
+85	versicolor	large	petal_length	4.5
+77	versicolor	large	petal_length	4.8
+51	versicolor	large	petal_length	4.7
+64	versicolor	large	petal_length	4.7
+92	versicolor	large	petal_length	4.6
+62	versicolor	large	petal_length	4.2
+66	versicolor	large	petal_length	4.4
+76	versicolor	large	petal_length	4.4
+59	versicolor	large	petal_length	4.6
+56	versicolor	large	petal_length	4.5
+88	versicolor	large	petal_length	4.4
+74	versicolor	large	petal_length	4.7
+75	versicolor	small	petal_length	4.3
+98	versicolor	small	petal_length	4.3
+95	versicolor	small	petal_length	4.2
+97	versicolor	small	petal_length	4.2
+60	versicolor	small	petal_length	3.9
+89	versicolor	small	petal_length	4.1
+100	versicolor	small	petal_length	4.1
+91	versicolor	small	petal_length	4.4
+54	versicolor	small	petal_length	4.0
+72	versicolor	small	petal_length	4.0
+90	versicolor	small	petal_length	4.0
+96	versicolor	small	petal_length	4.2
+93	versicolor	small	petal_length	4.0
+65	versicolor	small	petal_length	3.6
+83	versicolor	small	petal_length	3.9
+70	versicolor	small	petal_length	3.9
+81	versicolor	small	petal_length	3.8
+68	versicolor	small	petal_length	4.1
+63	versicolor	small	petal_length	4.0
+82	versicolor	small	petal_length	3.7
+61	versicolor	small	petal_length	3.5
+80	versicolor	small	petal_length	3.5
+99	versicolor	small	petal_length	3.0
+58	versicolor	small	petal_length	3.3
+94	versicolor	small	petal_length	3.3
+44	setosa	small	petal_length	1.6
+24	setosa	small	petal_length	1.7
+45	setosa	small	petal_length	1.9
+6	setosa	small	petal_length	1.7
+27	setosa	small	petal_length	1.6
+16	setosa	small	petal_length	1.5
+22	setosa	small	petal_length	1.5
+32	setosa	small	petal_length	1.5
+17	setosa	small	petal_length	1.3
+19	setosa	small	petal_length	1.7
+20	setosa	small	petal_length	1.5
+7	setosa	small	petal_length	1.4
+18	setosa	small	petal_length	1.4
+46	setosa	small	petal_length	1.4
+41	setosa	small	petal_length	1.3
+42	setosa	small	petal_length	1.3
+25	setosa	small	petal_length	1.9
+21	setosa	small	petal_length	1.7
+12	setosa	small	petal_length	1.6
+26	setosa	small	petal_length	1.6
+30	setosa	small	petal_length	1.6
+31	setosa	small	petal_length	1.6
+47	setosa	small	petal_length	1.6
+4	setosa	small	petal_length	1.5
+8	setosa	small	petal_length	1.5
+11	setosa	small	petal_length	1.5
+28	setosa	small	petal_length	1.5
+35	setosa	small	petal_length	1.5
+40	setosa	small	petal_length	1.5
+49	setosa	small	petal_length	1.5
+1	setosa	small	petal_length	1.4
+2	setosa	small	petal_length	1.4
+5	setosa	small	petal_length	1.4
+9	setosa	small	petal_length	1.4
+29	setosa	small	petal_length	1.4
+34	setosa	small	petal_length	1.4
+48	setosa	small	petal_length	1.4
+50	setosa	small	petal_length	1.4
+3	setosa	small	petal_length	1.3
+37	setosa	small	petal_length	1.3
+39	setosa	small	petal_length	1.3
+43	setosa	small	petal_length	1.3
+15	setosa	small	petal_length	1.2
+36	setosa	small	petal_length	1.2
+23	setosa	small	petal_length	1.0
+10	setosa	small	petal_length	1.5
+33	setosa	small	petal_length	1.5
+13	setosa	small	petal_length	1.4
+38	setosa	small	petal_length	1.4
+14	setosa	small	petal_length	1.1
+119	virginica	large	petal_width	2.3
+110	virginica	large	petal_width	2.5
+101	virginica	large	petal_width	2.5
+118	virginica	large	petal_width	2.2
+145	virginica	large	petal_width	2.5
+136	virginica	large	petal_width	2.3
+106	virginica	large	petal_width	2.1
+144	virginica	large	petal_width	2.3
+137	virginica	large	petal_width	2.4
+141	virginica	large	petal_width	2.4
+123	virginica	large	petal_width	2.0
+121	virginica	large	petal_width	2.3
+132	virginica	large	petal_width	2.0
+105	virginica	large	petal_width	2.2
+149	virginica	large	petal_width	2.3
+103	virginica	large	petal_width	2.1
+133	virginica	large	petal_width	2.2
+115	virginica	large	petal_width	2.4
+116	virginica	large	petal_width	2.3
+125	virginica	large	petal_width	2.1
+146	virginica	large	petal_width	2.3
+129	virginica	large	petal_width	2.1
+142	virginica	large	petal_width	2.3
+131	virginica	large	petal_width	1.9
+113	virginica	large	petal_width	2.1
+140	virginica	large	petal_width	2.1
+108	virginica	large	petal_width	1.8
+126	virginica	large	petal_width	1.8
+109	virginica	large	petal_width	1.8
+148	virginica	large	petal_width	2.0
+111	virginica	large	petal_width	2.0
+104	virginica	large	petal_width	1.8
+112	virginica	large	petal_width	1.9
+114	virginica	large	petal_width	2.0
+117	virginica	large	petal_width	1.8
+138	virginica	large	petal_width	1.8
+122	virginica	large	petal_width	2.0
+102	virginica	large	petal_width	1.9
+143	virginica	large	petal_width	1.9
+147	virginica	large	petal_width	1.9
+130	virginica	large	petal_width	1.6
+150	virginica	large	petal_width	1.8
+124	virginica	large	petal_width	1.8
+128	virginica	large	petal_width	1.8
+71	versicolor	large	petal_width	1.8
+127	virginica	large	petal_width	1.8
+139	virginica	large	petal_width	1.8
+78	versicolor	large	petal_width	1.7
+84	versicolor	large	petal_width	1.6
+135	virginica	large	petal_width	1.4
+107	virginica	large	petal_width	1.7
+134	virginica	large	petal_width	1.5
+57	versicolor	large	petal_width	1.6
+120	virginica	large	petal_width	1.5
+53	versicolor	large	petal_width	1.5
+73	versicolor	large	petal_width	1.5
+86	versicolor	large	petal_width	1.6
+87	versicolor	large	petal_width	1.5
+55	versicolor	large	petal_width	1.5
+52	versicolor	large	petal_width	1.5
+67	versicolor	large	petal_width	1.5
+69	versicolor	large	petal_width	1.5
+79	versicolor	large	petal_width	1.5
+85	versicolor	large	petal_width	1.5
+77	versicolor	large	petal_width	1.4
+51	versicolor	large	petal_width	1.4
+64	versicolor	large	petal_width	1.4
+92	versicolor	large	petal_width	1.4
+62	versicolor	large	petal_width	1.5
+66	versicolor	large	petal_width	1.4
+76	versicolor	large	petal_width	1.4
+59	versicolor	large	petal_width	1.3
+56	versicolor	large	petal_width	1.3
+88	versicolor	large	petal_width	1.3
+74	versicolor	large	petal_width	1.2
+75	versicolor	small	petal_width	1.3
+98	versicolor	small	petal_width	1.3
+95	versicolor	small	petal_width	1.3
+97	versicolor	small	petal_width	1.3
+60	versicolor	small	petal_width	1.4
+89	versicolor	small	petal_width	1.3
+100	versicolor	small	petal_width	1.3
+91	versicolor	small	petal_width	1.2
+54	versicolor	small	petal_width	1.3
+72	versicolor	small	petal_width	1.3
+90	versicolor	small	petal_width	1.3
+96	versicolor	small	petal_width	1.2
+93	versicolor	small	petal_width	1.2
+65	versicolor	small	petal_width	1.3
+83	versicolor	small	petal_width	1.2
+70	versicolor	small	petal_width	1.1
+81	versicolor	small	petal_width	1.1
+68	versicolor	small	petal_width	1.0
+63	versicolor	small	petal_width	1.0
+82	versicolor	small	petal_width	1.0
+61	versicolor	small	petal_width	1.0
+80	versicolor	small	petal_width	1.0
+99	versicolor	small	petal_width	1.1
+58	versicolor	small	petal_width	1.0
+94	versicolor	small	petal_width	1.0
+44	setosa	small	petal_width	0.6
+24	setosa	small	petal_width	0.5
+45	setosa	small	petal_width	0.4
+6	setosa	small	petal_width	0.4
+27	setosa	small	petal_width	0.4
+16	setosa	small	petal_width	0.4
+22	setosa	small	petal_width	0.4
+32	setosa	small	petal_width	0.4
+17	setosa	small	petal_width	0.4
+19	setosa	small	petal_width	0.3
+20	setosa	small	petal_width	0.3
+7	setosa	small	petal_width	0.3
+18	setosa	small	petal_width	0.3
+46	setosa	small	petal_width	0.3
+41	setosa	small	petal_width	0.3
+42	setosa	small	petal_width	0.3
+25	setosa	small	petal_width	0.2
+21	setosa	small	petal_width	0.2
+12	setosa	small	petal_width	0.2
+26	setosa	small	petal_width	0.2
+30	setosa	small	petal_width	0.2
+31	setosa	small	petal_width	0.2
+47	setosa	small	petal_width	0.2
+4	setosa	small	petal_width	0.2
+8	setosa	small	petal_width	0.2
+11	setosa	small	petal_width	0.2
+28	setosa	small	petal_width	0.2
+35	setosa	small	petal_width	0.2
+40	setosa	small	petal_width	0.2
+49	setosa	small	petal_width	0.2
+1	setosa	small	petal_width	0.2
+2	setosa	small	petal_width	0.2
+5	setosa	small	petal_width	0.2
+9	setosa	small	petal_width	0.2
+29	setosa	small	petal_width	0.2
+34	setosa	small	petal_width	0.2
+48	setosa	small	petal_width	0.2
+50	setosa	small	petal_width	0.2
+3	setosa	small	petal_width	0.2
+37	setosa	small	petal_width	0.2
+39	setosa	small	petal_width	0.2
+43	setosa	small	petal_width	0.2
+15	setosa	small	petal_width	0.2
+36	setosa	small	petal_width	0.2
+23	setosa	small	petal_width	0.2
+10	setosa	small	petal_width	0.1
+33	setosa	small	petal_width	0.1
+13	setosa	small	petal_width	0.1
+38	setosa	small	petal_width	0.1
+14	setosa	small	petal_width	0.1
