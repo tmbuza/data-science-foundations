@@ -14,6 +14,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 
@@ -93,11 +94,60 @@ def create_species_summary(df: pd.DataFrame) -> pd.DataFrame:
 def create_long_table(df: pd.DataFrame) -> pd.DataFrame:
     """Create a long-format measurement table."""
     return df.melt(
-        id_vars=["species", "size_category"],
+        id_vars=["observation_id", "species", "size_category"],
         value_vars=["sepal_length", "sepal_width", "petal_length", "petal_width"],
         var_name="measurement",
         value_name="value",
     )
+
+
+def validate_outputs(
+    wrangled: pd.DataFrame,
+    species_summary: pd.DataFrame,
+    long_table: pd.DataFrame,
+    rows_before: int,
+) -> None:
+    """Validate the structure and completeness of all wrangling outputs."""
+    if len(wrangled) != rows_before:
+        raise ValueError("Row count changed during wrangling.")
+
+    if not wrangled["observation_id"].is_unique:
+        raise ValueError("observation_id must be unique.")
+
+    unexpected_categories = set(wrangled["size_category"]) - {"small", "large"}
+    if unexpected_categories:
+        raise ValueError(
+            "Unexpected size categories: "
+            + ", ".join(sorted(unexpected_categories))
+        )
+
+    expected_long_rows = rows_before * 4
+    if len(long_table) != expected_long_rows:
+        raise ValueError(
+            f"Long table has {len(long_table)} rows; "
+            f"expected {expected_long_rows}."
+        )
+
+    if not long_table["observation_id"].value_counts().eq(4).all():
+        raise ValueError(
+            "Each observation_id must appear four times in the long table."
+        )
+
+    expected_species_rows = wrangled["species"].nunique()
+    if len(species_summary) != expected_species_rows:
+        raise ValueError(
+            f"Species summary has {len(species_summary)} rows; "
+            f"expected {expected_species_rows}."
+        )
+
+    outputs = {
+        "wrangled table": wrangled,
+        "species summary": species_summary,
+        "long table": long_table,
+    }
+    for name, table in outputs.items():
+        if int(table.isna().sum().sum()) != 0:
+            raise ValueError(f"Missing values detected in {name}.")
 
 
 def write_report(
@@ -129,12 +179,13 @@ def write_report(
         f"- {report_path}",
         "",
         "Wrangling steps applied:",
+        "- Created observation_id to preserve original row identity",
         "- Created petal_area",
-        "- Created size_category using median petal_area",
+        "- Created size_category using the median approximate petal_area",
         "- Sorted table by petal_area",
         "- Created species-level summary table",
         "- Created long-format measurement table",
-        "- Validated missing values and expected columns",
+        "- Validated row counts, identifiers, categories, and missing values",
     ]
 
     report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -165,11 +216,14 @@ def main() -> int:
         raise ValueError("Input table contains missing values. Clean it first.")
 
     wrangled = df.copy()
+    wrangled.insert(0, "observation_id", range(1, len(wrangled) + 1))
     wrangled["petal_area"] = wrangled["petal_length"] * wrangled["petal_width"]
 
     median_petal_area = wrangled["petal_area"].median()
-    wrangled["size_category"] = wrangled["petal_area"].apply(
-        lambda value: "large" if value > median_petal_area else "small"
+    wrangled["size_category"] = np.where(
+        wrangled["petal_area"] > median_petal_area,
+        "large",
+        "small",
     )
 
     wrangled = wrangled.sort_values(
@@ -177,11 +231,15 @@ def main() -> int:
         ascending=[False, True],
     ).reset_index(drop=True)
 
-    if int(wrangled.isna().sum().sum()) != 0:
-        raise ValueError("Missing values detected after wrangling.")
-
     species_summary = create_species_summary(wrangled)
     long_table = create_long_table(wrangled)
+
+    validate_outputs(
+        wrangled=wrangled,
+        species_summary=species_summary,
+        long_table=long_table,
+        rows_before=rows_before,
+    )
 
     write_table(wrangled, output_table)
 

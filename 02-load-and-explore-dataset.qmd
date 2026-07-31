@@ -55,10 +55,11 @@ This chapter introduces the first reusable Python script in the system:
 
 ```text
 02-load-and-explore-dataset.qmd
-        ↓
-scripts/python/inspect_table.py
-        ↓
+        ↓ creates
 data/iris.csv
+        ↓ inspected by
+scripts/python/inspect_table.py
+        ↓ produces
 results/inspection/table-inspection-summary.txt
 results/inspection/table-column-summary.tsv
 results/inspection/table-missing-values.tsv
@@ -108,6 +109,8 @@ print(df.head())
 - the columns are renamed to `snake_case` so later code stays clean and consistent.
 - the dataset is saved to `data/iris.csv` so downstream lessons can reuse the same input.
 
+The original Iris feature names report measurements in centimetres. We use shorter column names here, but all four measurements remain in centimetres.
+
 ---
 
 ## Inspect the dataset manually
@@ -135,7 +138,7 @@ At this stage, you should notice:
 
 - the dataset has **150 rows**
 - there are **4 numeric measurement columns**
-- `species` is a **categorical grouping variable**
+- `species` is a **categorical grouping variable**, although pandas initially represents it using the `object` data type after reading the CSV file
 
 That already tells us this is a small, tidy dataset that is well suited for learning exploratory analysis.
 
@@ -147,7 +150,7 @@ That already tells us this is a small, tidy dataset that is well suited for lear
 df.sample(8, random_state=42)
 ```
 
-Looking at a few random rows is often more informative than only checking the first five rows.
+Looking at random rows complements `head()` by checking observations from different parts of the table rather than only those at the beginning.
 
 It helps confirm that values look realistic across the dataset instead of only at the top.
 
@@ -284,7 +287,7 @@ A single histogram does not separate species, but it gives a first impression of
 
 ### Boxplot by species
 
-A boxplot gives a compact summary of group differences using the median, quartiles, and overall spread.
+A boxplot gives a compact summary of group differences using the median, quartiles, whiskers, and any observations beyond the whiskers.
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 5.5))
@@ -294,13 +297,12 @@ sns.boxplot(
     x="species",
     y="petal_length",
     width=0.5,
-    fliersize=0,
     ax=ax
 )
 
 ax.set_title("Petal Length by Species")
 ax.set_xlabel("Species")
-ax.set_ylabel("Petal Length")
+ax.set_ylabel("Petal Length (cm)")
 
 plt.show()
 ```
@@ -346,7 +348,7 @@ sns.stripplot(
 
 ax.set_title("Petal Length by Species")
 ax.set_xlabel("Species")
-ax.set_ylabel("Petal Length")
+ax.set_ylabel("Petal Length (cm)")
 
 plt.show()
 ```
@@ -381,8 +383,8 @@ sns.scatterplot(
 )
 
 ax.set_title("Sepal Length vs Petal Length")
-ax.set_xlabel("Sepal Length")
-ax.set_ylabel("Petal Length")
+ax.set_xlabel("Sepal Length (cm)")
+ax.set_ylabel("Petal Length (cm)")
 
 plt.show()
 ```
@@ -429,7 +431,7 @@ This type of overview is valuable before moving to formal modeling.
 
 Feature creation is often part of exploration.
 
-Here, we define a new variable, `petal_area`, as a simple combination of petal length and petal width.
+Here, we define `petal_area` by multiplying petal length by petal width. It is a simple derived measurement for demonstration and should not be interpreted as the true physical area of a petal.
 
 ```python
 df["petal_area"] = df["petal_length"] * df["petal_width"]
@@ -450,7 +452,7 @@ Try the following:
 1. Print the last five rows of the dataset.
 2. Compute the mean of `petal_area` for each species.
 3. Create a scatter plot of `sepal_width` versus `petal_width`.
-4. Write one sentence describing which feature seems most useful for separating species.
+4. Write one sentence describing which measurements seem most useful for separating species.
 
 ---
 
@@ -477,8 +479,8 @@ sns.scatterplot(
 )
 
 ax.set_title("Sepal Width vs Petal Width")
-ax.set_xlabel("Sepal Width")
-ax.set_ylabel("Petal Width")
+ax.set_xlabel("Sepal Width (cm)")
+ax.set_ylabel("Petal Width (cm)")
 
 plt.show()
 ```

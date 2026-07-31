@@ -27,11 +27,13 @@ This lesson continues from Chapter 02, where we created and inspected:
 data/iris.csv
 ```
 
-In this chapter, we clean that dataset and save a downstream-ready version:
+In this chapter, we evaluate that dataset, apply only justified cleaning steps, and save a downstream-ready version:
 
 ```text
 data/iris_clean.csv
 ```
+
+The Iris dataset is already relatively clean. Its four measurement columns contain values in centimetres, its species labels are consistent, and it may contain no missing values. That is useful for learning: a cleaning workflow can confirm that no correction is needed. Cleaning does not require changing data when the evidence does not justify a change.
 
 ---
 
@@ -40,10 +42,10 @@ data/iris_clean.csv
 By the end of this lesson, you will be able to:
 
 - inspect a dataset for common quality issues
-- detect and handle duplicate rows
+- distinguish identical rows from confirmed duplicate records
 - standardize column names
+- identify and convert numeric-like text carefully
 - handle missing values using clear rules
-- correct inconsistent data types
 - validate and save a cleaned dataset
 - run a reusable cleaning script from the command line
 
@@ -54,10 +56,10 @@ By the end of this lesson, you will be able to:
 This chapter introduces the second reusable Python script in the system:
 
 ```text
-03-data-cleaning-and-preparation.qmd
-        ↓
+data/iris.csv
+      ↓
 scripts/python/clean_example_data.py
-        ↓
+      ↓
 data/iris_clean.csv
 results/cleaning/cleaning-report.txt
 ```
@@ -72,18 +74,25 @@ A responsible cleaning workflow follows a simple rule:
 
 ```text
 inspect first
-clean second
-validate third
+decide second
+clean third
+validate fourth
 save last
 ```
 
-Never modify data without first understanding what is being changed.
+For each potential issue:
 
-Always validate the results of cleaning steps with explicit checks.
+1. measure the issue
+2. inspect the affected observations
+3. choose and document a rule
+4. apply the rule only when justified
+5. validate the result
+
+Never modify data without first understanding what is being changed.
 
 :::cdi-message
 Cleaning should not hide uncertainty.  
-It should make data preparation decisions visible and reproducible.
+It should make data-preparation decisions visible and reproducible.
 :::
 
 ---
@@ -112,7 +121,7 @@ print("\nData types:")
 print(df.dtypes)
 ```
 
-Then check summary statistics and missing values.
+Then inspect summary statistics and missing values.
 
 ```python
 print("Summary statistics:")
@@ -122,53 +131,15 @@ print("\nMissing values per column:")
 print(df.isna().sum())
 ```
 
----
-
-## Detect column types
-
-Separating numeric and categorical columns helps us apply appropriate cleaning rules.
-
-```python
-num_cols = df.select_dtypes(include="number").columns.tolist()
-cat_cols = df.select_dtypes(exclude="number").columns.tolist()
-
-print("Numeric columns:", num_cols)
-print("Categorical columns:", cat_cols)
-```
-
-For this dataset, the measurement columns are numeric and `species` is categorical.
+The purpose of this inspection is to establish a baseline. Later, you can compare the cleaned table with this starting point and explain what changed—or why nothing needed to change.
 
 ---
 
-## Detect and remove duplicates
+## Standardize column names
 
-Duplicate rows can distort counts, summaries, visualizations, and model training.
+Consistent column names make downstream code easier to read and less error-prone.
 
-```python
-dup_count = int(df.duplicated().sum())
-print("Duplicate rows found:", dup_count)
-
-if dup_count > 0:
-    print("\nInspect duplicates carefully before removal.")
-    print(df[df.duplicated()].head())
-```
-
-If duplicates exist, remove them only after inspection.
-
-```python
-if dup_count > 0:
-    df = df.drop_duplicates().reset_index(drop=True)
-
-print("Shape after duplicate handling:", df.shape)
-```
-
-For a real project, duplicate handling should always be explained in the analysis notes.
-
----
-
-## Column name hygiene
-
-Clean column names make downstream code easier to read and less error-prone.
+For this lesson, use a simple starter rule:
 
 ```python
 df.columns = [
@@ -184,81 +155,209 @@ df.columns = [
 print("Updated columns:", df.columns.tolist())
 ```
 
-This keeps column names consistent with the tidy-table style used across CDI systems.
+This rule is adequate for the known Iris columns, but it is not a complete solution for every possible name. Real datasets may also contain punctuation, repeated underscores, non-English characters, or names that become identical after standardization. A reusable production workflow should check for those cases explicitly.
+
+---
+
+## Inspect identical rows
+
+`df.duplicated()` identifies rows whose values are identical across all columns.
+
+```python
+identical_count = int(df.duplicated(keep=False).sum())
+print("Rows involved in identical-row groups:", identical_count)
+
+if identical_count > 0:
+    print("\nInspect identical rows carefully:")
+    print(
+        df[df.duplicated(keep=False)]
+        .sort_values(df.columns.tolist())
+        .head(10)
+    )
+```
+
+Identical values do not automatically prove that records are accidental duplicates. Two flowers can legitimately have the same four measurements and species label.
+
+To confirm a duplicate record, you usually need additional evidence, such as:
+
+- a unique observation identifier
+- a repeated source row caused by data entry or file merging
+- a timestamp or collection record
+- knowledge of how the data was produced
+
+Because this dataset does not contain a unique flower identifier, this lesson reports identical rows but retains them.
+
+```python
+confirmed_duplicates_removed = 0
+print("Confirmed duplicate records removed:", confirmed_duplicates_removed)
+```
+
+If a real project establishes that specific records are accidental duplicates, document the evidence and removal rule before changing the table.
+
+:::cdi-message
+Identical rows are a signal to investigate—not automatic permission to delete observations.
+:::
+
+---
+
+## Detect and convert numeric-like columns
+
+Pandas infers data types when it reads a file, but a numeric column can sometimes be stored as text because of values such as `"unknown"` or `"not recorded"`.
+
+First, inspect the currently detected column types.
+
+```python
+numeric_cols = df.select_dtypes(include="number").columns.tolist()
+text_cols = df.select_dtypes(exclude="number").columns.tolist()
+
+print("Currently numeric columns:", numeric_cols)
+print("Currently non-numeric columns:", text_cols)
+```
+
+For the known Iris schema, the four measurement columns should be numeric:
+
+```python
+expected_numeric_cols = [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width",
+]
+
+for c in expected_numeric_cols:
+    if c in df.columns:
+        before_missing = int(df[c].isna().sum())
+        converted = pd.to_numeric(df[c], errors="coerce")
+        after_missing = int(converted.isna().sum())
+
+        if after_missing > before_missing:
+            print(
+                f"{c}: conversion created "
+                f"{after_missing - before_missing} missing value(s)"
+            )
+
+        df[c] = converted
+```
+
+The argument `errors="coerce"` converts values that cannot be interpreted as numbers to `NaN`. This makes invalid values visible as missing data, but it can also create new missing values. That is why conversion occurs before missing-value handling and why the number of newly missing values is reported.
+
+After conversion, recalculate the column groups:
+
+```python
+numeric_cols = df.select_dtypes(include="number").columns.tolist()
+categorical_cols = df.select_dtypes(exclude="number").columns.tolist()
+
+print("Numeric columns after conversion:", numeric_cols)
+print("Categorical columns after conversion:", categorical_cols)
+```
+
+Using expected columns is safer here than attempting to convert every text column automatically. For example, the `species` column contains meaningful labels and should remain non-numeric.
 
 ---
 
 ## Handle missing values
 
-First, measure missingness.
+First, measure missingness after type conversion.
 
 ```python
-print(df.isna().sum())
+missing_before = df.isna().sum()
+print(missing_before)
 ```
 
-Then apply a clear rule.
-
-For this lesson, we use a simple starter pattern:
+For this lesson, the expected downstream table must be complete. We therefore use a simple starter rule:
 
 - numeric columns: fill missing values with the median
 - categorical columns: fill missing values with the most frequent value
 
+Apply each rule only to columns that contain missing values:
+
 ```python
-num_cols = df.select_dtypes(include="number").columns.tolist()
-cat_cols = df.select_dtypes(exclude="number").columns.tolist()
-
-df[num_cols] = df[num_cols].fillna(df[num_cols].median())
-
-for c in cat_cols:
+for c in numeric_cols:
     if df[c].isna().any():
-        df[c] = df[c].fillna(df[c].mode().iloc[0])
+        median_value = df[c].median()
+
+        if pd.isna(median_value):
+            raise ValueError(
+                f"Cannot impute {c}: the entire column is missing."
+            )
+
+        df[c] = df[c].fillna(median_value)
+
+for c in categorical_cols:
+    if df[c].isna().any():
+        modes = df[c].mode(dropna=True)
+
+        if modes.empty:
+            raise ValueError(
+                f"Cannot impute {c}: the entire column is missing."
+            )
+
+        df[c] = df[c].fillna(modes.iloc[0])
 ```
 
+If the Iris table has no missing values, these loops make no changes. That is a valid result: the workflow has checked the condition and documented that imputation was unnecessary.
+
 :::cdi-message
-This imputation rule is useful for teaching, but it is not universal.  
-In real projects, missing value handling should reflect the data source, study design, and analysis goal.
+Median and mode imputation are useful for teaching, but they are not universal rules.  
+In real projects, missing-value handling should reflect the data source, study design, reason for missingness, and analysis goal.
 :::
 
 ---
 
-## Fix data types
+## Assign appropriate in-memory types
 
-After cleaning, confirm that columns have appropriate types.
+After conversion and missing-value handling, confirm that the columns have appropriate pandas data types.
 
 ```python
-for c in num_cols:
-    df[c] = pd.to_numeric(df[c], errors="coerce")
-
 if "species" in df.columns:
     df["species"] = df["species"].astype("category")
 
 print(df.dtypes)
 ```
 
-This step protects later analysis from hidden type problems, such as numeric values stored as text.
+This converts `species` to a pandas categorical column while the table is in memory.
+
+CSV files store values but do not preserve pandas-specific data types. If you save the table as CSV and load it again, `species` will usually be read as `object` or `string`, not `category`. Convert it again after loading when a downstream analysis requires the categorical type.
 
 ---
 
 ## Validation checks
 
-Validation confirms that cleaning produced the expected result.
+Validation confirms that the workflow produced the expected downstream table.
 
 ```python
-print("Final shape:", df.shape)
-print("Total missing values:", int(df.isna().sum().sum()))
-print("Duplicate rows:", int(df.duplicated().sum()))
+final_missing = int(df.isna().sum().sum())
+identical_rows_retained = int(df.duplicated(keep=False).sum())
 
-assert int(df.isna().sum().sum()) == 0, "Missing values remain."
-assert int(df.duplicated().sum()) == 0, "Duplicates remain."
+print("Final shape:", df.shape)
+print("Total missing values:", final_missing)
+print("Rows in identical-row groups:", identical_rows_retained)
+print(
+    "Confirmed duplicate records removed:",
+    confirmed_duplicates_removed,
+)
+
+assert final_missing == 0, (
+    "Missing values remain, but this lesson requires a complete output table."
+)
+assert set(expected_numeric_cols).issubset(df.columns), (
+    "One or more expected measurement columns are missing."
+)
+assert all(
+    pd.api.types.is_numeric_dtype(df[c])
+    for c in expected_numeric_cols
+), "One or more measurement columns are not numeric."
 ```
 
-Assertions are useful because they stop the workflow when expected conditions are not met.
+Notice that the workflow does not assert that identical rows must be absent. They are retained because the available columns do not establish that they are erroneous duplicate records.
+
+Assertions are useful because they stop the workflow when required conditions are not met. They should express conditions justified by the current dataset and downstream purpose—not assumptions that every dataset must satisfy.
 
 ---
 
 ## Save the cleaned dataset
 
-Save the cleaned table as a new file.
+Save the prepared table as a new file.
 
 ```python
 from pathlib import Path
@@ -275,25 +374,27 @@ The original input remains available as:
 data/iris.csv
 ```
 
-The cleaned downstream version is:
+The downstream-ready version is:
 
 ```text
 data/iris_clean.csv
 ```
 
+Saving a new file preserves the original evidence and makes the preparation workflow easier to audit.
+
 ---
 
 ## Run the reusable cleaning script
 
-The manual steps above explain the logic. The reusable script applies the same cleaning pattern from the command line.
+The manual steps above explain the logic. The reusable script applies the same preparation pattern from the command line.
 
-Run this from the project root:
+Run this command from the project root:
 
 ```bash
 python scripts/python/clean_example_data.py data/iris.csv data/iris_clean.csv results/cleaning
 ```
 
-Expected output:
+Expected outputs:
 
 ```text
 data/iris_clean.csv
@@ -309,27 +410,34 @@ This makes the cleaning step repeatable and easy to test as the system grows.
 The script:
 
 - reads the input table
-- standardizes column names
-- detects duplicate rows
-- removes duplicate rows
-- fills missing numeric values with medians
-- fills missing categorical values with modes
-- converts numeric-like columns where appropriate
-- converts `species` to a categorical-style column
-- validates that no missing values or duplicates remain
-- writes a cleaned table
-- writes a plain-text cleaning report
+- records the input row and column counts
+- standardizes the known column names
+- reports identical rows for investigation
+- retains identical rows unless they are confirmed duplicate records
+- converts the expected measurement columns to numeric values
+- records values that become missing during numeric conversion
+- fills missing numeric values with medians when possible
+- fills missing categorical values with modes when possible
+- converts `species` to a pandas categorical column in memory
+- validates the expected schema, numeric types, and missing-value result
+- writes a downstream-ready table
+- writes a plain-text report describing what it found and changed
+
+The report should include before-and-after row counts, missing-value counts, identical-row counts, and the rules applied. It documents the cleaning decision—not merely that the script ran.
 
 ---
 
 ## Exercise
 
-Try the following:
+Complete the following:
 
 1. Open `results/cleaning/cleaning-report.txt`.
-2. Confirm the input and output row counts.
-3. Confirm the number of missing values after cleaning.
-4. Rerun the Chapter 02 inspection script on the cleaned table.
+2. Compare the input and output row counts.
+3. Confirm the number of missing values before and after preparation.
+4. Check whether the script found identical rows and explain why it retained them.
+5. Identify any columns or values that actually changed.
+6. Explain why a valid cleaning workflow might produce an output table whose values are identical to the input.
+7. Rerun the Chapter 02 inspection script on the prepared table.
 
 Use:
 
@@ -349,7 +457,7 @@ results/inspection-cleaned/
 ::: {.callout-tip collapse="true"}
 ## Solution
 
-A cleaned table can be inspected using the same reusable inspection script:
+A prepared table can be inspected using the same reusable inspection script:
 
 ```bash
 python scripts/python/inspect_table.py data/iris_clean.csv results/inspection-cleaned
@@ -364,8 +472,18 @@ results/inspection-cleaned/
 └── table-missing-values.tsv
 ```
 
+If the input was already clean, the input and output values may be identical. That does not mean the workflow was unnecessary. The workflow still:
+
+- established a quality baseline
+- checked the expected schema and data types
+- measured missingness
+- investigated identical rows
+- applied explicit decision rules
+- validated the downstream output
+- recorded the result
+
 The key idea is that cleaning does not end with saving a file.  
-It should be followed by inspection and validation.
+It should be followed by inspection, validation, and documentation.
 :::
 
 ---
@@ -376,9 +494,9 @@ Cleaning is not about making data look perfect.
 
 It is about making preparation decisions explicit, reproducible, and testable.
 
-A cleaned dataset should be easier to analyze, but it should also preserve the logic of how it was produced.
+A downstream-ready dataset should be easier to analyze, but it should also preserve the logic of how it was produced.
 
-That is why CDI systems keep both:
+That is why CDI systems keep all four:
 
 ```text
 input table
@@ -387,7 +505,7 @@ cleaned output table
 cleaning report
 ```
 
-Together, these make the workflow easier to trust.
+Together, these artifacts make the workflow easier to understand, reproduce, and trust.
 
 ---
 
@@ -395,12 +513,13 @@ Together, these make the workflow easier to trust.
 
 In this lesson, you:
 
-- inspected dataset quality
-- checked missing values and duplicates
+- inspected dataset quality before making changes
+- distinguished identical rows from confirmed duplicate records
 - standardized column names
-- applied simple missing value handling rules
-- fixed data types
-- validated the cleaned table
+- converted expected numeric columns before handling missing values
+- applied simple, explicit missing-value rules
+- assigned appropriate in-memory data types
+- validated the downstream-ready table
 - saved `data/iris_clean.csv`
 - created a cleaning report with `clean_example_data.py`
 
@@ -408,4 +527,4 @@ In this lesson, you:
 
 ## Looking Ahead
 
-In the next chapter, we transform and organize the cleaned dataset for analysis. The cleaned table produced here becomes the input for wrangling.
+In the next chapter, we transform and organize the prepared dataset for analysis. The table produced here becomes the input for data wrangling.

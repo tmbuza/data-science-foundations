@@ -23,8 +23,10 @@ In this lesson, we focus on foundational plot types that appear in real analytic
 
 By the end of this lesson, you will be able to:
 
-- create histograms, boxplots, scatter plots, and pairplots
+- create histograms, density plots, ECDF plots, boxplots, violin plots,
+  scatter plots, heatmaps, and pairplots
 - compare numeric distributions across groups
+- compare alternative figures for the same analytical question
 - use color to represent categories clearly
 - interpret patterns, spread, overlap, and separation
 - save figures as reusable analysis outputs
@@ -47,6 +49,25 @@ results/figures/figure-index.tsv
 ```
 
 The figures produced here support interpretation and reporting in later chapters.
+
+---
+
+## Build a visual story
+
+A useful collection of figures should feel like a guided story rather than a
+random gallery.
+
+In this chapter, the story moves through five questions:
+
+1. **What does one variable look like?**
+2. **How do its distributions differ across species?**
+3. **How do groups compare in center, spread, and individual observations?**
+4. **How are two measurements related?**
+5. **What broader multivariable structure is visible?**
+
+Different plots can answer the same question from different angles. Showing
+more than one view is especially valuable when each view reveals something
+the others hide.
 
 ---
 
@@ -111,6 +132,8 @@ ax.set_ylabel("Count")
 plt.show()
 ```
 
+![Histogram showing the distribution of sepal length in the Iris dataset.](results/figures/histogram-sepal-length.png){fig-alt="Histogram of sepal length with a smooth density curve."}
+
 ### Interpretation
 
 When reading a histogram, look for:
@@ -121,6 +144,49 @@ When reading a histogram, look for:
 - possible multiple peaks
 
 If a variable shows multiple peaks, this may suggest the presence of meaningful subgroups.
+
+---
+
+## Three views of one distribution
+
+A histogram is familiar, but it is not the only way to examine a numeric
+distribution. The following three-panel figure shows the same
+`sepal_length` values as a histogram, a density curve, and an empirical
+cumulative distribution function (ECDF).
+
+```python
+fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
+
+sns.histplot(data=df, x="sepal_length", bins=12, ax=axes[0])
+axes[0].set_title("Histogram")
+axes[0].set_ylabel("Count")
+
+sns.kdeplot(data=df, x="sepal_length", fill=True, ax=axes[1])
+axes[1].set_title("Density")
+axes[1].set_ylabel("Density")
+
+sns.ecdfplot(data=df, x="sepal_length", ax=axes[2])
+axes[2].set_title("ECDF")
+axes[2].set_ylabel("Proportion at or below")
+
+fig.suptitle("Three Views of Sepal Length", y=1.03)
+plt.tight_layout()
+plt.show()
+```
+
+![Three complementary views of sepal length: histogram, density curve, and ECDF.](results/figures/distribution-views-sepal-length.png){fig-alt="A three-panel figure showing a histogram, density plot, and empirical cumulative distribution of sepal length."}
+
+### Interpretation
+
+- The **histogram** makes frequencies and possible peaks easy to see, but its
+  appearance depends on the selected bins.
+- The **density plot** emphasizes the overall shape, but smoothing can hide
+  small details.
+- The **ECDF** shows the proportion of observations at or below any value
+  without requiring bins or smoothing.
+
+These are alternatives, not competitors. The best choice depends on the
+question and the audience.
 
 ---
 
@@ -144,6 +210,8 @@ ax.set_ylabel("Sepal Length")
 
 plt.show()
 ```
+
+![Boxplot comparing sepal length across the three Iris species.](results/figures/boxplot-sepal-length-by-species.png){fig-alt="Boxplots of sepal length for setosa, versicolor, and virginica."}
 
 ### Interpretation
 
@@ -182,6 +250,8 @@ ax.set_ylabel("Petal Length")
 plt.show()
 ```
 
+![Scatter plot showing the relationship between sepal length and petal length, colored by species.](results/figures/scatter-sepal-length-vs-petal-length.png){fig-alt="Scatter plot of sepal length against petal length with observations colored by Iris species."}
+
 ### Interpretation
 
 Scatter plots help you evaluate:
@@ -218,6 +288,8 @@ ax.set_ylabel("Count")
 plt.show()
 ```
 
+![Overlaid petal-length distributions for the three Iris species.](results/figures/histogram-petal-length-by-species.png){fig-alt="Grouped histogram of petal length with a separate color and density curve for each Iris species."}
+
 ### Interpretation
 
 This plot helps compare whether groups differ in:
@@ -228,6 +300,41 @@ This plot helps compare whether groups differ in:
 - shape of the distribution
 
 If one group's values occupy a clearly different range, that variable may be useful for distinguishing between groups.
+
+---
+
+## Small-multiple histograms
+
+Overlaid distributions can become crowded. Small multiples give every species
+its own panel while preserving a common scale.
+
+```python
+g = sns.displot(
+    data=df,
+    x="petal_length",
+    col="species",
+    col_wrap=3,
+    bins=10,
+    kde=True,
+    height=3.5,
+    aspect=1
+)
+
+g.set_axis_labels("Petal Length", "Count")
+g.set_titles("{col_name}")
+g.fig.suptitle("Petal Length Distribution within Each Species", y=1.05)
+
+plt.show()
+```
+
+![Small-multiple histograms showing the petal-length distribution within each species.](results/figures/small-multiples-petal-length-by-species.png){fig-alt="Three aligned histogram panels showing petal length separately for setosa, versicolor, and virginica."}
+
+### Interpretation
+
+The grouped histogram is best for seeing overlap directly. The small-multiple
+version is often easier for comparing the shape and spread within each group.
+Using both views shows that setosa is clearly separated, while versicolor and
+virginica retain some overlap.
 
 ---
 
@@ -263,11 +370,145 @@ ax.set_ylabel("Petal Area")
 plt.show()
 ```
 
+![Petal area by species, shown with boxplots and individual observations.](results/figures/boxplot-petal-area-by-species.png){fig-alt="Boxplots of petal area for each Iris species with jittered observations overlaid."}
+
 ### Interpretation
 
 This plot connects wrangling to visualization.
 
 A derived feature is only useful if it helps answer a question or clarify a pattern. Here, `petal_area` gives a compact petal-size measure that separates species more clearly than many sepal-based comparisons.
+
+---
+
+## Boxplot and violin plot comparison
+
+Boxplots and violin plots summarize the same grouped distributions in
+different ways.
+
+```python
+fig, axes = plt.subplots(1, 2, figsize=(13, 5.5), sharey=True)
+
+sns.boxplot(data=df, x="species", y="petal_area", ax=axes[0])
+axes[0].set_title("Boxplot")
+axes[0].set_xlabel("Species")
+axes[0].set_ylabel("Petal Area")
+
+sns.violinplot(
+    data=df,
+    x="species",
+    y="petal_area",
+    inner="quartile",
+    cut=0,
+    ax=axes[1]
+)
+sns.stripplot(
+    data=df,
+    x="species",
+    y="petal_area",
+    color="black",
+    alpha=0.4,
+    size=3,
+    jitter=0.16,
+    ax=axes[1]
+)
+axes[1].set_title("Violin Plot with Observations")
+axes[1].set_xlabel("Species")
+axes[1].set_ylabel("")
+
+fig.suptitle("Two Views of Petal Area by Species", y=1.02)
+plt.tight_layout()
+plt.show()
+```
+
+![Side-by-side boxplot and violin-plot views of petal area by species.](results/figures/comparison-petal-area-by-species.png){fig-alt="A two-panel comparison of boxplots and violin plots with individual observations for petal area across Iris species."}
+
+### Interpretation
+
+The boxplot gives a compact summary of the median and quartiles. The violin
+plot reveals the estimated distribution shape, while the overlaid points keep
+the individual observations visible. For small datasets, displaying the
+observations helps prevent a smooth distribution from appearing more precise
+than the data support.
+
+---
+
+## Scatter plot with trend lines
+
+The earlier scatter plot emphasizes clusters. Adding a separate trend line for
+each species helps compare within-group relationships.
+
+```python
+g = sns.lmplot(
+    data=df,
+    x="sepal_length",
+    y="petal_length",
+    hue="species",
+    height=5.5,
+    aspect=1.35,
+    scatter_kws={"s": 55, "alpha": 0.75},
+    ci=None
+)
+
+g.set_axis_labels("Sepal Length", "Petal Length")
+g.fig.suptitle("Within-Species Trends: Sepal Length vs Petal Length", y=1.03)
+
+plt.show()
+```
+
+![Scatter plot with separate within-species trend lines for sepal length and petal length.](results/figures/scatter-trends-by-species.png){fig-alt="Scatter plot of sepal length against petal length with a separate fitted linear trend for each Iris species."}
+
+### Interpretation
+
+The overall upward pattern partly reflects differences between species.
+Within-species trend lines help separate that group structure from the
+relationship observed inside each species. A visible overall association does
+not always mean the same relationship is equally strong within every group.
+
+---
+
+## Correlation heatmap
+
+A correlation heatmap provides a compact overview of linear relationships
+among all numeric features.
+
+```python
+numeric_columns = [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width",
+    "petal_area"
+]
+
+correlations = df[numeric_columns].corr()
+
+fig, ax = plt.subplots(figsize=(8, 6.5))
+
+sns.heatmap(
+    correlations,
+    annot=True,
+    fmt=".2f",
+    cmap="vlag",
+    center=0,
+    vmin=-1,
+    vmax=1,
+    square=True,
+    ax=ax
+)
+
+ax.set_title("Correlation among Iris Numeric Features")
+plt.tight_layout()
+plt.show()
+```
+
+![Annotated correlation heatmap for the numeric Iris features.](results/figures/correlation-heatmap.png){fig-alt="Correlation matrix heatmap for sepal length, sepal width, petal length, petal width, and petal area."}
+
+### Interpretation
+
+Petal length, petal width, and petal area are strongly related. This agrees
+with the scatter plots and helps identify features that may carry similar
+information. Correlation summarizes linear association; it does not explain
+causation or replace inspection of the underlying points.
 
 ---
 
@@ -294,6 +535,8 @@ g.fig.suptitle("Iris — Pairwise Relationships by Species", y=1.02)
 
 plt.show()
 ```
+
+![Pairplot showing pairwise relationships among Iris measurements, colored by species.](results/figures/pairplot-iris-by-species.png){fig-alt="Corner pairplot of sepal length, sepal width, petal length, petal width, and petal area, colored by Iris species."}
 
 ### Interpretation
 
@@ -371,10 +614,15 @@ Expected outputs:
 ```text
 results/figures/
 ├── histogram-sepal-length.png
+├── distribution-views-sepal-length.png
 ├── boxplot-sepal-length-by-species.png
 ├── scatter-sepal-length-vs-petal-length.png
 ├── histogram-petal-length-by-species.png
+├── small-multiples-petal-length-by-species.png
 ├── boxplot-petal-area-by-species.png
+├── comparison-petal-area-by-species.png
+├── scatter-trends-by-species.png
+├── correlation-heatmap.png
 ├── pairplot-iris-by-species.png
 └── figure-index.tsv
 ```
@@ -387,7 +635,7 @@ The script:
 
 - reads the wrangled input table
 - validates required columns
-- creates a standard set of exploratory figures
+- creates a varied set of exploratory and comparison figures
 - saves figures as `.png` files
 - writes a figure index table with filenames and descriptions
 
@@ -401,9 +649,11 @@ Try the following:
 
 1. Open `results/figures/figure-index.tsv`.
 2. Open `results/figures/boxplot-petal-area-by-species.png`.
-3. Create a scatter plot of `sepal_width` versus `petal_width`.
-4. Plot a histogram of `petal_width`.
-5. Write one sentence describing which feature seems most useful for separating species.
+3. Compare the boxplot and violin plot of `petal_area`.
+4. Create a scatter plot of `sepal_width` versus `petal_width`.
+5. Plot both a histogram and an ECDF of `petal_width`.
+6. Write one sentence describing which figure most clearly shows species
+   separation and explain why.
 
 ---
 
@@ -429,23 +679,25 @@ ax.set_ylabel("Petal Width")
 
 plt.show()
 
-fig, ax = plt.subplots(figsize=(8, 5.5))
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-sns.histplot(
-    data=df,
-    x="petal_width",
-    bins=12,
-    kde=True,
-    ax=ax
-)
+sns.histplot(data=df, x="petal_width", bins=12, ax=axes[0])
+axes[0].set_title("Histogram of Petal Width")
+axes[0].set_xlabel("Petal Width")
+axes[0].set_ylabel("Count")
 
-ax.set_title("Distribution of Petal Width")
-ax.set_xlabel("Petal Width")
-ax.set_ylabel("Count")
+sns.ecdfplot(data=df, x="petal_width", ax=axes[1])
+axes[1].set_title("ECDF of Petal Width")
+axes[1].set_xlabel("Petal Width")
+axes[1].set_ylabel("Proportion at or below")
 
+plt.tight_layout()
 plt.show()
 
-print("Petal-related features appear more useful than sepal-related features for separating species because their group differences are more distinct.")
+print(
+    "The pairplot most clearly shows overall species separation because "
+    "it compares several feature combinations in one coordinated view."
+)
 ```
 
 :::
@@ -468,10 +720,12 @@ In CDI systems, figures should be reproducible outputs, not temporary screenshot
 
 In this lesson, you:
 
-- used foundational plot types to explore the Iris dataset
+- used a varied set of foundational plot types to explore the Iris dataset
+- compared multiple visual choices for the same question
 - compared distributions within and across species
 - examined relationships between numeric variables
 - visualized the derived `petal_area` feature
+- used a heatmap and pairplot to inspect multivariable structure
 - used visual patterns to support interpretation
 - saved reusable figures with `plot_example_data.py`
 - created `results/figures/figure-index.tsv`

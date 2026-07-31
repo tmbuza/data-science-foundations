@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 import pandas as pd
+from pandas.api.types import is_numeric_dtype
 
 
 def read_table(path: Path) -> pd.DataFrame:
@@ -33,8 +34,22 @@ def read_table(path: Path) -> pd.DataFrame:
     )
 
 
+def infer_analytical_role(series: pd.Series) -> str:
+    """Infer a broad analytical role without changing the stored dtype."""
+    if is_numeric_dtype(series):
+        return "numeric"
+
+    return "categorical_or_text"
+
+
 def classify_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Create a column-level summary table."""
+    """Create a column-level summary table.
+
+    CSV files do not preserve pandas categorical dtypes. For example, the
+    chapter's ``species`` column is read as ``object`` even though it is used
+    analytically as a categorical grouping variable. The output therefore
+    records both the pandas dtype and a broad analytical role.
+    """
     rows = []
 
     for column in df.columns:
@@ -43,6 +58,7 @@ def classify_columns(df: pd.DataFrame) -> pd.DataFrame:
             {
                 "column": column,
                 "dtype": str(series.dtype),
+                "analytical_role": infer_analytical_role(series),
                 "missing_values": int(series.isna().sum()),
                 "missing_percent": round(float(series.isna().mean() * 100), 2),
                 "unique_values": int(series.nunique(dropna=True)),
@@ -56,7 +72,7 @@ def classify_columns(df: pd.DataFrame) -> pd.DataFrame:
 def write_summary(df: pd.DataFrame, input_path: Path, output_path: Path) -> None:
     """Write a plain-text inspection summary."""
     numeric_columns = df.select_dtypes(include="number").columns.tolist()
-    categorical_columns = df.select_dtypes(exclude="number").columns.tolist()
+    non_numeric_columns = df.select_dtypes(exclude="number").columns.tolist()
 
     lines = [
         "CDI Data Science Foundations System",
@@ -72,8 +88,8 @@ def write_summary(df: pd.DataFrame, input_path: Path, output_path: Path) -> None
         "Numeric columns:",
         *([f"- {column}" for column in numeric_columns] or ["- None detected"]),
         "",
-        "Non-numeric / categorical columns:",
-        *([f"- {column}" for column in categorical_columns] or ["- None detected"]),
+        "Non-numeric columns (possible categorical or text variables):",
+        *([f"- {column}" for column in non_numeric_columns] or ["- None detected"]),
         "",
         f"Total missing values: {int(df.isna().sum().sum())}",
     ]
@@ -104,9 +120,12 @@ def main() -> int:
         .reset_index()
         .rename(columns={"index": "column", 0: "missing_values"})
     )
-    missing_summary["missing_percent"] = (
-        missing_summary["missing_values"] / len(df) * 100
-    ).round(2)
+    if df.empty:
+        missing_summary["missing_percent"] = 0.0
+    else:
+        missing_summary["missing_percent"] = (
+            missing_summary["missing_values"] / len(df) * 100
+        ).round(2)
 
     write_summary(
         df=df,
