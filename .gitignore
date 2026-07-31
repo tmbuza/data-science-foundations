@@ -1,11 +1,12 @@
 # =====================================================
-# Quarto build/cache artifacts
+# Quarto build and cache artifacts
 # =====================================================
 
 .quarto/
 _cache/
 _freeze/
 _site/
+**/*.quarto_ipynb
 
 # Ignore rendered HTML outside docs/
 *.html
@@ -13,15 +14,15 @@ _site/
 
 # Ignore Quarto-generated asset folders outside docs/
 *_files/
-!docs/*_files/
-!docs/*_files/**
+!docs/**/*_files/
+!docs/**/*_files/**
 
-# Ignore generated documents
+# Ignore generated document formats
 *.pdf
 *.docx
 
 # =====================================================
-# Python
+# Python environments and generated files
 # =====================================================
 
 .venv/
@@ -36,7 +37,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # =====================================================
-# OS / Editor
+# Operating system and editor files
 # =====================================================
 
 .DS_Store
@@ -49,7 +50,3 @@ Thumbs.db
 # =====================================================
 
 *.log
-
-
-/.quarto/
-**/*.quarto_ipynb
